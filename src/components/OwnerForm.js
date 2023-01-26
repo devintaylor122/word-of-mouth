@@ -1,14 +1,15 @@
 import { db } from "../firebaseconfig.js";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import createOwner from "../App.js";
+import Dropdown from "./Dropdown.js";
+import "./OwnerForm.css";
 
 function OwnerForm() {
   const [newCompany, setNewCompany] = useState("");
   const [newOwner, setNewOwner] = useState("");
   const [newPhone, setNewPhone] = useState(0);
   const [newEmail, setNewEmail] = useState("");
-  //const [newIndustry, setNewIndustry] = useState("");
+  const [newIndustry, setNewIndustry] = useState([]);
   const [newSpecialty, setNewSpecialty] = useState("");
   const [newHours, setNewHours] = useState("");
   const usersCollectionRef = collection(db, "owners");
@@ -19,14 +20,14 @@ function OwnerForm() {
       Owner: newOwner,
       Phone: parseInt(newPhone),
       Email: newEmail,
-      //Industry: newIndustry,
+      Industry: newIndustry,
       Specialty: newSpecialty,
       Hours: newHours,
     });
   };
 
   return (
-    <form>
+    <form className="form">
       <div>
         <input
           placeholder="Company Name..."
@@ -63,10 +64,19 @@ function OwnerForm() {
           }}
         />
       </div>
-      {/* 
-      <div className="App">
-        <Dropdown placeHolder="Select..." />
-      </div> */}
+
+      <div>
+        <Dropdown
+          isMulti
+          placeHolder="Industry..."
+          options={Dropdown.options}
+          onChange={(event) => {
+            const industryList = event.map((ind) => ind.value);
+            console.log(industryList);
+            setNewIndustry(industryList);
+          }}
+        />
+      </div>
 
       <div>
         <input

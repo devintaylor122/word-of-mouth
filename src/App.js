@@ -13,7 +13,6 @@ import {
 } from "firebase/firestore";
 
 function App() {
-  console.log(db);
   const [serviceProviderList, setServiceProviderList] = useState([]);
 
   const usersCollectionRef = collection(db, "owners");
