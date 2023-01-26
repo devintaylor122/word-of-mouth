@@ -1,16 +1,16 @@
-//need to take in serviceProviderList as a prop from ServiceProviderList component
-//possibly need to put a function for displaying owner info in App.js?????
+//need to make sure all companies (including new ones) have same keys that can be accessed through props
+//should start off undisplayed each time computer is reloaded?
 import PropTypes from "prop-types";
 import "./ServiceProvider.css";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
-import { db } from "../firebaseconfig.js";
+// import {
+//   collection,
+//   getDocs,
+//   addDoc,
+//   updateDoc,
+//   doc,
+//   deleteDoc,
+// } from "firebase/firestore";
+// import { db } from "../firebaseconfig.js";
 
 function ServiceProvider(props) {
   const companyName = props.data.company;
@@ -22,53 +22,25 @@ function ServiceProvider(props) {
   const ownerName = props.data.owner;
   const specialty = props.data.specialty;
   const id = props.data.id;
+  const toggleDisplay = props.toggleDisplay;
 
-  let ownerInfo = "";
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
 
-  // function displayOwnerInfo(displayStatus) {
-  //   if (displayStatus === true) {
-  //     displayStatus = false;
-  //     displayStatus = "";
-  //   } else {
-  //     displayStatus = true;
-  //     ownerInfo = (
-  //       <div>
-  //         <p>Owner Name: {ownerName}</p>
-  //         <p>{specialtyDisplay}</p>
-  //         <p>Hours: {hours}</p>
-  //         <p>Email: {contactEmail}</p>
-  //         <p>Number: {contactNumber}</p>
-  //       </div>
-  //     );
-  //   }
-  // }
-  const toggleDisplay = async (id, displayStatus) => {
-    const ownerDoc = doc(db, "owners", id);
-    const newFields = { display: !displayStatus };
-    await updateDoc(ownerDoc, newFields);
-  };
-
-  function displayOwnerInfo(id, displayStatus) {
-    toggleDisplay(id, displayStatus);
-    if (displayStatus === true) {
-      ownerInfo = "";
-    } else {
-      ownerInfo = (
-        <div>
-          <p>Owner Name: {ownerName}</p>
-          <p>{specialtyDisplay}</p>
-          <p>Hours: {hours}</p>
-          <p>Email: {contactEmail}</p>
-          <p>Number: {contactNumber}</p>
-        </div>
-      );
-    }
-  }
+  const ownerInfo = display ? (
+    <div>
+      <p>Owner Name: {ownerName}</p>
+      <p>{specialtyDisplay}</p>
+      <p>Hours: {hours}</p>
+      <p>Email: {contactEmail}</p>
+      <p>Number: {contactNumber}</p>
+    </div>
+  ) : (
+    ""
+  );
 
   return (
     <div>
-      <button onClick={() => displayOwnerInfo(id, display)}>
+      <button onClick={() => toggleDisplay(id, display)}>
         {companyName}-{industry}
       </button>
       <div>{ownerInfo}</div>
@@ -89,6 +61,7 @@ ServiceProvider.propTypes = {
       specialty: PropTypes.string.isRequired,
     })
   ),
+  toggleDisplay: PropTypes.func.isRequired,
 };
 
 export default ServiceProvider;

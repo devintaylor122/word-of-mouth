@@ -46,25 +46,21 @@ function App() {
     getServiceProviders();
   }, []);
 
-  // function updateDisplayStatus(displayStatus, ownerId) {
-  //   const newOwnerList = [];
-  //   for (const owner of serviceProviderList) {
-  //     if (owner.id !== ownerId) {
-  //       newOwnerList.push(owner)
-  //     } else {
-  //       const updatedOwner = {
-  //         ...owner,
-  //         display: !displayStatus
-  //       };
-  //       newOwnerList.push(updatedOwner);
-  //     }
-  //   }
-  //   setServiceProviderList(newOwnerList)
-  // }
+  const toggleDisplay = async (id, displayStatus) => {
+    const ownerDoc = doc(db, "owners", id);
+    await updateDoc(ownerDoc, { display: !displayStatus });
+    const data = await getDocs(usersCollectionRef);
+    setServiceProviderList(
+      data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+  };
 
   return (
     <div className="App">
-      <ServiceProvidersList industriesList={serviceProviderList} />
+      <ServiceProvidersList
+        toggleDisplay={toggleDisplay}
+        industriesList={serviceProviderList}
+      />
       <OwnerForm /*createOwner={createOwner}*/></OwnerForm>
     </div>
   );

@@ -8,6 +8,7 @@ function ServiceProvidersList(props) {
     <ServiceProvider
       serviceProviderList={props.industriesList}
       data={ind}
+      toggleDisplay={props.toggleDisplay}
     ></ServiceProvider>
   ));
   return <div>{listElements}</div>;
