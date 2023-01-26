@@ -28,8 +28,8 @@ const Dropdown = ({ placeHolder, isMulti, onChange }) => {
       return (
         <div className="dropdown-tags">
           {selectedValue.map((option) => (
-            <div key={option.value} className="dropdown-tag-item">
-              {option.label}
+            <div key={option} className="dropdown-tag-item">
+              {option}
               <span
                 onClick={(e) => onTagRemove(e, option)}
                 className="dropdown-tag-close"
@@ -39,10 +39,10 @@ const Dropdown = ({ placeHolder, isMulti, onChange }) => {
         </div>
       );
     }
-    return selectedValue.label;
+    return selectedValue;
   };
   const removeOption = (option) => {
-    return selectedValue.filter((o) => o.value !== option.value);
+    return selectedValue.filter((o) => o !== option);
   };
   const onTagRemove = (option) => {
     const newValue = removeOption(option);
@@ -52,8 +52,9 @@ const Dropdown = ({ placeHolder, isMulti, onChange }) => {
 
   const onItemClick = (option) => {
     let newValue;
+    console.log(option);
     if (isMulti) {
-      if (selectedValue.findIndex((o) => o.value === option.value) >= 0) {
+      if (selectedValue.findIndex((o) => o === option) >= 0) {
         newValue = removeOption(option);
       } else {
         newValue = [...selectedValue, option];
@@ -67,25 +68,25 @@ const Dropdown = ({ placeHolder, isMulti, onChange }) => {
 
   const isSelected = (option) => {
     if (isMulti) {
-      return selectedValue.filter((o) => o.value === option.value).length > 0;
+      return selectedValue.filter((o) => o === option).length > 0;
     }
     if (!selectedValue) {
       return false;
     }
-    return selectedValue.value === option.value;
+    return selectedValue === option;
   };
 
   const options = [
-    { value: "Food", lable: "Food" },
-    { value: "Beauty", lable: "Beauty" },
-    { value: "Therapy", lable: "Therapy" },
-    { value: "Housework", lable: "Housework" },
-    { value: "Lawncare", lable: "Lawncare" },
-    { value: "Petcare", lable: "Petcare" },
-    { value: "Childcare", lable: "Childcare" },
-    { value: "Cleaning Services", lable: "Cleaning Services" },
-    { value: "Seamstress", lable: "Seamstress" },
-    { value: "Entertainment", lable: "Entertainment" },
+    "Food",
+    "Beauty",
+    "Therapy",
+    "Housework",
+    "Lawncare",
+    "Petcare",
+    "Childcare",
+    "Cleaning Services",
+    "Seamstress",
+    "Entertainment",
   ];
 
   return (
@@ -101,10 +102,10 @@ const Dropdown = ({ placeHolder, isMulti, onChange }) => {
           {options.map((option) => (
             <div
               onClick={() => onItemClick(option)}
-              key={option.value}
+              key={option}
               className={`dropdown-item ${isSelected(option) && "selected"}`}
             >
-              {option.lable}
+              {option}
             </div>
           ))}
         </div>
