@@ -52,7 +52,6 @@ const Dropdown = ({ placeHolder, isMulti, onChange }) => {
 
   const onItemClick = (option) => {
     let newValue;
-    console.log(option);
     if (isMulti) {
       if (selectedValue.findIndex((o) => o === option) >= 0) {
         newValue = removeOption(option);

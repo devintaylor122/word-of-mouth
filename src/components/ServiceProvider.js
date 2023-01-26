@@ -1,5 +1,6 @@
 //need to make sure all companies (including new ones) have same keys that can be accessed through props
 //should start off undisplayed each time computer is reloaded?
+//make sure a list of industries can be displayed
 import PropTypes from "prop-types";
 import "./ServiceProvider.css";
 // import {
