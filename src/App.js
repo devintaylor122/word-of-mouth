@@ -40,7 +40,7 @@ function App() {
       setServiceProviderList(
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       ); //doc.data access object that contains name and age
-      console.log("data", data);
+      // console.log("data", data);
     };
     getServiceProviders();
   }, []);
