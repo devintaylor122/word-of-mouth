@@ -33,16 +33,34 @@ function App() {
   //   });
   // };
 
-  //useEffect is called everytime page renders, don't async useEffect - bad practice
-  // useEffect(() => {
-  //   //async function (other option: .then, .catch)
-  //   const getUsers = async () => {
-  //     const data = await getDocs(usersCollectionRef);
-  //     setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))); //doc.data access object that contains name and age
-  //     console.log(data);
-  //   };
-  //   getUsers();
-  // }, []);
+  // useEffect is called everytime page renders, don't async useEffect - bad practice
+  useEffect(() => {
+    //async function (other option: .then, .catch)
+    const getServiceProviders = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setServiceProviderList(
+        data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      ); //doc.data access object that contains name and age
+      console.log("data", data);
+    };
+    getServiceProviders();
+  }, []);
+
+  // function updateDisplayStatus(displayStatus, ownerId) {
+  //   const newOwnerList = [];
+  //   for (const owner of serviceProviderList) {
+  //     if (owner.id !== ownerId) {
+  //       newOwnerList.push(owner)
+  //     } else {
+  //       const updatedOwner = {
+  //         ...owner,
+  //         display: !displayStatus
+  //       };
+  //       newOwnerList.push(updatedOwner);
+  //     }
+  //   }
+  //   setServiceProviderList(newOwnerList)
+  // }
 
   return (
     <div className="App">
