@@ -16,13 +16,13 @@ function OwnerForm() {
 
   const createOwner = async () => {
     await addDoc(usersCollectionRef, {
-      Company: newCompany,
-      Owner: newOwner,
-      Phone: parseInt(newPhone),
-      Email: newEmail,
-      Industry: newIndustry,
-      Specialty: newSpecialty,
-      Hours: newHours,
+      company: newCompany,
+      owner: newOwner,
+      phone: parseInt(newPhone),
+      email: newEmail,
+      industry: newIndustry,
+      specialty: newSpecialty,
+      hours: newHours,
     });
   };
 
@@ -71,8 +71,7 @@ function OwnerForm() {
           placeHolder="Industry..."
           options={Dropdown.options}
           onChange={(event) => {
-            const industryList = event.map((ind) => ind.value);
-            console.log(industryList);
+            const industryList = event.map((ind) => ind);
             setNewIndustry(industryList);
           }}
         />
