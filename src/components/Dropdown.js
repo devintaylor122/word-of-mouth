@@ -92,9 +92,6 @@ const Dropdown = ({ placeHolder, isMulti, onChange }) => {
     <div className="dropdown-container">
       <div onClick={handleInputClick} className="dropdown-input">
         <div className="dropdown-selected-value">{getDisplay()}</div>
-        <div className="dropdown-tools">
-          <div className="dropdown-tool"></div>
-        </div>
       </div>
       {menu && (
         <div className="dropdown-menu">

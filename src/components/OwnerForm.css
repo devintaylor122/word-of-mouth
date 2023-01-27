@@ -1,18 +1,24 @@
-/* .form {
-    display: grid;
-    grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 40px [end];
-    grid-template-rows: [row1-start] 25% [row1-end] 100px [third-line] auto [last-line];
+.form {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 5;
+    grid-row-end: 7;
 }
 
-div, button {
-    grid-column-start: 2;
-    grid-column-end: 5;
-} */
+div > input, .dropdown-container {
+    width: 500px;
+} 
 
 .dropdown-container {
     text-align: left;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    /* border-radius: 5px; */
+    background-color: #fff;
+    
+}
+
+button {
+    align-content: center;
 }
 
 .dropdown-input {
@@ -39,11 +45,11 @@ cursor: pointer;
 }
 
 .dropdown-item:hover {
-background-color: #9fc3f870;
+background-color: #f4a3d3d7;
 }
 
 .dropdown-item.selected {
-background-color: #0d6efd;
+background-color: #ec5cb2;
 color: #fff;
 }
 
@@ -54,7 +60,7 @@ gap: 5px;
 }
 
 .dropdown-tag-item {
-background-color: #ddd;
+background-color: #ec5cb2;
 padding: 2px 4px;
 border-radius: 2px;
 display: flex;
