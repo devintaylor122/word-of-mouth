@@ -11,6 +11,9 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
+import { ReactDOM } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
 
 function App() {
   const [serviceProviderList, setServiceProviderList] = useState([]);
@@ -55,14 +58,24 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <ServiceProvidersList
-        toggleDisplay={toggleDisplay}
-        industriesList={serviceProviderList}
-      />
-      <OwnerForm /*createOwner={createOwner}*/></OwnerForm>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/OwnerForm" element={<OwnerForm />} />
+        {/* <Route path="/CustomerForm" element={<CustomerForm />} /> */}
+        {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
+        {/* <Route path="/CustomerLogin" element={<CustomerLogin />} /> */}
+      </Routes>
+    </Router>
   );
+  //   <div className="App">
+  //     <ServiceProvidersList
+  //       toggleDisplay={toggleDisplay}
+  //       industriesList={serviceProviderList}
+  //     />
+  //     <OwnerForm /*createOwner={createOwner}*/></OwnerForm>
+  //   </div>
+  // );
 }
 
 export default App;

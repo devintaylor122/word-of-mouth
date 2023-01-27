@@ -3,6 +3,7 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import "./OwnerForm.css";
+import { Link } from "react-router-dom";
 
 function OwnerForm() {
   const [newCompany, setNewCompany] = useState("");
