@@ -27,6 +27,20 @@ function ServiceProvider(props) {
   const toggleDisplay = props.toggleDisplay;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
+  let industryDisplay = ""; //.concat(...industry);
+  console.log(industryDisplay.length);
+
+  if (industry.length > 1) {
+    for (const ind in industry) {
+      if (industryDisplay.length === 0) {
+        industryDisplay.concat(ind);
+      } else {
+        industryDisplay.concat(", ", ind);
+      }
+    }
+  } else industryDisplay = industry;
+
+  console.log("indDis", industryDisplay);
 
   const ownerInfo = display ? (
     <div>
@@ -34,7 +48,7 @@ function ServiceProvider(props) {
       <p>{specialtyDisplay}</p>
       <p>Hours: {hours}</p>
       <p>Email: {contactEmail}</p>
-      <p>Number: {contactNumber}</p>
+      <p>Phone: {contactNumber}</p>
     </div>
   ) : (
     ""
@@ -43,7 +57,7 @@ function ServiceProvider(props) {
   return (
     <div>
       <button onClick={() => toggleDisplay(id, display)}>
-        {companyName}-{industry}
+        {companyName} - {industryDisplay}
       </button>
       <div>{ownerInfo}</div>
     </div>
