@@ -1,7 +1,13 @@
 import "./App.css";
 import { db } from "./firebaseconfig.js";
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home";
 import OwnerForm from "./components/OwnerForm";
+import CustomerForm from "./components/CustomerForm";
+import OwnerLogin from "./components/OwnerLogin";
+import CustomerLogin from "./components/CustomerLogin";
+
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
 import {
@@ -13,10 +19,14 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { ReactDOM } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import{ createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 'firebase/auth';
-import{ auth } from './firebaseconfig';
+
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "./firebaseconfig";
 
 function App() {
   // const [registerEmail, setRegisterEmail] = useState("");
@@ -25,25 +35,24 @@ function App() {
   const [loginPassword, setLoginPassword] = useState("");
   // const [user, setUser] = useState({});
 
-  
   const login = async () => {
-    try{ 
+    try {
       // this will create a new user in our authentication in firbase and at the same time in will log you in
       const user = await signInWithEmailAndPassword(
-        auth, 
-        loginEmail, 
-        loginPassword);
-      console.log(user)
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log(user);
     } catch (error) {
       console.log(error.message);
-      }
+    }
   };
 
   const logout = async () => {
     await signOut(auth);
   };
-  
-  
+
   const [serviceProviderList, setServiceProviderList] = useState([]);
 
   const usersCollectionRef = collection(db, "owners");
@@ -86,34 +95,48 @@ function App() {
   };
 
   return (
-    < div className = "App">
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/OwnerForm" element={<OwnerForm />} />
-        {/* <Route path="/CustomerForm" element={<CustomerForm />} /> */}
-        {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
-        {/* <Route path="/CustomerLogin" element={<CustomerLogin />} /> */}
-      </Routes>
-    </Router>
-   
-       
-        <div>
-          <h3> Login </h3>
-          <input placeholder="Email..." onChange={(event) => {setLoginEmail(event.target.value)}}/>
-          <input placeholder="Password..." onChange={(event) => {setLoginPassword(event.target.value)}}/>
-          <button onClick={login}> Login</button>
-        </div>
-        
-        {/* <h4> User Logged In: </h4>
+    <div className="App">
+      <Router>
+        {/* <nav>
+          <Link to="/"> HOME </Link>
+          <Link to="/OwnerForm">OWNER SIGN-UP</Link>
+          <Link to="/CustomerForm"> CUSTOMER SIGN-IN </Link>
+          <Link to="/OwnerLogin"> OWNER LOG-IN </Link>
+          <Link to="/CustomerLogin"> CUSTOMER LOG-IN </Link>
+        </nav> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/OwnerForm" element={<OwnerForm />} />
+          <Route path="/CustomerForm" element={<CustomerForm />} />
+          <Route path="/OwnerLogin" element={<OwnerLogin />} />
+          <Route path="/CustomerLogin" element={<CustomerLogin />} />
+        </Routes>
+      </Router>
+
+      <div>
+        <h3> Login </h3>
+        <input
+          placeholder="Email..."
+          onChange={(event) => {
+            setLoginEmail(event.target.value);
+          }}
+        />
+        <input
+          placeholder="Password..."
+          onChange={(event) => {
+            setLoginPassword(event.target.value);
+          }}
+        />
+        <button onClick={login}> Login</button>
+      </div>
+
+      {/* <h4> User Logged In: </h4>
         {user?.email} */}
 
-        <button onClick={logout}> Sign Out</button>
+      <button onClick={logout}> Sign Out</button>
     </div>
-    
-    
   );
-  
+
   //   <div className="App">
   //     <ServiceProvidersList
   //       toggleDisplay={toggleDisplay}
