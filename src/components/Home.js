@@ -13,6 +13,8 @@ function Home() {
       </nav>
       <p> Welcome to Word of Mouth...</p>
     </div>
+
+    
   );
 }
 
