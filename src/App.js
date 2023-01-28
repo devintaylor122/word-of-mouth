@@ -15,52 +15,34 @@ import {
 import { ReactDOM } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-// import{ createUserWithEmailAndPassword, onAuthStateChange, signOut, signInWithEmailAndPassword} from 'firebase/auth';
-// import{ auth } from './firebaseconfig';
+import{ createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 'firebase/auth';
+import{ auth } from './firebaseconfig';
 
 function App() {
   // const [registerEmail, setRegisterEmail] = useState("");
-  // const [registerPassword, setRegisterPassword = useState("");
-  // const [loginEmail, setLoginEmail] = useState("");
-  // const [loginPassword, setLoginPassword = useState("");
+  // const [registerPassword, setRegisterPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   // const [user, setUser] = useState({});
 
-  // onAuthStateChange(auth, (currentUser)=> {
-  //   setUser(currentUser);
-  // })
-  // const register = async () => {
-  //   try{ 
-  //   // this will create a new user in our authentication in firbase and at the same time in will log you in
-  //   const user = await createUserWithEmailAndPassword(
-  //     auth, 
-  //     registerEmail, 
-  //     registerPassword);
-  //   console.log(user)
-  // } catch (error) {
-  //   consolee.log(error.message);
-  //   }
-  // };
-  // const login = async () => {
-  //   try{ 
-  //     // this will create a new user in our authentication in firbase and at the same time in will log you in
-  //     const user = await signInWithEmailAndPassword(
-  //       auth, 
-  //       loginEmail, 
-  //       loginPassword);
-  //     console.log(user)
-  //   } catch (error) {
-  //     consolee.log(error.message);
-  //     }
-  // };
-
-  // const logout = async () => {
-  //   await signOut(auth);
-  // };
   
+  const login = async () => {
+    try{ 
+      // this will create a new user in our authentication in firbase and at the same time in will log you in
+      const user = await signInWithEmailAndPassword(
+        auth, 
+        loginEmail, 
+        loginPassword);
+      console.log(user)
+    } catch (error) {
+      console.log(error.message);
+      }
+  };
 
-
-
-
+  const logout = async () => {
+    await signOut(auth);
+  };
+  
   
   const [serviceProviderList, setServiceProviderList] = useState([]);
 
@@ -104,7 +86,7 @@ function App() {
   };
 
   return (
-    // < div className = "App">
+    < div className = "App">
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -115,25 +97,20 @@ function App() {
       </Routes>
     </Router>
    
-    //     <div>
-    //       <h3> Register Service Provider</h3>
-    //       <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/>
-    //       <input placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}}/>
-    //       <button onClick={register}> Create Service Provider</button>
-    //     </div>
-    //     <div>
-    //       <h3> Login </h3>
-    //       <input placeholder="Email..." onChange={(event) => {setLoginEmail(event.target.value)}}/>
-    //       <input placeholder="Password..." onChange={(event) => {setLoginPassword(event.target.value)}}/>
-    //       <button onClick={login}> Login</button>
-    //     </div>
+       
+        <div>
+          <h3> Login </h3>
+          <input placeholder="Email..." onChange={(event) => {setLoginEmail(event.target.value)}}/>
+          <input placeholder="Password..." onChange={(event) => {setLoginPassword(event.target.value)}}/>
+          <button onClick={login}> Login</button>
+        </div>
         
-    //     <h4> User Logged In: </h4>
-    //     {user?.email}
+        {/* <h4> User Logged In: </h4>
+        {user?.email} */}
 
-    //     <button onClick={logout}> Sign Out</button>
-    // </div>
-    // </div>
+        <button onClick={logout}> Sign Out</button>
+    </div>
+    
     
   );
   

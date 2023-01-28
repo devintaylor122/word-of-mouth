@@ -61,6 +61,7 @@ function ServiceProvider(props) {
       </button>
       <div>{ownerInfo}</div>
     </div>
+    
   );
 }
 ServiceProvider.propTypes = {

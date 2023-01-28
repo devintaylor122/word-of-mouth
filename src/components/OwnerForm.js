@@ -4,6 +4,8 @@ import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import "./OwnerForm.css";
 import { Link } from "react-router-dom";
+import{ createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
+import{ auth } from '../firebaseconfig';
 
 function OwnerForm() {
   const [newCompany, setNewCompany] = useState("");
@@ -14,6 +16,25 @@ function OwnerForm() {
   const [newSpecialty, setNewSpecialty] = useState("");
   const [newHours, setNewHours] = useState("");
   const usersCollectionRef = collection(db, "owners");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [user, setUser] = useState({});
+
+  onAuthStateChanged(auth, (currentUser)=> {
+    setUser(currentUser);
+  })
+  const register = async () => {
+    try{ 
+    // this will create a new user in our authentication in firbase and at the same time in will log you in
+    const user = await createUserWithEmailAndPassword(
+      auth, 
+      registerEmail, 
+      registerPassword);
+    console.log(user)
+  } catch (error) {
+    console.log(error.message);
+    }
+  };
 
   const createOwner = async () => {
     await addDoc(usersCollectionRef, {
@@ -95,6 +116,12 @@ function OwnerForm() {
           }}
         />
       </div>
+      <div>
+          <h3> Register Service Provider</h3>
+          <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/>
+          <input placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}}/>
+          <button onClick={register}> Create Service Provider</button>
+        </div>
 
       <button onClick={createOwner}>Submit</button>
     </form>
