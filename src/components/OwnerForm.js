@@ -50,6 +50,7 @@ function OwnerForm() {
 
   return (
     <form className="form">
+      <h3> Register Service Provider</h3>
       <div>
         <input
           placeholder="Company Name..."
@@ -117,10 +118,10 @@ function OwnerForm() {
         />
       </div>
       <div>
-          <h3> Register Service Provider</h3>
+          <h3> Service Provider Sign Up</h3>
           <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/>
           <input placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}}/>
-          <button onClick={register}> Create Service Provider</button>
+          <button onClick={register}> Create Account</button>
         </div>
 
       <button onClick={createOwner}>Submit</button>

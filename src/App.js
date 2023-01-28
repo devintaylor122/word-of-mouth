@@ -33,7 +33,7 @@ function App() {
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  // const [user, setUser] = useState({});
+  const [user, setUser] = useState({});
 
   const login = async () => {
     try {
@@ -113,7 +113,7 @@ function App() {
         </Routes>
       </Router>
 
-      <div>
+      {/* <div>
         <h3> Login </h3>
         <input
           placeholder="Email..."
@@ -128,13 +128,14 @@ function App() {
           }}
         />
         <button onClick={login}> Login</button>
-      </div>
+      </div> */}
 
       {/* <h4> User Logged In: </h4>
         {user?.email} */}
 
       <button onClick={logout}> Sign Out</button>
     </div>
+    
   );
 
   //   <div className="App">
