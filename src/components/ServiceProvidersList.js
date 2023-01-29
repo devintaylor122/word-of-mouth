@@ -1,8 +1,12 @@
+//PERHAPS THINK ABOUT COMBINING SERVICE PROVIDER INTO THIS ONE?
 import React from "react";
 import ServiceProvider from "./ServiceProvider";
+import { useLocation } from "react-router-dom";
 
 function ServiceProvidersList(props) {
   const serList = props.industriesList;
+  // const info = useLocation();
+  // const serList = info.state?.data;
 
   const listElements = serList.map((ind) => (
     <ServiceProvider

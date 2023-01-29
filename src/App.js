@@ -1,12 +1,21 @@
 import "./App.css";
 import { db } from "./firebaseconfig.js";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
 import Home from "./components/Home";
 import OwnerForm from "./components/OwnerForm";
 import CustomerForm from "./components/CustomerForm";
 import OwnerLogin from "./components/OwnerLogin";
 import CustomerLogin from "./components/CustomerLogin";
+import CustomerDashboard from "./components/CustomerDashboard";
+import Error from "./components/Error";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
@@ -56,7 +65,7 @@ function App() {
   const [serviceProviderList, setServiceProviderList] = useState([]);
 
   const usersCollectionRef = collection(db, "owners");
-
+  // console.log("usersCollectionRef", usersCollectionRef);
   // const createUser = async () => {
   //   await addDoc(usersCollectionRef, { name: newName, age: parseInt(newAge) }); //takes in two things, reference to collection and object containing data/payload that we're adding
   // };
@@ -76,40 +85,42 @@ function App() {
   useEffect(() => {
     //async function (other option: .then, .catch)
     const getServiceProviders = async () => {
+      console.log("XHELLOOOOO");
       const data = await getDocs(usersCollectionRef);
+
       setServiceProviderList(
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       ); //doc.data access object that contains name and age
-      // console.log("data", data);
+      console.log("data HELLOOOOO", data);
     };
     getServiceProviders();
   }, []);
-
-  const toggleDisplay = async (id, displayStatus) => {
-    const ownerDoc = doc(db, "owners", id);
-    await updateDoc(ownerDoc, { display: !displayStatus });
-    const data = await getDocs(usersCollectionRef);
-    setServiceProviderList(
-      data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    );
-  };
+  // console.log("SERVICE PROVIDERS", serviceProviderList);
+  // const toggleDisplay = async (id, displayStatus) => {
+  //   const ownerDoc = doc(db, "owners", id);
+  //   await updateDoc(ownerDoc, { display: !displayStatus });
+  //   const data = await getDocs(usersCollectionRef);
+  //   setServiceProviderList(
+  //     data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  //   );
+  // };
 
   return (
     <div className="App">
       <Router>
-        {/* <nav>
-          <Link to="/"> HOME </Link>
-          <Link to="/OwnerForm">OWNER SIGN-UP</Link>
-          <Link to="/CustomerForm"> CUSTOMER SIGN-IN </Link>
-          <Link to="/OwnerLogin"> OWNER LOG-IN </Link>
-          <Link to="/CustomerLogin"> CUSTOMER LOG-IN </Link>
-        </nav> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/OwnerForm" element={<OwnerForm />} />
           <Route path="/CustomerForm" element={<CustomerForm />} />
           <Route path="/OwnerLogin" element={<OwnerLogin />} />
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
+          <Route
+            path="/CustomerDashboard"
+            // state={{ ServiceProvidersList: serviceProviderList }}
+            element={<CustomerDashboard />}
+          />
+          {/* <Route path="/CustomerDashboard" */}
+          <Route path="*" element={<Error />} />
         </Routes>
       </Router>
 
@@ -135,7 +146,6 @@ function App() {
 
       <button onClick={logout}> Sign Out</button>
     </div>
-    
   );
 
   //   <div className="App">

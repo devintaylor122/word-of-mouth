@@ -42,26 +42,25 @@ function ServiceProvider(props) {
 
   // console.log("indDis", industryDisplay);
 
-  const ownerInfo = display ? (
-    <div>
-      <p>Owner Name: {ownerName}</p>
-      <p>{specialtyDisplay}</p>
-      <p>Hours: {hours}</p>
-      <p>Email: {contactEmail}</p>
-      <p>Phone: {contactNumber}</p>
-    </div>
-  ) : (
-    ""
-  );
+  // const ownerInfo = display ? (
+  //   <div>
+  //     <p>Owner Name: {ownerName}</p>
+  //     <p>{specialtyDisplay}</p>
+  //     <p>Hours: {hours}</p>
+  //     <p>Email: {contactEmail}</p>
+  //     <p>Phone: {contactNumber}</p>
+  //   </div>
+  // ) : (
+  //   ""
+  // );
 
   return (
     <div>
-      <button onClick={() => toggleDisplay(id, display)}>
+      <p /*onClick={() => toggleDisplay(id, display)}*/>
         {companyName} - {industry}
-      </button>
-      <div>{ownerInfo}</div>
+      </p>
+      {/* <div>{ownerInfo}</div> */}
     </div>
-    
   );
 }
 ServiceProvider.propTypes = {

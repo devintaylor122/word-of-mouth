@@ -10,6 +10,7 @@ function Home() {
         <Link to="/CustomerForm"> CUSTOMER SIGN-IN </Link>
         <Link to="/OwnerLogin"> OWNER LOG-IN </Link>
         <Link to="/CustomerLogin"> CUSTOMER LOG-IN </Link>
+        <Link to="CustomerDashboard">Customer Dash</Link>
       </nav>
       <p> Welcome to Word of Mouth...</p>
     </div>
