@@ -1,5 +1,6 @@
 //PERHAPS THINK ABOUT COMBINING SERVICE PROVIDER INTO THIS ONE?
 //If I go straight to this page and not mainpage->here, then the SPs don't load/will be null
+//Remove underline from links
 import React from "react";
 import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
@@ -12,12 +13,13 @@ function ServiceProvidersList(props) {
 
   const listElements = serList.map((ind) => (
     <article key={ind.id}>
-      <ServiceProvider
-      serviceProviderList={props.industriesList}
-      data={ind}
-      toggleDisplay={props.toggleDisplay}
-    ></ServiceProvider>
-    <Link to={`/CustomerDashboard/${ind.id}`}>more info</Link>
+      <Link to={`/CustomerDashboard/${ind.id}`}>
+        <ServiceProvider
+          serviceProviderList={props.industriesList}
+          data={ind}
+          toggleDisplay={props.toggleDisplay}
+        ></ServiceProvider>
+      </Link>
     </article>
   ));
   return <div>{listElements}</div>;
