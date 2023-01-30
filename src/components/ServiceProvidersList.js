@@ -1,10 +1,12 @@
 //PERHAPS THINK ABOUT COMBINING SERVICE PROVIDER INTO THIS ONE?
+//If I go straight to this page and not mainpage->here, then the SPs don't load/will be null
 import React from "react";
 import ServiceProvider from "./ServiceProvider";
 import { useLocation } from "react-router-dom";
 
 function ServiceProvidersList(props) {
   const serList = props.industriesList;
+  // console.log("IN SPL", serList);
   // const info = useLocation();
   // const serList = info.state?.data;
 

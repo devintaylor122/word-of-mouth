@@ -85,13 +85,13 @@ function App() {
   useEffect(() => {
     //async function (other option: .then, .catch)
     const getServiceProviders = async () => {
-      console.log("XHELLOOOOO");
+      // console.log("XHELLOOOOO");
       const data = await getDocs(usersCollectionRef);
 
       setServiceProviderList(
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       ); //doc.data access object that contains name and age
-      console.log("data HELLOOOOO", data);
+      // console.log("data HELLOOOOO", data);
     };
     getServiceProviders();
   }, []);
@@ -112,12 +112,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/OwnerForm" element={<OwnerForm />} />
           <Route path="/CustomerForm" element={<CustomerForm />} />
-          <Route path="/OwnerLogin" element={<OwnerLogin />} />
-          <Route path="/CustomerLogin" element={<CustomerLogin />} />
+          {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
+          {/* <Route path="/CustomerLogin" element={<CustomerLogin />} /> */}
           <Route
             path="/CustomerDashboard"
             // state={{ ServiceProvidersList: serviceProviderList }}
-            element={<CustomerDashboard />}
+            element={<CustomerDashboard props={{ serviceProviderList }} />}
           />
           {/* <Route path="/CustomerDashboard" */}
           <Route path="*" element={<Error />} />
