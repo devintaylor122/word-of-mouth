@@ -5,6 +5,17 @@
   text-align: center;
 }
 
+button{
+  grid-column-start: 9;
+  grid-column-end: 11;
+}
+
+/* nav {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 8;
+} */
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;

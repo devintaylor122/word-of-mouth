@@ -6,10 +6,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import {signInWithEmailAndPassword, signOut} from "firebase/auth";
 import { auth } from "../firebaseconfig";
 
-
-
-
-
 function CustomerLogin() {
     // const [registerEmail, setRegisterEmail] = useState("");
     // const [registerPassword, setRegisterPassword] = useState("");

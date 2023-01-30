@@ -1,11 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 // import ServiceProvider from './ServiceProvider';
 import ServiceProvidersList from "./ServiceProvidersList";
-const singleServiceP = () => {
+
+const SingleServiceP = () => {
   const { SPId } = useParams();
+  
   const singleServiceProvider = ServiceProvidersList.find(
     (serviceProvider) => serviceProvider.id === SPId
   );
+  console.log("SEE",singleServiceProvider)
   const { company, email, hours, industry, owner, phone, specialty } =
     singleServiceProvider;
 
@@ -29,4 +32,4 @@ const singleServiceP = () => {
   );
 };
 
-export default singleServiceP;
+export default SingleServiceP;

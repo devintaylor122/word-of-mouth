@@ -2,7 +2,7 @@
 //If I go straight to this page and not mainpage->here, then the SPs don't load/will be null
 import React from "react";
 import ServiceProvider from "./ServiceProvider";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 function ServiceProvidersList(props) {
   const serList = props.industriesList;
@@ -11,11 +11,14 @@ function ServiceProvidersList(props) {
   // const serList = info.state?.data;
 
   const listElements = serList.map((ind) => (
-    <ServiceProvider
+    <article key={ind.id}>
+      <ServiceProvider
       serviceProviderList={props.industriesList}
       data={ind}
       toggleDisplay={props.toggleDisplay}
     ></ServiceProvider>
+    <Link to={`/CustomerDashboard/${ind.id}`}>more info</Link>
+    </article>
   ));
   return <div>{listElements}</div>;
 }

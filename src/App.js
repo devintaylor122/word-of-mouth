@@ -15,6 +15,7 @@ import CustomerForm from "./components/CustomerForm";
 import OwnerLogin from "./components/OwnerLogin";
 import CustomerLogin from "./components/CustomerLogin";
 import CustomerDashboard from "./components/CustomerDashboard";
+import SingleServiceP from "./components/SingleServiceP"
 import Error from "./components/Error";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
@@ -113,13 +114,14 @@ function App() {
           <Route path="/OwnerForm" element={<OwnerForm />} />
           <Route path="/CustomerForm" element={<CustomerForm />} />
           <Route path="/OwnerLogin" element={<OwnerLogin />} />
-          <Route path="/OwnerLogin" element={<OwnerLogin />} />
+          {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route
             path="/CustomerDashboard"
             state={{ ServiceProvidersList: serviceProviderList }}
             element={<CustomerDashboard props={{ serviceProviderList }} />}
           />
+          <Route path='/CustomerDashboard/:SPId' element={<SingleServiceP />} />
           {/* <Route path="/CustomerDashboard" */}
           <Route path="*" element={<Error />} />
         </Routes>
