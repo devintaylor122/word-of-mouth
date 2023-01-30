@@ -112,11 +112,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/OwnerForm" element={<OwnerForm />} />
           <Route path="/CustomerForm" element={<CustomerForm />} />
-          {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
-          {/* <Route path="/CustomerLogin" element={<CustomerLogin />} /> */}
+          <Route path="/OwnerLogin" element={<OwnerLogin />} />
+          <Route path="/OwnerLogin" element={<OwnerLogin />} />
+          <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route
             path="/CustomerDashboard"
-            // state={{ ServiceProvidersList: serviceProviderList }}
+            state={{ ServiceProvidersList: serviceProviderList }}
             element={<CustomerDashboard props={{ serviceProviderList }} />}
           />
           {/* <Route path="/CustomerDashboard" */}
@@ -139,10 +140,9 @@ function App() {
           }}
         />
         <button onClick={login}> Login</button>
-      </div> */}
-
-      {/* <h4> User Logged In: </h4>
-        {user?.email} */}
+      </div> 
+      <h4> User Logged In: </h4>
+        {user?.email}  */}
 
       <button onClick={logout}> Sign Out</button>
     </div>

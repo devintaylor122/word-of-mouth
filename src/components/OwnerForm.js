@@ -117,6 +117,7 @@ function OwnerForm() {
           }}
         />
       </div>
+      <button onClick={createOwner}>Submit</button>
       <div>
           <h3> Service Provider Sign Up</h3>
           <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/>
@@ -124,7 +125,7 @@ function OwnerForm() {
           <button onClick={register}> Create Account</button>
         </div>
 
-      <button onClick={createOwner}>Submit</button>
+      
     </form>
   );
 }

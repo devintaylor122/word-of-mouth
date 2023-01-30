@@ -60,6 +60,7 @@ function CustomerForm() {
           }}
         />
       </div>
+      <button onClick={createCustomer}>Submit</button>
       <div>
           <h3> Customer Sign Up </h3>
           <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/>
@@ -67,7 +68,7 @@ function CustomerForm() {
           <button onClick={register}> Create Account</button>
         </div>
 
-      <button onClick={createCustomer}>Submit</button>
+      
     </form>
   );
 }
