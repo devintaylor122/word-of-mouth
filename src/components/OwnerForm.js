@@ -87,6 +87,14 @@ function OwnerForm() {
           }}
         />
       </div>
+      <div>
+      <input 
+      placeholder="Password..." 
+      onChange={(event) => {
+        setRegisterPassword(event.target.value)
+        }}
+        />
+        </div>
 
       <div>
         <Dropdown
@@ -117,13 +125,12 @@ function OwnerForm() {
           }}
         />
       </div>
-      <button onClick={createOwner}>Submit</button>
-      {/* <div>
-          <h3> Service Provider Sign Up</h3>
-          <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/>
-          <input placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}}/>
+      {/* <button onClick={createOwner}>Submit</button> */}
+      <div>
+          {/* <h3> Service Provider Sign Up</h3> */}
+          {/* <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/> */}
           <button onClick={register}> Create Account</button>
-        </div> */}
+        </div>
 
       
     </form>
