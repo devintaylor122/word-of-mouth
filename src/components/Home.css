@@ -1,4 +1,4 @@
-.home {
+/* .home-page {
     grid-row-start: 1;
     grid-row-end: 6;
     grid-column-start: 1;
@@ -10,4 +10,73 @@ nav {
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 8;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
+
+
+*::before, *::after {
+box-sizing: border-box;
+}
+
+
+
+.home, .ownerSignUp, .customerSignUp, .ownerLogin, .customerLogin, .customerDash {
+
+cursor: pointer;
+outline: none;
+border: 0;
+vertical-align: middle;
+box-sizing: border-box;  
+font-family: "Rubik", sans-serif;
+font-size: 1rem;
+}
+
+.home, .ownerSignUp, .customerSignUp, .ownerLogin, .customerLogin, .customerDash  {
+font-weight: 600;
+color: #382b22;
+text-transform: uppercase;
+padding: 1.25em 2em;
+background: #fff0f0;
+border: 2px solid #b18597;
+border-radius: 0.75em;
+transform-style: preserve-3d;
+transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+.home, .ownerSignUp, .customerSignUp, .ownerLogin, .customerLogin, .customerDash, ::before {
+/* position: absolute; */
+content: "";
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: #f9c4d2;
+border-radius: inherit;
+box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
+transform: translate3d(0, 0.75em, -1em);
+transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+.home, .ownerSignUp, .customerSignUp, .ownerLogin, .customerLogin, .customerDash, :hover {
+background: #ffe9e9;
+transform: translate(0, 0.25em);
+}
+
+.home, .ownerSignUp, .customerSignUp, .ownerLogin, .customerLogin, .customerDash, :hover::before {
+box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
+transform: translate3d(0, 0.5em, -1em);
+}
+
+.home, .ownerSignUp, .customerSignUp, .ownerLogin, .customerLogin, .customerDash, :active {
+background: #ffe9e9;
+transform: translate(0em, 0.75em);
+}
+
+.home, .ownerSignUp, .customerSignUp, .ownerLogin, .customerLogin, .customerDash, :active::before {
+box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
+transform: translate3d(0, 0, -1em);
+} */

@@ -15,7 +15,7 @@ import CustomerForm from "./components/CustomerForm";
 import OwnerLogin from "./components/OwnerLogin";
 import CustomerLogin from "./components/CustomerLogin";
 import CustomerDashboard from "./components/CustomerDashboard";
-import SingleServiceP from "./components/SingleServiceP"
+import SingleServiceP from "./components/SingleServiceP";
 import Error from "./components/Error";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
@@ -121,7 +121,7 @@ function App() {
             state={{ ServiceProvidersList: serviceProviderList }}
             element={<CustomerDashboard props={{ serviceProviderList }} />}
           />
-          <Route path='/CustomerDashboard/:SPId' element={<SingleServiceP />} />
+          <Route path="/CustomerDashboard/:SPId" element={<SingleServiceP />} />
           {/* <Route path="/CustomerDashboard" */}
           <Route path="*" element={<Error />} />
         </Routes>
@@ -146,7 +146,10 @@ function App() {
       <h4> User Logged In: </h4>
         {user?.email}  */}
 
-      <button onClick={logout}> Sign Out</button>
+      <button className="logout" onClick={logout}>
+        {" "}
+        Sign Out
+      </button>
     </div>
   );
 
