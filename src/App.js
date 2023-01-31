@@ -126,7 +126,10 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/CustomerDashboard/:SPId" element={<SingleServiceP />} />
+          <Route
+            path="/CustomerDashboard/:SPId"
+            element={<SingleServiceP serviceProviders={serviceProviderList} />}
+          />
           {/* <Route path="/CustomerDashboard" */}
           <Route path="*" element={<Error />} />
         </Routes>

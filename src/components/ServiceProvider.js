@@ -1,7 +1,6 @@
 //need to make sure all companies (including new ones) have same keys that can be accessed through props
 //should start off undisplayed each time computer is reloaded?
-//make sure a list of industries can be displayed
-//make it not a button but a regular text
+
 import PropTypes from "prop-types";
 import "./ServiceProvider.css";
 // import {
@@ -27,21 +26,21 @@ function ServiceProvider(props) {
   const toggleDisplay = props.toggleDisplay;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
-  // let industryDisplay = ""; //.concat(...industry);
+
+  let industryDisplay = ""; //.concat(..d.industry);
   // console.log(industryDisplay.length);
-
-  // if (industry.length > 1) {
-  //   for (const ind in industry) {
-  //     if (industryDisplay.length === 0) {
-  //       industryDisplay.concat(ind);
-  //     } else {
-  //       industryDisplay.concat(", ", ind);
-  //     }
-  //   }
-  // } else industryDisplay = industry;
-
-  // console.log("indDis", industryDisplay);
-
+  // console.log("ind", industry);
+  if (industry && typeof industry === "object") {
+    for (const ind in industry) {
+      if (ind == 0) {
+        industryDisplay += industry[ind];
+      } else {
+        industryDisplay += `,  ${industry[ind]}`;
+      }
+    }
+  } else {
+    industryDisplay = industry;
+  }
   // const ownerInfo = display ? (
   //   <div>
   //     <p>Owner Name: {ownerName}</p>
@@ -57,7 +56,7 @@ function ServiceProvider(props) {
   return (
     <div>
       <p /*onClick={() => toggleDisplay(id, display)}*/>
-        {companyName} - {industry}
+        {companyName} - {industryDisplay}
       </p>
       {/* <div>{ownerInfo}</div> */}
     </div>
