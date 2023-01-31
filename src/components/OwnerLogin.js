@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Home from "./components/Home";
@@ -14,9 +15,6 @@ function OwnerLogin() {
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   
-
-
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

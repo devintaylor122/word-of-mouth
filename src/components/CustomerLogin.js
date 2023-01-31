@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Home from "./components/Home";
@@ -12,7 +13,11 @@ function CustomerLogin() {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [user, setUser] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const login = async () => {
         try {
@@ -24,6 +29,7 @@ function CustomerLogin() {
         );
         console.log(user);
     } catch (error) {
+        alert("Check your email or password");
         console.log(error.message);
     }
 };
@@ -42,22 +48,28 @@ return (
             }}
             />
         <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password..."
             onChange={(event) => {
                 setLoginPassword(event.target.value);
             }}
         />
     
-        <div>
-    <button onClick={login}> Login</button>
-        </div>
+    <div>
+    <button onClick={togglePasswordVisibility}>
+    {showPassword ? "Hide" : "Show"} Password
+    </button>
+    </div>
+    
+    <div>
+        <button onClick={login}> Login</button>
+    </div>
+    
 
     <h4> User Logged In: </h4>
-        {user?.email}
-        
-    <button onClick={logout}> Sign Out </button>
+    {user?.email}
 
+      {/* <button onClick={logout}> Sign Out </button> */}
     </div>
 );
 }

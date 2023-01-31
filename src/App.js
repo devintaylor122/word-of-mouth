@@ -18,6 +18,8 @@ import CustomerDashboard from "./components/CustomerDashboard";
 import SingleServiceP from "./components/SingleServiceP";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Error from "./components/Error";
+import OwnerCreateAccount from "./components/OwnerCreateAccount";
+
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
@@ -115,6 +117,7 @@ function App() {
           <Route path="/OwnerForm" element={<OwnerForm />} />
           <Route path="/CustomerForm" element={<CustomerForm />} />
           <Route path="/OwnerLogin" element={<OwnerLogin />} />
+          <Route path="/OwnerCreateAccount" element={<OwnerCreateAccount />} />
           {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route
