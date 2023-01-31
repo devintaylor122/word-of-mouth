@@ -20,7 +20,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Error from "./components/Error";
 import OwnerCreateAccount from "./components/OwnerCreateAccount";
 
-
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
 import {
@@ -116,7 +115,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/OwnerForm" element={<OwnerForm />} />
           <Route path="/CustomerForm" element={<CustomerForm />} />
-          <Route path="/OwnerLogin" element={<OwnerLogin />} />
+          <Route
+            path="/OwnerLogin"
+            element={<OwnerLogin setAUser={setUser} />}
+          />
           <Route path="/OwnerCreateAccount" element={<OwnerCreateAccount />} />
           {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
           <Route path="/CustomerLogin" element={<CustomerLogin />} />

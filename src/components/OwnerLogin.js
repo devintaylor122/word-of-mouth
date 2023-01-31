@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Home from "./components/Home";
@@ -6,19 +5,21 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import OwnerLogin from "../components/OwnerLogin";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebaseconfig";
+import { useNavigate } from "react-router-dom";
 
-function OwnerLogin() {
+function OwnerLogin({ setAUser }) {
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  
+
+  const navigate = useNavigate();
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  
 
   const login = async () => {
     try {
@@ -36,39 +37,51 @@ function OwnerLogin() {
   };
   const logout = async () => {
     await signOut(auth);
+    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    console.log(loginEmail, "Logout", loginPassword);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!loginPassword || !loginEmail) return;
+    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    navigate("/CustomerDashboard");
   };
 
   return (
     <div>
-      <h3> Login </h3>
-      <input
-        type="email"
-        placeholder="Email..."
-        onChange={(event) => {
-          setLoginEmail(event.target.value);
-        }}
-      />
-      <input
-        type={showPassword ? "text" : "password"}
-        placeholder="Password..."
-        onChange={(event) => {
-          setLoginPassword(event.target.value);
-        }}
-      />
-      <button onClick={togglePasswordVisibility}>
-      {showPassword ? "Hide" : "Show"} Password
-    </button>
+      <form onSubmit={handleSubmit}>
+        <h3> Login </h3>
+        <input
+          type="email"
+          placeholder="Email..."
+          onChange={(event) => {
+            setLoginEmail(event.target.value);
+          }}
+        />
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password..."
+          onChange={(event) => {
+            setLoginPassword(event.target.value);
+          }}
+        />
+        <button onClick={togglePasswordVisibility}>
+          {showPassword ? "Hide" : "Show"} Password
+        </button>
 
-   
+        <div>
+          <button type="submit" onClick={login}>
+            {" "}
+            Login
+          </button>
+        </div>
 
-      <div>
-        <button onClick={login}> Login</button>
-      </div>
+        <h4> User Logged In: </h4>
+        {user?.email}
 
-      <h4> User Logged In: </h4>
-      {user?.email}
-
-      <button onClick={logout}> Sign Out </button>
+        <button onClick={logout}> Sign Out </button>
+      </form>
     </div>
   );
 }
