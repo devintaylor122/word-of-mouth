@@ -16,6 +16,7 @@ import OwnerLogin from "./components/OwnerLogin";
 import CustomerLogin from "./components/CustomerLogin";
 import CustomerDashboard from "./components/CustomerDashboard";
 import SingleServiceP from "./components/SingleServiceP";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Error from "./components/Error";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
@@ -105,7 +106,7 @@ function App() {
   //     data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
   //   );
   // };
-
+  // console.log(user);
   return (
     <div className="App">
       <Router>
@@ -118,8 +119,12 @@ function App() {
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route
             path="/CustomerDashboard"
-            state={{ ServiceProvidersList: serviceProviderList }}
-            element={<CustomerDashboard props={{ serviceProviderList }} />}
+            // state={{ ServiceProvidersList: serviceProviderList }}
+            element={
+              <ProtectedRoute user={user}>
+                <CustomerDashboard props={{ serviceProviderList }} />
+              </ProtectedRoute>
+            }
           />
           <Route path="/CustomerDashboard/:SPId" element={<SingleServiceP />} />
           {/* <Route path="/CustomerDashboard" */}

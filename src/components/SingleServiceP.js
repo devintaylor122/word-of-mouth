@@ -2,13 +2,14 @@ import { Link, useParams } from "react-router-dom";
 // import ServiceProvider from './ServiceProvider';
 import ServiceProvidersList from "./ServiceProvidersList";
 
-const SingleServiceP = () => {
+const SingleServiceP = (props) => {
+  const serviceProviders = props.serviceProviders.serviceProviderList;
   const { SPId } = useParams();
-  
-  const singleServiceProvider = ServiceProvidersList.find(
+  console.log("SPL", serviceProviders);
+  const singleServiceProvider = serviceProviders.find(
     (serviceProvider) => serviceProvider.id === SPId
   );
-  console.log("SEE",singleServiceProvider)
+  console.log("SEE", singleServiceProvider);
   const { company, email, hours, industry, owner, phone, specialty } =
     singleServiceProvider;
 
@@ -27,7 +28,7 @@ const SingleServiceP = () => {
         <p>Email: {email}</p>
         <p>Phone: {phone}</p>
       </div>
-      <Link to="/ServiceProvidersList">back to all Service Providers</Link>
+      <Link to="/CustomerDashboard">back to all Service Providers</Link>
     </section>
   );
 };
