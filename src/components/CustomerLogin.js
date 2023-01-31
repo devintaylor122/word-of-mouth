@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import CustomerLogin from "../components/CustomerLogin";
 import {signInWithEmailAndPassword, signOut} from "firebase/auth";
 import { auth } from "../firebaseconfig";
+import CustomerDashboard from "./CustomerDashboard";
 
 function CustomerLogin() {
     // const [registerEmail, setRegisterEmail] = useState("");
@@ -62,16 +63,21 @@ return (
     </div>
     
     <div>
-        <button onClick={login}> Login</button>
-    </div>
+  
+    <Link to="/CustomerDashboard">
+    <button onClick={login}> Login</button>
     
+    </Link>
 
     <h4> User Logged In: </h4>
-    {user?.email}
-
-      {/* <button onClick={logout}> Sign Out </button> */}
+        {user?.email}
+        <Link to="/"> 
+        <button onClick={logout}> Sign Out </button>
+        </Link>
+        
     </div>
-);
+    </div>
+  );
 }
 
 export default CustomerLogin;
