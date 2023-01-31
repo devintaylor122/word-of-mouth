@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
 
 .App {
   display: grid;
@@ -12,7 +12,7 @@
   font-family: "Rubik", sans-serif;
   font-size: 1rem;
   justify-content: center;
-  /* line-height: 1.5; 
+  line-height: 1.5; 
 }
 
 *::before, *::after {
@@ -82,7 +82,7 @@
 .logout:active::before {
   box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
   transform: translate3d(0, 0, -1em);
-} */
+}
 
 
 /* .App-logo {
