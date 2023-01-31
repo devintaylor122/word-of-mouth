@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Home from "./components/Home";
 // import OwnerForm from "./components/OwnerForm";
@@ -12,6 +12,15 @@ function OwnerLogin() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  
+
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  
 
   const login = async () => {
     try {
@@ -23,6 +32,7 @@ function OwnerLogin() {
       );
       console.log(user);
     } catch (error) {
+      alert("Check your email or password");
       console.log(error.message);
     }
   };
@@ -34,17 +44,24 @@ function OwnerLogin() {
     <div>
       <h3> Login </h3>
       <input
+        type="email"
         placeholder="Email..."
         onChange={(event) => {
           setLoginEmail(event.target.value);
         }}
       />
       <input
+        type={showPassword ? "text" : "password"}
         placeholder="Password..."
         onChange={(event) => {
           setLoginPassword(event.target.value);
         }}
       />
+      <button onClick={togglePasswordVisibility}>
+      {showPassword ? "Hide" : "Show"} Password
+    </button>
+
+   
 
       <div>
         <button onClick={login}> Login</button>

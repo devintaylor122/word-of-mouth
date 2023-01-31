@@ -23,11 +23,11 @@ function CustomerLogin() {
             loginPassword
         );
         console.log(user);
-        } catch (error) {
+    } catch (error) {
         console.log(error.message);
-        }
-    };
-    const logout = async () => {
+    }
+};
+const logout = async () => {
         await signOut(auth);
     };
 
@@ -35,15 +35,17 @@ return (
     <div>
         <h3> Login </h3>
         <input
+            type="email"
             placeholder="Email..."
             onChange={(event) => {
-            setLoginEmail(event.target.value);
+                setLoginEmail(event.target.value);
             }}
-        />
+            />
         <input
+            type="password"
             placeholder="Password..."
             onChange={(event) => {
-            setLoginPassword(event.target.value);
+                setLoginPassword(event.target.value);
             }}
         />
     
