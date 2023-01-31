@@ -1,6 +1,6 @@
 //eventually need to change to make sure owner login sends owner to their dashboard, not customer dashboard
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, Switch, BrowserRouter } from "react-router-dom";
 // import Home from "./components/Home";
 // import OwnerForm from "./components/OwnerForm";
 // import OwnerLogin from "../components/OwnerLogin";
@@ -80,8 +80,10 @@ function OwnerLogin({ setAUser }) {
 
         <h4> User Logged In: </h4>
         {user?.email}
-
+        <Link to="/"> 
         <button onClick={logout}> Sign Out </button>
+        </Link>
+        
       </form>
     </div>
   );
