@@ -108,6 +108,40 @@ function App() {
   // };
   // console.log(user);
   return (
+    
+    /*
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<SharedLoggedOutLayout />}>
+            <Route index element={<Home />} />
+            <Route path="customerform" element={<CustomerForm />} />
+            <Route path="ownerform" element={<OwnerForm />} />
+          </Route>
+          <Route path="/customerdash" element={<SharedCustLayout/>}>
+            <Route index element ={
+              <ProtectedRoute customer={customer}>
+                <CustomerDash customer={customer} />
+              </ProtectedRoute>
+            } />
+            <Route path="/serviceproviders" element ={
+              <ProtectedRoute customer={customer}>
+                <ServiceProvidersList customer={customer} />
+              </ProtectedRoute>
+            } />
+            <Route path="/serviceproviders/:SPid" element ={
+              <ProtectedRoute customer={customer}>
+                <SingleServiceP customer={customer} />
+              </ProtectedRoute>
+            } />
+            <Route path="/messages/:SPid" element ={
+              <ProtectedRoute customer={customer}>
+                <SingleServiceP customer={customer} />
+              </ProtectedRoute>
+            } />
+        </Routes>
+      </Router>
+    */
     <div className="App">
       <Router>
         <Routes>

@@ -15,25 +15,32 @@ function CustomerForm() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [user, setUser] = useState({});
+  const [newPhone, setNewPhone] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   onAuthStateChanged(auth, (currentUser)=> {
     setUser(currentUser);
   })
+
+  // const register = async () => {
+  //   try{ 
+  //   // this will create a new user in our authentication in firbase and at the same time in will log you in
+  //   const user = await createUserWithEmailAndPassword(
+  //     auth, 
+  //     registerEmail, 
+  //     registerPassword);
+  //   console.log(user)
+  // } catch (error) {
+  //   console.log(error.message);
+  //   }
+  // };
+
+
   const register = async () => {
-    try{ 
-    // this will create a new user in our authentication in firbase and at the same time in will log you in
-    const user = await createUserWithEmailAndPassword(
-      auth, 
-      registerEmail, 
-      registerPassword);
-    console.log(user)
-  } catch (error) {
-    console.log(error.message);
-    }
-  };
-
-
-  const createCustomer = async () => {
     await addDoc(usersCollectionRef, {
       customer: newCustomer,
       email: newEmail,
@@ -54,19 +61,36 @@ function CustomerForm() {
 
       <div>
         <input
-          placeholder="Email..."
+          type="number"
+          placeholder="Phone number (no spaces)"
           onChange={(event) => {
-            setNewEmail(event.target.value);
+            setNewPhone(event.target.value);
           }}
         />
       </div>
-      <button onClick={createCustomer}>Submit</button>
+      {/* <button onClick={createCustomer}>Submit</button> */}
       <div>
-          <h3> Customer Sign Up </h3>
-          <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/>
-          <input placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}}/>
-          <button onClick={register}> Create Account</button>
-        </div>
+          {/* <h3> Customer Sign Up </h3> */}
+        <input 
+          placeholder="Email..." 
+          onChange={(event) => {
+            setRegisterEmail(event.target.value)
+            }}
+            />
+          <div>
+        <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password..."
+            onChange={(event) => {
+              setRegisterPassword(event.target.value);
+            }}
+          />
+          <button onClick={togglePasswordVisibility}>
+            {showPassword ? "Hide" : "Show"} Password
+          </button>
+          </div>
+            <button onClick={register}> Create Account</button>
+          </div>
 
       
     </form>
