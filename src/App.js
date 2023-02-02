@@ -111,7 +111,31 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<SharedLoggedOutLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/OwnerForm" element={<OwnerForm />} />
+          <Route path="/CustomerForm" element={<CustomerForm />} />
+          <Route
+            path="/OwnerLogin"
+            element={<OwnerLogin setAUser={setUser} />}
+          />
+          <Route path="/OwnerLogin" element={<OwnerLogin />} />
+          <Route path="/CustomerLogin" element={<CustomerLogin />} />
+          <Route
+            path="/CustomerDashboard"
+            // state={{ ServiceProvidersList: serviceProviderList }}
+            element={
+              <ProtectedRoute user={user}>
+                <CustomerDashboard props={{ serviceProviderList }} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/CustomerDashboard/:SPId"
+            element={<SingleServiceP serviceProviders={serviceProviderList} />}
+          />
+          {/* <Route path="/CustomerDashboard" */}
+          {/* <Route path="*" element={<Error />} />
+          {/* <Route path="/" element={<SharedLoggedOutLayout />}>
             <Route index element={<Home />} />
             <Route path="customerform" element={<CustomerForm />} />
             <Route path="ownerform" element={<OwnerForm />} />
@@ -144,7 +168,7 @@ function App() {
             } />
             </Route>
 
-            {/* <Route path="/ownerdash" element={<SharedOwnerLayout/>}>
+            <Route path="/ownerdash" element={<SharedOwnerLayout/>}>
             <Route index element ={
               <ProtectedRoute owner={owner}>
                 <OwnerDash owner={owner} />
@@ -165,7 +189,7 @@ function App() {
                 <Messages owner={owner} />
               </ProtectedRoute>
             } />
-            </Route> */}
+            </Route>  */}
         </Routes>
       </Router>
       <button className="logout" onClick={logout}>
@@ -174,5 +198,5 @@ function App() {
       </button>
     </div>
   );
-          }
+}
 export default App;
