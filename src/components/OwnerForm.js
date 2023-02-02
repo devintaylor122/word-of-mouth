@@ -1,5 +1,5 @@
 import { db } from "../firebaseconfig.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import "./OwnerForm.css";
@@ -27,10 +27,11 @@ function OwnerForm() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
 
   const createOwner = async () => {
     await addDoc(usersCollectionRef, {
@@ -47,6 +48,7 @@ function OwnerForm() {
   const register = async () => {
     try {
       // this will create a new user in our authentication in firbase and at the same time in will log you in
+      console.log("HEY");
       const user = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
@@ -56,6 +58,7 @@ function OwnerForm() {
 
       console.log(user);
     } catch (error) {
+      alert("Check your email or password");
       console.log(error.message);
     }
   };

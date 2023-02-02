@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
-import { getAuth } from 'firebase/auth';
+import { getAuth } from "firebase/auth";
 
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -12,6 +12,7 @@ import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: "AIzaSyB5UsX1STwAwFPmWqsPgXvINbcIqUFaa5w",
   authDomain: "ada-word-of-mouth.firebaseapp.com",
+  databaseURL: "https://ada-word-of-mouth-default-rtdb.firebaseio.com",
   projectId: "ada-word-of-mouth",
   storageBucket: "ada-word-of-mouth.appspot.com",
   messagingSenderId: "731717180711",
@@ -23,4 +24,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const db = getFirestore(app);
-export const auth = getAuth(app)
+export const auth = getAuth(app);
