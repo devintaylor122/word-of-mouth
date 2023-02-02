@@ -108,8 +108,6 @@ function App() {
   // };
   // console.log(user);
   return (
-    
-    /*
     <div className="App">
       <Router>
         <Routes>
@@ -134,80 +132,47 @@ function App() {
                 <SingleServiceP customer={customer} />
               </ProtectedRoute>
             } />
-            <Route path="/messages/:SPid" element ={
+            <Route path="/messages" element ={
               <ProtectedRoute customer={customer}>
-                <SingleServiceP customer={customer} />
+                <Messages customer={customer} />
               </ProtectedRoute>
             } />
-        </Routes>
-      </Router>
-    */
-    <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/OwnerForm" element={<OwnerForm />} />
-          <Route path="/CustomerForm" element={<CustomerForm />} />
-          <Route
-            path="/OwnerLogin"
-            element={<OwnerLogin setAUser={setUser} />}
-          />
-          <Route path="/OwnerLogin" element={<OwnerLogin />} />
-          <Route path="/CustomerLogin" element={<CustomerLogin />} />
-          <Route
-            path="/CustomerDashboard"
-            // state={{ ServiceProvidersList: serviceProviderList }}
-            element={
-              <ProtectedRoute user={user}>
-                <CustomerDashboard props={{ serviceProviderList }} />
+            <Route path="/messages/:Cid" element ={
+              <ProtectedRoute customer={customer}>
+                <Messages customer={customer} />
               </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/CustomerDashboard/:SPId"
-            element={<SingleServiceP serviceProviders={serviceProviderList} />}
-          />
-          {/* <Route path="/CustomerDashboard" */}
-          <Route path="*" element={<Error />} />
+            } />
+            </Route>
+
+            {/* <Route path="/ownerdash" element={<SharedOwnerLayout/>}>
+            <Route index element ={
+              <ProtectedRoute owner={owner}>
+                <OwnerDash owner={owner} />
+              </ProtectedRoute>
+            } />
+            <Route path="/edit" element ={
+              <ProtectedRoute owner={owner}>
+                <Edit owner={owner} />
+              </ProtectedRoute>
+            }/>
+            <Route path="/messages" element ={
+              <ProtectedRoute owner={owner}>
+                <Messages owner={owner} />
+              </ProtectedRoute>
+            } />
+            <Route path="/messages/:SPid" element ={
+              <ProtectedRoute owner={owner}>
+                <Messages owner={owner} />
+              </ProtectedRoute>
+            } />
+            </Route> */}
         </Routes>
       </Router>
-
-
-
-      {/* <div>
-        <h3> Login </h3>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-        />
-        <button onClick={login}> Login</button>
-      </div> 
-      <h4> User Logged In: </h4>
-        {user?.email}  */}
-
       <button className="logout" onClick={logout}>
         {" "}
         Sign Out
       </button>
     </div>
   );
-
-  //   <div className="App">
-  //     <ServiceProvidersList
-  //       toggleDisplay={toggleDisplay}
-  //       industriesList={serviceProviderList}
-  //     />
-  //     <OwnerForm /*createOwner={createOwner}*/></OwnerForm>
-  //   </div>
-  // );
-}
-
+          }
 export default App;
