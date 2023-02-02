@@ -19,6 +19,11 @@ function OwnerForm() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [user, setUser] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   onAuthStateChanged(auth, (currentUser)=> {
     setUser(currentUser);
@@ -36,17 +41,17 @@ function OwnerForm() {
     }
   };
 
-  const createOwner = async () => {
-    await addDoc(usersCollectionRef, {
-      company: newCompany,
-      owner: newOwner,
-      phone: parseInt(newPhone),
-      email: newEmail,
-      industry: newIndustry,
-      specialty: newSpecialty,
-      hours: newHours,
-    });
-  };
+  // const createOwner = async () => {
+  //   await addDoc(usersCollectionRef, {
+  //     company: newCompany,
+  //     owner: newOwner,
+  //     phone: parseInt(newPhone),
+  //     email: newEmail,
+  //     industry: newIndustry,
+  //     specialty: newSpecialty,
+  //     hours: newHours,
+  //   });
+  // };
 
   return (
     <form className="form">
@@ -78,24 +83,6 @@ function OwnerForm() {
           }}
         />
       </div>
-
-      <div>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setNewEmail(event.target.value);
-          }}
-        />
-      </div>
-      <div>
-      <input 
-      placeholder="Password..." 
-      onChange={(event) => {
-        setRegisterPassword(event.target.value)
-        }}
-        />
-        </div>
-
       <div>
         <Dropdown
           isMulti
@@ -125,6 +112,26 @@ function OwnerForm() {
           }}
         />
       </div>
+      <div>
+        <input
+          placeholder="Email..."
+          onChange={(event) => {
+            setRegisterEmail(event.target.value);
+          }}
+        />
+      </div>
+      <div>
+      <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password..."
+          onChange={(event) => {
+            setRegisterPassword(event.target.value);
+          }}
+        />
+        <button onClick={togglePasswordVisibility}>
+          {showPassword ? "Hide" : "Show"} Password
+        </button>
+        </div>
       {/* <button onClick={createOwner}>Submit</button> */}
       <div>
           {/* <h3> Service Provider Sign Up</h3> */}

@@ -18,7 +18,6 @@ import CustomerDashboard from "./components/CustomerDashboard";
 import SingleServiceP from "./components/SingleServiceP";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Error from "./components/Error";
-import OwnerCreateAccount from "./components/OwnerCreateAccount";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
@@ -119,8 +118,7 @@ function App() {
             path="/OwnerLogin"
             element={<OwnerLogin setAUser={setUser} />}
           />
-          <Route path="/OwnerCreateAccount" element={<OwnerCreateAccount />} />
-          {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
+          <Route path="/OwnerLogin" element={<OwnerLogin />} />
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route
             path="/CustomerDashboard"
@@ -139,6 +137,8 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
+
+
 
       {/* <div>
         <h3> Login </h3>
