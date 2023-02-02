@@ -4,8 +4,11 @@ import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import "./OwnerForm.css";
 import { Link } from "react-router-dom";
-import{ createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
-import{ auth } from '../firebaseconfig';
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "../firebaseconfig";
 
 function OwnerForm() {
   const [newCompany, setNewCompany] = useState("");
@@ -25,33 +28,37 @@ function OwnerForm() {
     setShowPassword(!showPassword);
   };
 
-  onAuthStateChanged(auth, (currentUser)=> {
+  onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
-  })
-  const register = async () => {
-    try{ 
-    // this will create a new user in our authentication in firbase and at the same time in will log you in
-    const user = await createUserWithEmailAndPassword(
-      auth, 
-      registerEmail, 
-      registerPassword);
-    console.log(user)
-  } catch (error) {
-    console.log(error.message);
-    }
+  });
+
+  const createOwner = async () => {
+    await addDoc(usersCollectionRef, {
+      company: newCompany,
+      owner: newOwner,
+      phone: parseInt(newPhone),
+      email: newEmail,
+      industry: newIndustry,
+      specialty: newSpecialty,
+      hours: newHours,
+    });
   };
 
-  // const createOwner = async () => {
-  //   await addDoc(usersCollectionRef, {
-  //     company: newCompany,
-  //     owner: newOwner,
-  //     phone: parseInt(newPhone),
-  //     email: newEmail,
-  //     industry: newIndustry,
-  //     specialty: newSpecialty,
-  //     hours: newHours,
-  //   });
-  // };
+  const register = async () => {
+    try {
+      // this will create a new user in our authentication in firbase and at the same time in will log you in
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      createOwner();
+
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <form className="form">
@@ -121,7 +128,7 @@ function OwnerForm() {
         />
       </div>
       <div>
-      <input
+        <input
           type={showPassword ? "text" : "password"}
           placeholder="Password..."
           onChange={(event) => {
@@ -131,15 +138,13 @@ function OwnerForm() {
         <button onClick={togglePasswordVisibility}>
           {showPassword ? "Hide" : "Show"} Password
         </button>
-        </div>
+      </div>
       {/* <button onClick={createOwner}>Submit</button> */}
       <div>
-          {/* <h3> Service Provider Sign Up</h3> */}
-          {/* <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/> */}
-          <button onClick={register}> Create Account</button>
-        </div>
-
-      
+        {/* <h3> Service Provider Sign Up</h3> */}
+        {/* <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/> */}
+        <button onClick={register}> Create Account</button>
+      </div>
     </form>
   );
 }
