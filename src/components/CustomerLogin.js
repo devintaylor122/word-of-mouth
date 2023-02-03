@@ -62,7 +62,7 @@ function CustomerLogin() {
       </div>
 
       <div>
-        <Link to="/CustomerDashboard">
+        <Link to="/customer/dash">
           <button onClick={login}> Login</button>
         </Link>
 

@@ -55,7 +55,7 @@ function OwnerLogin({ setAUser }) {
     e.preventDefault();
     if (!loginPassword || !loginEmail) return;
     setAUser({ email: loginEmail, loginPassword: loginPassword });
-    navigate("/CustomerDashboard");
+    navigate("/customer/dash");
   };
 
   return (
