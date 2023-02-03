@@ -22,17 +22,17 @@ function OwnerForm() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [user, setUser] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  // const togglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword);
+  // };
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //   });
+  // }, []);
 
   const createOwner = async () => {
     console.log("Hello");
@@ -40,7 +40,7 @@ function OwnerForm() {
       company: newCompany,
       owner: newOwner,
       phone: parseInt(newPhone),
-      email: registerEmail,
+      // email: registerEmail,
       industry: newIndustry,
       specialty: newSpecialty,
       hours: newHours,
@@ -124,15 +124,15 @@ function OwnerForm() {
           }}
         />
       </div>
-      <div>
+      {/* <div>
         <input
           placeholder="Email..."
           onChange={(event) => {
             setRegisterEmail(event.target.value);
           }}
         />
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <input
           type={showPassword ? "text" : "password"}
           placeholder="Password..."
@@ -143,12 +143,12 @@ function OwnerForm() {
         <button onClick={togglePasswordVisibility}>
           {showPassword ? "Hide" : "Show"} Password
         </button>
-      </div>
+      </div> */}
       {/* <button onClick={createOwner}>Submit</button> */}
       <div>
         {/* <h3> Service Provider Sign Up</h3> */}
         {/* <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/> */}
-        <button onClick={register}> Create Account</button>
+        <button onClick={register}> Submit</button>
       </div>
     </form>
   );

@@ -14,6 +14,13 @@ function Home() {
           <Link to="/OwnerForm">OWNER SIGN-UP</Link>
         </button>
 
+        <button className="ownerCreateAccount">
+          <Link to="/ownerCreateAccount">OWNER Create Account</Link>
+        </button>
+        <button className="CustomerCreateAccount">
+          <Link to="/CustomerCreateAccount">Customer Create Account</Link>
+        </button>
+
         <button className="customerSignUp">
           <Link to="/CustomerForm">CUSTOMER SIGN-IN</Link>
         </button>

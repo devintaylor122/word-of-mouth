@@ -2,17 +2,20 @@
 import { useState } from "react";
 // import { collection, addDoc } from "firebase/firestore";
 // import Dropdown from "./Dropdown.js";
-import "./OwnerForm.js";
+// import "./OwnerForm.js";
 import { Link } from "react-router-dom";
 import{ createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
 import{ auth } from '../firebaseconfig';
 
-function OwnerCreateAccount() {
+
+function CustomerCreateAccount() {
 //   const usersCollectionRef = collection(db, "owners");
 const [registerEmail, setRegisterEmail] = useState("");
 const [registerPassword, setRegisterPassword] = useState("");
 const [user, setUser] = useState({});
 const [showPassword, setShowPassword] = useState(false);
+const [newPhone, setNewPhone] = useState(0);
+
 
 const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -42,7 +45,7 @@ return (
     <p>XYZ</p>
     <Link to="/">back home</Link>
     </section> 
-        <h3> Service Provider Sign Up</h3>
+        <h3> Customer Sign Up</h3>
         <input
         placeholder="Email..."
         onChange={(event) => {
@@ -55,6 +58,7 @@ return (
         <button onClick={togglePasswordVisibility}>
         {showPassword ? "Hide" : "Show"} Password
         </button>
+
             
         <Link to="/"> 
         <button onClick={register}> Sign Up or Create Account</button>
@@ -64,4 +68,4 @@ return (
 );
 }
 
-export default OwnerCreateAccount;
+export default CustomerCreateAccount

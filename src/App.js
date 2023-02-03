@@ -17,6 +17,7 @@ import CustomerLogin from "./components/CustomerLogin";
 import CustomerDashboard from "./components/CustomerDashboard";
 import SingleServiceP from "./components/SingleServiceP";
 import ProtectedRoute from "./components/ProtectedRoute";
+import OwnerCreateAccount from "./components/OwnerCreateAccount";
 import Error from "./components/Error";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
@@ -38,6 +39,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "./firebaseconfig";
+import CustomerCreateAccount from "./components/CustomerCreateAccount";
 
 function App() {
   // const [registerEmail, setRegisterEmail] = useState("");
@@ -114,6 +116,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/OwnerForm" element={<OwnerForm />} />
           <Route path="/CustomerForm" element={<CustomerForm />} />
+          <Route path="/OwnerCreateAccount" element={<OwnerCreateAccount />} />
+          <Route path="/CustomerCreateAccount" element={<CustomerCreateAccount/>} />
           <Route
             path="/OwnerLogin"
             element={<OwnerLogin setAUser={setUser} />}
