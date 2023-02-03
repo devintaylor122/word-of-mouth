@@ -74,7 +74,7 @@ function CustomerForm() {
       {/* <button onClick={createCustomer}>Submit</button> */}
       <div>
         {/* <h3> Customer Sign Up </h3> */}
-        <input
+        {/* <input
           placeholder="Email..."
           onChange={(event) => {
             setRegisterEmail(event.target.value);
@@ -91,8 +91,8 @@ function CustomerForm() {
           <button onClick={togglePasswordVisibility}>
             {showPassword ? "Hide" : "Show"} Password
           </button>
-        </div>
-        <button onClick={register}> Create Account</button>
+        </div> */}
+        <button onClick={register}> Submit</button>
       </div>
     </form>
   );
