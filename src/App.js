@@ -66,14 +66,11 @@ function App() {
     await signOut(auth);
   };
 
-  const [serviceProviderList, setServiceProviderList] = useState([]);
+  const [ownersList, setOwnersList] = useState([]);
 
   const ownersCollectionRef = collection(db, "owners");
   const customersCollectionRef = collection(db, "customers");
-  // console.log("usersCollectionRef", usersCollectionRef);
-  // const createUser = async () => {
-  //   await addDoc(usersCollectionRef, { name: newName, age: parseInt(newAge) }); //takes in two things, reference to collection and object containing data/payload that we're adding
-  // };
+
   const createOwner = async (
     newCompany,
     newOwner,
@@ -94,33 +91,17 @@ function App() {
     });
   };
 
-  // const createOwner = async () => {
-  //   console.log("Hello");
-  //   await addDoc(usersCollectionRef, {
-  //     company: newCompany,
-  //     owner: newOwner,
-  //     phone: parseInt(newPhone),
-  //     // email: registerEmail,
-  //     industry: newIndustry,
-  //     specialty: newSpecialty,
-  //     hours: newHours,
-  //   });
-  //   console.log("Thank you for coming");
-  // };
-
   // useEffect is called everytime page renders, don't async useEffect - bad practice
   useEffect(() => {
     //async function (other option: .then, .catch)
-    const getServiceProviders = async () => {
+    const getOwners = async () => {
       // console.log("XHELLOOOOO");
       const data = await getDocs(ownersCollectionRef);
 
-      setServiceProviderList(
-        data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      ); //doc.data access object that contains name and age
+      setOwnersList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))); //doc.data access object that contains name and age
       // console.log("data HELLOOOOO", data);
     };
-    getServiceProviders();
+    getOwners();
   }, []);
   // console.log("SERVICE PROVIDERS", serviceProviderList);
   // const toggleDisplay = async (id, displayStatus) => {
@@ -158,13 +139,13 @@ function App() {
             // state={{ ServiceProvidersList: serviceProviderList }}
             element={
               <ProtectedRoute user={user}>
-                <CustomerDashboard props={{ serviceProviderList }} />
+                <CustomerDashboard props={{ ownersList }} />
               </ProtectedRoute>
             }
           />
           <Route
             path="/CustomerDashboard/:SPId"
-            element={<SingleServiceP serviceProviders={serviceProviderList} />}
+            element={<SingleServiceP serviceProviders={ownersList} />}
           />
           {/* <Route path="/CustomerDashboard" */}
           {/* <Route path="*" element={<Error />} />

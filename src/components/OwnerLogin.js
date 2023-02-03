@@ -1,6 +1,14 @@
 //eventually need to change to make sure owner login sends owner to their dashboard, not customer dashboard
+//FEB 2 - SHOW PASSWORD IS SUBMITTING INFO
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, Switch, BrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Switch,
+  BrowserRouter,
+} from "react-router-dom";
 // import Home from "./components/Home";
 // import OwnerForm from "./components/OwnerForm";
 // import OwnerLogin from "../components/OwnerLogin";
@@ -25,12 +33,13 @@ function OwnerLogin({ setAUser }) {
   const login = async () => {
     try {
       // this will create a new user in our authentication in firbase and at the same time in will log you in
+      console.log("YOOOOO");
       const user = await signInWithEmailAndPassword(
         auth,
         loginEmail,
         loginPassword
       );
-      console.log(user);
+      console.log("OYYYYYY", user);
     } catch (error) {
       alert("Check your email or password");
       console.log(error.message);
@@ -80,10 +89,9 @@ function OwnerLogin({ setAUser }) {
 
         <h4> User Logged In: </h4>
         {user?.email}
-        <Link to="/"> 
-        <button onClick={logout}> Sign Out </button>
+        <Link to="/">
+          <button onClick={logout}> Sign Out </button>
         </Link>
-        
       </form>
     </div>
   );

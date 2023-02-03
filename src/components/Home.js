@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import CustomerLogin from "./CustomerLogin";
 import "./Home.css";
+import OwnerLogin from "./OwnerLogin";
 
 function Home() {
   return (
@@ -38,6 +40,12 @@ function Home() {
         </button>
       </nav>
       <p> Welcome to Word of Mouth...</p>
+      {/* <div>
+        <OwnerLogin></OwnerLogin>
+      </div>
+      <div>
+        <CustomerLogin></CustomerLogin>
+      </div> */}
     </div>
   );
 }
