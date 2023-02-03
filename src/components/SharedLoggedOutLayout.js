@@ -1,14 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import CustomerLogin from "./CustomerLogin";
+import { Link, Outlet } from "react-router-dom";
 import "./Home.css";
-import OwnerLogin from "./OwnerLogin";
 
-function Home() {
+function SharedLoggedOutLayout() {
   return (
-    <div className="home-page">
-      {/* <nav>
-        <button className="home">
+    <div className="logged-out-nav">
+      <nav>
+        <button className="logged-out">
           <Link to="/"> HOME </Link>
         </button>
 
@@ -36,18 +34,12 @@ function Home() {
         </button>
 
         <button className="customerDash">
-          <Link to="CustomerDashboard">Customer Dash</Link>
+          <Link to="/CustomerDashboard">Customer Dash</Link>
         </button>
-      </nav> */}
-      <p> Welcome to Word of Mouth...</p>
-      {/* <div>
-        <OwnerLogin></OwnerLogin>
-      </div>
-      <div>
-        <CustomerLogin></CustomerLogin>
-      </div> */}
+      </nav>
+      <Outlet />
     </div>
   );
 }
 
-export default Home;
+export default SharedLoggedOutLayout;
