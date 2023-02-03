@@ -41,13 +41,16 @@ import {
 import { auth } from "./firebaseconfig";
 import CustomerCreateAccount from "./components/CustomerCreateAccount";
 import SharedLoggedOutLayout from "./components/SharedLoggedOutLayout";
+import SharedCustLayout from "./components/SharedCustLayout";
+import SharedOwnerLayout from "./components/SharedOwnerLayout";
 
 function App() {
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [user, setUser] = useState({});
+  const [owner, setOwner] = useState({});
+  const [customer, setCustomer] = useState({});
 
   // const login = async () => {
   //   try {
@@ -78,7 +81,8 @@ function App() {
     newPhone,
     newIndustry,
     newSpecialty,
-    newHours
+    newHours,
+    mobile
   ) => {
     console.log("In createOwner");
     await addDoc(ownersCollectionRef, {
@@ -89,6 +93,7 @@ function App() {
       industry: newIndustry,
       specialty: newSpecialty,
       hours: newHours,
+      mobile: mobile,
     });
   };
 
@@ -134,12 +139,12 @@ function App() {
             />
             <Route
               path="OwnerLogin"
-              element={<OwnerLogin setAUser={setUser} />}
+              element={<OwnerLogin setAUser={setOwner} />}
             />
             {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
             <Route path="CustomerLogin" element={<CustomerLogin />} />
 
-            <Route
+            {/* <Route
               path="CustomerDashboard"
               // state={{ ServiceProvidersList: serviceProviderList }}
               element={
@@ -148,68 +153,52 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="CustomerDashboard/:SPId"
-              element={<SingleServiceP serviceProviders={ownersList} />}
-            />
+          </Route> */}
           </Route>
-          {/* <Route path="/CustomerDashboard" */}
-          {/* <Route path="*" element={<Error />} />
-          {/* <Route path="/" element={<SharedLoggedOutLayout />}>
-            <Route index element={<Home />} />
-            <Route path="customerform" element={<CustomerForm />} />
-            <Route path="ownerform" element={<OwnerForm />} />
-          </Route>
-          <Route path="/customerdash" element={<SharedCustLayout/>}>
-            <Route index element ={
-              <ProtectedRoute customer={customer}>
-                <CustomerDash customer={customer} />
-              </ProtectedRoute>
-            } />
-            <Route path="/serviceproviders" element ={
-              <ProtectedRoute customer={customer}>
-                <ServiceProvidersList customer={customer} />
-              </ProtectedRoute>
-            } />
-            <Route path="/serviceproviders/:SPid" element ={
-              <ProtectedRoute customer={customer}>
-                <SingleServiceP customer={customer} />
-              </ProtectedRoute>
-            } />
-            <Route path="/messages" element ={
-              <ProtectedRoute customer={customer}>
-                <Messages customer={customer} />
-              </ProtectedRoute>
-            } />
-            <Route path="/messages/:Cid" element ={
-              <ProtectedRoute customer={customer}>
-                <Messages customer={customer} />
-              </ProtectedRoute>
-            } />
-            </Route>
 
-            <Route path="/ownerdash" element={<SharedOwnerLayout/>}>
-            <Route index element ={
-              <ProtectedRoute owner={owner}>
-                <OwnerDash owner={owner} />
-              </ProtectedRoute>
-            } />
-            <Route path="/edit" element ={
-              <ProtectedRoute owner={owner}>
-                <Edit owner={owner} />
-              </ProtectedRoute>
-            }/>
-            <Route path="/messages" element ={
-              <ProtectedRoute owner={owner}>
-                <Messages owner={owner} />
-              </ProtectedRoute>
-            } />
-            <Route path="/messages/:SPid" element ={
-              <ProtectedRoute owner={owner}>
-                <Messages owner={owner} />
-              </ProtectedRoute>
-            } />
-            </Route>  */}
+          <Route path="/customer" element={<SharedCustLayout />}>
+            {/* <ProtectedRoute customer={customer}> */}
+            <Route
+              path="/dash"
+              element={
+                <ProtectedRoute customer={customer}>
+                  <CustomerDashboard />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/list"
+              element={
+                <ProtectedRoute customer={customer}>
+                  <ServiceProvidersList />
+                </ProtectedRoute>
+              }
+            >
+              <Route>
+                path="/SPId" element=
+                {
+                  <ProtectedRoute serviceProviders={ownersList}>
+                    <SingleServiceP />
+                  </ProtectedRoute>
+                }
+                >
+              </Route>
+            </Route>
+            {/* <Route path="/messaging" element={<Messages />}/> */}
+          </Route>
+
+          {/* </ProtectedRoute> */}
+          {/* </Route> */}
+
+          <Route path="/owner" element={<SharedOwnerLayout />}>
+            <ProtectedRoute owner={owner}>
+              <Route path="/dash" element={<CustomerDashboard />}></Route>
+              {/* <Route path="/edit" element ={<EditOwner/>}></Route>  */}
+              {/* <Route path="/messaging" element={<Messages />}/> */}
+            </ProtectedRoute>
+          </Route>
+
+          <Route path="*" element={<Error />} />
         </Routes>
       </Router>
       <button className="logout" onClick={logout}>

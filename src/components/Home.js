@@ -40,12 +40,12 @@ function Home() {
         </button>
       </nav> */}
       <p> Welcome to Word of Mouth...</p>
-      {/* <div>
+      <div>
         <OwnerLogin></OwnerLogin>
       </div>
       <div>
         <CustomerLogin></CustomerLogin>
-      </div> */}
+      </div>
     </div>
   );
 }

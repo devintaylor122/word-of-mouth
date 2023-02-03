@@ -17,6 +17,7 @@ function OwnerForm(props) {
   const [newIndustry, setNewIndustry] = useState([]);
   const [newSpecialty, setNewSpecialty] = useState("");
   const [newHours, setNewHours] = useState("");
+  const [mobile, setMobile] = useState("Not Mobile");
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
 
@@ -106,7 +107,6 @@ function OwnerForm(props) {
 
       <div>
         <input
-          type="number"
           placeholder="Phone number (no spaces)"
           onChange={(event) => {
             setNewPhone(event.target.value);
@@ -142,6 +142,30 @@ function OwnerForm(props) {
           }}
         />
       </div>
+
+      <div>
+        <input
+          type="radio"
+          name="mobile"
+          value="Mobile"
+          checked={mobile === "Mobile"}
+          onChange={(event) => {
+            setMobile(event.target.value);
+          }}
+        />
+        <label>Mobile</label>
+
+        <input
+          type="radio"
+          name="mobile"
+          value="Not Mobile"
+          checked={mobile === "Not Mobile"}
+          onChange={(event) => {
+            setMobile(event.target.value);
+          }}
+        />
+        <label>Not Mobile</label>
+      </div>
       {/* <div>
         <input
           placeholder="Email..."
@@ -174,7 +198,8 @@ function OwnerForm(props) {
               newPhone,
               newIndustry,
               newSpecialty,
-              newHours
+              newHours,
+              mobile
             );
           }}
         >

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import "./Home.css";
 
-function SharedCustLayout() {
+function SharedOwnerLayout() {
   return (
     <div>
       <nav>
@@ -9,12 +10,8 @@ function SharedCustLayout() {
           <Link to="/"> HOME </Link>
         </button>
 
-        <button className="customer-dash">
-          <Link to="/customerdash">DASH</Link>
-        </button>
-
-        <button className="service-providers">
-          <Link to="/customerdash/serviceproviders ">Services</Link>
+        <button className="owner-dash">
+          <Link to="/ownerdash">DASH</Link>
         </button>
 
         <button className="messages">
@@ -30,4 +27,4 @@ function SharedCustLayout() {
   );
 }
 
-export default SharedCustLayout;
+export default SharedOwnerLayout;

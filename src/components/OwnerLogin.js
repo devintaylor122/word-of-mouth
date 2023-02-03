@@ -61,7 +61,7 @@ function OwnerLogin({ setAUser }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h3> Login </h3>
+        <h3> Owner Login </h3>
         <input
           type="email"
           placeholder="Email..."
@@ -87,11 +87,9 @@ function OwnerLogin({ setAUser }) {
           </button>
         </div>
 
-        <h4> User Logged In: </h4>
-        {user?.email}
-        <Link to="/">
+        {/* <Link to="/">
           <button onClick={logout}> Sign Out </button>
-        </Link>
+        </Link> */}
       </form>
     </div>
   );
