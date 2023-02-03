@@ -77,7 +77,8 @@ function App() {
     newPhone,
     newIndustry,
     newSpecialty,
-    newHours
+    newHours,
+    mobile
   ) => {
     console.log("In createOwner");
     await addDoc(ownersCollectionRef, {
@@ -88,6 +89,7 @@ function App() {
       industry: newIndustry,
       specialty: newSpecialty,
       hours: newHours,
+      mobile: mobile,
     });
   };
 
