@@ -12,11 +12,11 @@ import {
 } from "firebase/firestore";
 
 const CustomerDashboard = (props) => {
-  const { serviceProviderList } = props.props;
+  const { ownersList } = props.ownersList;
 
   return (
     <div>
-      <ServiceProvidersList industriesList={serviceProviderList} />
+      <ServiceProvidersList ownersList={ownersList} />
     </div>
   );
 };

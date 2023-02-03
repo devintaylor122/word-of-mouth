@@ -40,6 +40,7 @@ import {
 } from "firebase/auth";
 import { auth } from "./firebaseconfig";
 import CustomerCreateAccount from "./components/CustomerCreateAccount";
+import SharedLoggedOutLayout from "./components/SharedLoggedOutLayout";
 
 function App() {
   // const [registerEmail, setRegisterEmail] = useState("");
@@ -102,6 +103,7 @@ function App() {
       // console.log("data HELLOOOOO", data);
     };
     getOwners();
+    console.log("Owners: ", ownersList);
   }, []);
   // console.log("SERVICE PROVIDERS", serviceProviderList);
   // const toggleDisplay = async (id, displayStatus) => {
@@ -117,36 +119,40 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/OwnerForm"
-            element={<OwnerForm createOwner={createOwner} />}
-          />
-          <Route path="/CustomerForm" element={<CustomerForm />} />
-          <Route path="/OwnerCreateAccount" element={<OwnerCreateAccount />} />
-          <Route
-            path="/CustomerCreateAccount"
-            element={<CustomerCreateAccount />}
-          />
-          <Route
-            path="/OwnerLogin"
-            element={<OwnerLogin setAUser={setUser} />}
-          />
-          <Route path="/OwnerLogin" element={<OwnerLogin />} />
-          <Route path="/CustomerLogin" element={<CustomerLogin />} />
-          <Route
-            path="/CustomerDashboard"
-            // state={{ ServiceProvidersList: serviceProviderList }}
-            element={
-              <ProtectedRoute user={user}>
-                <CustomerDashboard props={{ ownersList }} />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/CustomerDashboard/:SPId"
-            element={<SingleServiceP serviceProviders={ownersList} />}
-          />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<SharedLoggedOutLayout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="OwnerForm"
+              element={<OwnerForm createOwner={createOwner} />}
+            />
+            <Route path="CustomerForm" element={<CustomerForm />} />
+            <Route path="OwnerCreateAccount" element={<OwnerCreateAccount />} />
+            <Route
+              path="CustomerCreateAccount"
+              element={<CustomerCreateAccount />}
+            />
+            <Route
+              path="OwnerLogin"
+              element={<OwnerLogin setAUser={setUser} />}
+            />
+            {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
+            <Route path="CustomerLogin" element={<CustomerLogin />} />
+
+            <Route
+              path="CustomerDashboard"
+              // state={{ ServiceProvidersList: serviceProviderList }}
+              element={
+                <ProtectedRoute user={user}>
+                  <CustomerDashboard ownersList={{ ownersList }} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="CustomerDashboard/:SPId"
+              element={<SingleServiceP serviceProviders={ownersList} />}
+            />
+          </Route>
           {/* <Route path="/CustomerDashboard" */}
           {/* <Route path="*" element={<Error />} />
           {/* <Route path="/" element={<SharedLoggedOutLayout />}>

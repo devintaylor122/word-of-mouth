@@ -6,7 +6,7 @@ import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
 
 function ServiceProvidersList(props) {
-  const serList = props.industriesList;
+  const serList = props.ownersList;
   // console.log("IN SPL", serList);
   // const info = useLocation();
   // const serList = info.state?.data;
