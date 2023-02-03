@@ -159,30 +159,32 @@ function App() {
           <Route path="/customer" element={<SharedCustLayout />}>
             {/* <ProtectedRoute customer={customer}> */}
             <Route
-              path="/dash"
+              path="dash"
               element={
                 <ProtectedRoute customer={customer}>
-                  <CustomerDashboard />
+                  <CustomerDashboard customer={customer} />
                 </ProtectedRoute>
               }
             ></Route>
             <Route
-              path="/list"
+              path="list"
               element={
                 <ProtectedRoute customer={customer}>
-                  <ServiceProvidersList />
+                  <ServiceProvidersList customer={customer} />
                 </ProtectedRoute>
               }
             >
-              <Route>
-                path="/SPId" element=
-                {
-                  <ProtectedRoute serviceProviders={ownersList}>
-                    <SingleServiceP />
+              <Route
+                path=":SPId"
+                element={
+                  <ProtectedRoute customer={customer}>
+                    <SingleServiceP
+                      customer={customer}
+                      serviceProviders={ownersList}
+                    />
                   </ProtectedRoute>
                 }
-                >
-              </Route>
+              />
             </Route>
             {/* <Route path="/messaging" element={<Messages />}/> */}
           </Route>
@@ -191,11 +193,16 @@ function App() {
           {/* </Route> */}
 
           <Route path="/owner" element={<SharedOwnerLayout />}>
-            <ProtectedRoute owner={owner}>
-              <Route path="/dash" element={<CustomerDashboard />}></Route>
-              {/* <Route path="/edit" element ={<EditOwner/>}></Route>  */}
-              {/* <Route path="/messaging" element={<Messages />}/> */}
-            </ProtectedRoute>
+            <Route
+              path="dash"
+              element={
+                <ProtectedRoute owner={owner}>
+                  <CustomerDashboard owner={owner} />
+                </ProtectedRoute>
+              }
+            />
+            {/* <Route path="/edit" element ={<EditOwner/>}></Route>  */}
+            {/* <Route path="/messaging" element={<Messages />}/> */}
           </Route>
 
           <Route path="*" element={<Error />} />
