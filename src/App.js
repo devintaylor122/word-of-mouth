@@ -48,19 +48,19 @@ function App() {
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
 
-  const login = async () => {
-    try {
-      // this will create a new user in our authentication in firbase and at the same time in will log you in
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  // const login = async () => {
+  //   try {
+  //     // this will create a new user in our authentication in firbase and at the same time in will log you in
+  //     const user = await signInWithEmailAndPassword(
+  //       auth,
+  //       loginEmail,
+  //       loginPassword
+  //     );
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
 
   const logout = async () => {
     await signOut(auth);
@@ -68,21 +68,44 @@ function App() {
 
   const [serviceProviderList, setServiceProviderList] = useState([]);
 
-  const usersCollectionRef = collection(db, "owners");
+  const ownersCollectionRef = collection(db, "owners");
+  const customersCollectionRef = collection(db, "customers");
   // console.log("usersCollectionRef", usersCollectionRef);
   // const createUser = async () => {
   //   await addDoc(usersCollectionRef, { name: newName, age: parseInt(newAge) }); //takes in two things, reference to collection and object containing data/payload that we're adding
   // };
-  // const createOwner = async (newCompany, newOwner, newPhone, newEmail, newSpecialty, newHours) => {
+  const createOwner = async (
+    newCompany,
+    newOwner,
+    newPhone,
+    newIndustry,
+    newSpecialty,
+    newHours
+  ) => {
+    console.log("In createOwner");
+    await addDoc(ownersCollectionRef, {
+      company: newCompany,
+      owner: newOwner,
+      phone: parseInt(newPhone),
+      // email: newEmail,
+      industry: newIndustry,
+      specialty: newSpecialty,
+      hours: newHours,
+    });
+  };
+
+  // const createOwner = async () => {
+  //   console.log("Hello");
   //   await addDoc(usersCollectionRef, {
-  //     Company: newCompany,
-  //     Owner: newOwner,
-  //     Phone: parseInt(newPhone),
-  //     Email: newEmail,
-  //     //Industry: newIndustry,
-  //     Specialty: newSpecialty,
-  //     Hours: newHours,
+  //     company: newCompany,
+  //     owner: newOwner,
+  //     phone: parseInt(newPhone),
+  //     // email: registerEmail,
+  //     industry: newIndustry,
+  //     specialty: newSpecialty,
+  //     hours: newHours,
   //   });
+  //   console.log("Thank you for coming");
   // };
 
   // useEffect is called everytime page renders, don't async useEffect - bad practice
@@ -90,7 +113,7 @@ function App() {
     //async function (other option: .then, .catch)
     const getServiceProviders = async () => {
       // console.log("XHELLOOOOO");
-      const data = await getDocs(usersCollectionRef);
+      const data = await getDocs(ownersCollectionRef);
 
       setServiceProviderList(
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -114,10 +137,16 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/OwnerForm" element={<OwnerForm />} />
+          <Route
+            path="/OwnerForm"
+            element={<OwnerForm createOwner={createOwner} />}
+          />
           <Route path="/CustomerForm" element={<CustomerForm />} />
           <Route path="/OwnerCreateAccount" element={<OwnerCreateAccount />} />
-          <Route path="/CustomerCreateAccount" element={<CustomerCreateAccount/>} />
+          <Route
+            path="/CustomerCreateAccount"
+            element={<CustomerCreateAccount />}
+          />
           <Route
             path="/OwnerLogin"
             element={<OwnerLogin setAUser={setUser} />}

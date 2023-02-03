@@ -4,25 +4,21 @@ import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import "./OwnerForm.css";
 import { Link } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { auth } from "../firebaseconfig";
+// import {
+//   createUserWithEmailAndPassword,
+//   onAuthStateChanged,
+// } from "firebase/auth";
+// import { auth } from "../firebaseconfig";
 
-function OwnerForm() {
+function OwnerForm(props) {
   const [newCompany, setNewCompany] = useState("");
   const [newOwner, setNewOwner] = useState("");
   const [newPhone, setNewPhone] = useState(0);
-  const [newEmail, setNewEmail] = useState("");
   const [newIndustry, setNewIndustry] = useState([]);
   const [newSpecialty, setNewSpecialty] = useState("");
   const [newHours, setNewHours] = useState("");
-  const usersCollectionRef = collection(db, "owners");
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [user, setUser] = useState({});
-  // const [showPassword, setShowPassword] = useState(false);
+  // const usersCollectionRef = collection(db, "owners");
+  const createOwner = props.createOwner;
 
   // const togglePasswordVisibility = () => {
   //   setShowPassword(!showPassword);
@@ -34,39 +30,61 @@ function OwnerForm() {
   //   });
   // }, []);
 
-  const createOwner = async () => {
-    console.log("Hello");
-    await addDoc(usersCollectionRef, {
-      company: newCompany,
-      owner: newOwner,
-      phone: parseInt(newPhone),
-      // email: registerEmail,
-      industry: newIndustry,
-      specialty: newSpecialty,
-      hours: newHours,
-    });
-  };
+  // const createOwner = async () => {
+  //   console.log("Hello");
+  //   await addDoc(usersCollectionRef, {
+  //     company: newCompany,
+  //     owner: newOwner,
+  //     phone: parseInt(newPhone),
+  //     // email: registerEmail,
+  //     industry: newIndustry,
+  //     specialty: newSpecialty,
+  //     hours: newHours,
+  //   });
+  //   console.log("Thank you for coming");
+  // };
+  // const createOwner = addDoc(usersCollectionRef, {
+  //   company: newCompany,
+  //   owner: newOwner,
+  //   phone: parseInt(newPhone),
+  //   // email: registerEmail,
+  //   industry: newIndustry,
+  //   specialty: newSpecialty,
+  //   hours: newHours,
+  // });
+  // console.log("Thank you for coming");
 
-  const register = async () => {
-    try {
-      // this will create a new user in our authentication in firbase and at the same time in will log you in
-      console.log("HEY");
-      createOwner();
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
+  // const register = async () => {
+  //   try {
+  //     // this will create a new user in our authentication in firbase and at the same time in will log you in
+  //     console.log("HEY");
+  //     createOwner();
+  //     const user = await createUserWithEmailAndPassword(
+  //       auth,
+  //       registerEmail,
+  //       registerPassword
+  //     );
 
-      console.log(user);
-    } catch (error) {
-      alert("Check your email or password");
-      console.log(error.message);
-    }
-  };
+  //     console.log(user);
+  //   } catch (error) {
+  //     alert("Check your email or password");
+  //     console.log(error.message);
+  //   }
+  // };
 
   return (
-    <form className="form">
+    // <form
+    //   className="form"
+    //   onSubmit={createOwner(
+    //     newCompany,
+    //     newOwner,
+    //     newPhone,
+    //     newIndustry,
+    //     newSpecialty,
+    //     newHours
+    //   )}
+    // >
+    <div>
       <h3> Register Service Provider</h3>
       <div>
         <input
@@ -148,9 +166,24 @@ function OwnerForm() {
       <div>
         {/* <h3> Service Provider Sign Up</h3> */}
         {/* <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/> */}
-        <button onClick={register}> Submit</button>
+        <button
+          onClick={() => {
+            createOwner(
+              newCompany,
+              newOwner,
+              newPhone,
+              newIndustry,
+              newSpecialty,
+              newHours
+            );
+          }}
+        >
+          {" "}
+          Submit
+        </button>
       </div>
-    </form>
+    </div>
+    // </form>
   );
 }
 
