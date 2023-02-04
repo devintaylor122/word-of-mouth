@@ -120,6 +120,7 @@ function App() {
   //   );
   // };
   // console.log(user);
+  console.log("THE CUSTOMER: ", customer);
   return (
     <div className="App">
       <Router>
@@ -142,7 +143,10 @@ function App() {
               element={<OwnerLogin setAUser={setOwner} />}
             />
             {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
-            <Route path="CustomerLogin" element={<CustomerLogin />} />
+            <Route
+              path="CustomerLogin"
+              element={<CustomerLogin setCustomer={setCustomer} />}
+            />
 
             {/* <Route
               path="CustomerDashboard"
@@ -161,7 +165,7 @@ function App() {
             <Route
               path="dash"
               element={
-                <ProtectedRoute customer={customer}>
+                <ProtectedRoute user={customer}>
                   <CustomerDashboard customer={customer} />
                 </ProtectedRoute>
               }
@@ -169,7 +173,7 @@ function App() {
             <Route
               path="list"
               element={
-                <ProtectedRoute customer={customer}>
+                <ProtectedRoute user={customer}>
                   <ServiceProvidersList customer={customer} />
                 </ProtectedRoute>
               }
@@ -177,7 +181,7 @@ function App() {
               <Route
                 path=":SPId"
                 element={
-                  <ProtectedRoute customer={customer}>
+                  <ProtectedRoute user={customer}>
                     <SingleServiceP
                       customer={customer}
                       serviceProviders={ownersList}
@@ -196,7 +200,7 @@ function App() {
             <Route
               path="dash"
               element={
-                <ProtectedRoute owner={owner}>
+                <ProtectedRoute user={owner}>
                   <CustomerDashboard owner={owner} />
                 </ProtectedRoute>
               }

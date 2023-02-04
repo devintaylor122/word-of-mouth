@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Home from "./components/Home";
 // import OwnerForm from "./components/OwnerForm";
@@ -7,13 +7,14 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebaseconfig";
 import CustomerDashboard from "./CustomerDashboard";
 
-function CustomerLogin() {
+function CustomerLogin(props) {
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const setCustomer = props.setCustomer;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -27,6 +28,7 @@ function CustomerLogin() {
         loginEmail,
         loginPassword
       );
+      setCustomer({ email: loginEmail, loginPassword: loginPassword });
       console.log(user);
     } catch (error) {
       alert("Check your email or password");
@@ -35,6 +37,7 @@ function CustomerLogin() {
   };
   const logout = async () => {
     await signOut(auth);
+    setCustomer({ email: loginEmail, loginPassword: loginPassword });
   };
 
   return (
