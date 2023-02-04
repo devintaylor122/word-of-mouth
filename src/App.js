@@ -29,6 +29,8 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { ReactDOM } from "react";
 
@@ -96,7 +98,21 @@ function App() {
       mobile: mobile,
     });
   };
-
+  //--------------------------------NEED TO FIX--------------------------------
+  const filterOwners = async (inputIndustry, ownersList) => {
+    const customerIndQuery = query(
+      collection(db, "owners"),
+      where("industry", "==", inputIndustry) //lower-caseify inputIndustry
+      //could set a limit if app grows (ex: limit(10))
+    );
+    ownersList = [];
+    const querySnapshot = await getDocs(customerIndQuery);
+    const allDocs = querySnapshot.forEach((snap) => {
+      ownersList.push(snap.data());
+      console.log("In filterOwners. Data= ", snap.data);
+    });
+  };
+  //-----------------------------------------------------------------------------
   // useEffect is called everytime page renders, don't async useEffect - bad practice
   useEffect(() => {
     //async function (other option: .then, .catch)
@@ -177,6 +193,7 @@ function App() {
                   <ServiceProvidersList
                     ownersList={{ ownersList }}
                     customer={customer}
+                    filterOwners={filterOwners}
                   />
                 </ProtectedRoute>
               }

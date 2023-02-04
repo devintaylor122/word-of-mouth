@@ -1,13 +1,19 @@
 //PERHAPS THINK ABOUT COMBINING SERVICE PROVIDER INTO THIS ONE?
 //If I go straight to this page and not mainpage->here, then the SPs don't load/will be null
 //Remove underline from links
-import React from "react";
+import React, { useState } from "react";
 import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
 
 function ServiceProvidersList(props) {
-  const { ownersList } = props.ownersList;
+  let { ownersList } = props.ownersList;
+  const [filter, setFilter] = useState("");
+  const filterOwners = props.filterOwners;
   console.log("IN SPL", ownersList);
+
+  // const filterOwnersList = (filter, ownersList) => {
+  //   filterOwners(filter, ownersList)
+  // }
   // const info = useLocation();
   // const serList = info.state?.data;
 
@@ -22,7 +28,30 @@ function ServiceProvidersList(props) {
       </Link>
     </article>
   ));
-  return <div>{listElements}</div>;
+  return (
+    <div>
+      <form>
+        <input
+          type="text"
+          id="filter"
+          name="filter"
+          placeholder="Enter industry to filter"
+          // value={}
+          onChange={(event) => {
+            setFilter(event.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            filterOwners(filter, ownersList);
+          }}
+        >
+          Filter
+        </button>
+      </form>
+      <div>{listElements}</div>
+    </div>
+  );
 }
 const industries = [
   { Industry: "Food", Location: "Seattle" },
