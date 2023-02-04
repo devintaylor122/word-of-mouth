@@ -5,16 +5,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import CustomerLogin from "../components/CustomerLogin";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebaseconfig";
+import { useNavigate } from "react-router-dom";
 import CustomerDashboard from "./CustomerDashboard";
 
-function CustomerLogin(props) {
+function CustomerLogin({ setAUser })  {
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const setCustomer = props.setCustomer;
+  // const setCustomer = props.setCustomer;
+
+  // const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -28,7 +31,7 @@ function CustomerLogin(props) {
         loginEmail,
         loginPassword
       );
-      setCustomer({ email: loginEmail, loginPassword: loginPassword });
+      setAUser({ email: loginEmail, loginPassword: loginPassword });
       console.log(user);
     } catch (error) {
       alert("Check your email or password");
@@ -37,11 +40,20 @@ function CustomerLogin(props) {
   };
   const logout = async () => {
     await signOut(auth);
-    setCustomer({ email: loginEmail, loginPassword: loginPassword });
+    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    console.log(loginEmail, "Logout", loginPassword);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!loginPassword || !loginEmail) return;
+    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    // navigate("/owner/dash");
   };
 
   return (
     <div>
+      <form onSubmit={handleSubmit}>
       <h3> Customer Login </h3>
       <input
         type="email"
@@ -65,16 +77,18 @@ function CustomerLogin(props) {
       </div>
 
       <div>
-        <Link to="/customer/dash">
-          <button onClick={login}> Login</button>
-        </Link>
+          <button type="submit" onClick={login}>
+            {" "}
+            Login
+          </button>
+      </div>
 
         {/* <h4> User Logged In: </h4>
         {user?.email} */}
-        {/* <Link to="/"> 
-        <button onClick={logout}> Sign Out </button>
+        {/* <Link to="/csutomerDashboard"> 
+        <button onClick={logout}> Log In </button>
         </Link> */}
-      </div>
+      </form>
     </div>
   );
 }

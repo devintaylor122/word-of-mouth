@@ -16,7 +16,7 @@ function CustomerCreateAccount() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [newPhone, setNewPhone] = useState(0);
+  // const [newPhone, setNewPhone] = useState(0);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -32,18 +32,19 @@ function CustomerCreateAccount() {
         registerEmail,
         registerPassword
       );
+      // setAUser({ email: registerEmail, registerPassword: registerPassword });
       console.log(user);
     } catch (error) {
+      alert("Check your email or password");
       console.log(error.message);
     }
   };
 
   return (
     <div>
-      <section className="section">
-        <p>XYZ</p>
-        <Link to="/">back home</Link>
-      </section>
+      {/* <section className="section"> */}
+        {/* <Link to="/">back home</Link> */}
+      {/* </section> */}
       <h3> Customer Sign Up</h3>
       <input
         placeholder="Email..."
@@ -62,9 +63,12 @@ function CustomerCreateAccount() {
         {showPassword ? "Hide" : "Show"} Password
       </button>
 
-      <Link to="/customer/dash">
-        <button onClick={register}> Sign Up or Create Account</button>
-      </Link>
+      <div>
+        <button type="signUp" onClick={register}>
+          {" "}
+          Sign Up 
+        </button>
+      </div>
     </div>
   );
 }

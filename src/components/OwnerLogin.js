@@ -24,7 +24,7 @@ function OwnerLogin({ setAUser }) {
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -39,12 +39,14 @@ function OwnerLogin({ setAUser }) {
         loginEmail,
         loginPassword
       );
-      console.log("OYYYYYY", user);
+      setAUser({ email: loginEmail, loginPassword: loginPassword });
+      console.log(user);
     } catch (error) {
       alert("Check your email or password");
       console.log(error.message);
     }
   };
+
   const logout = async () => {
     await signOut(auth);
     setAUser({ email: loginEmail, loginPassword: loginPassword });
@@ -55,7 +57,7 @@ function OwnerLogin({ setAUser }) {
     e.preventDefault();
     if (!loginPassword || !loginEmail) return;
     setAUser({ email: loginEmail, loginPassword: loginPassword });
-    navigate("/customer/dash");
+    // navigate("/customer/dash");
   };
 
   return (
@@ -86,10 +88,6 @@ function OwnerLogin({ setAUser }) {
             Login
           </button>
         </div>
-
-        {/* <Link to="/">
-          <button onClick={logout}> Sign Out </button>
-        </Link> */}
       </form>
     </div>
   );

@@ -4,7 +4,9 @@ import { useState } from "react";
 // import Dropdown from "./Dropdown.js";
 import "./OwnerForm.js";
 import { Link } from "react-router-dom";
-import{ createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
+import{ createUserWithEmailAndPassword, 
+    onAuthStateChanged,
+} from 'firebase/auth';
 import{ auth } from '../firebaseconfig';
 
 function OwnerCreateAccount() {
@@ -29,6 +31,7 @@ const register = async () => {
         registerPassword);
     console.log(user)
 } catch (error) {
+    alert("Check your email and password")
     console.log(error.message);
     }
 };
@@ -37,11 +40,9 @@ return (
 
     <div>
 
-    <section className="section">
-
-    <p>XYZ</p>
-    <Link to="/">back home</Link>
-    </section> 
+    {/* <section className="section"> */}
+    {/* <Link to="/">back home</Link> */}
+    {/* </section>  */}
         <h3> Service Provider Sign Up</h3>
         <input
         placeholder="Email..."
@@ -51,14 +52,21 @@ return (
             />
         <input
         type={showPassword ? "text" : "password"}
-        placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}}/>
+        placeholder="Password..." 
+        onChange={(event) => {
+            setRegisterPassword(event.target.value)
+            }}
+        />
         <button onClick={togglePasswordVisibility}>
         {showPassword ? "Hide" : "Show"} Password
         </button>
             
-        <Link to="/"> 
-        <button onClick={register}> Sign Up or Create Account</button>
-        </Link>
+        <div>
+        <button type="signUp" onClick={register}>
+        {" "}
+        Sign Up 
+        </button>
+        </div>
     </div>
 
 );
