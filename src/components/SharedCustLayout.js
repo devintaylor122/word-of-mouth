@@ -10,15 +10,15 @@ function SharedCustLayout() {
         </button>
 
         <button className="customer-dash">
-          <Link to="/customerdash">DASH</Link>
+          <Link to="/customer/dash">DASH</Link>
         </button>
 
         <button className="service-providers">
-          <Link to="/customerdash/serviceproviders ">Services</Link>
+          <Link to="/customer/list ">Services</Link>
         </button>
 
         <button className="messages">
-          <Link to="/customerdash/messages">MESSAGES</Link>
+          <Link to="/customer/messages">MESSAGES</Link>
         </button>
 
         <button className="logout">

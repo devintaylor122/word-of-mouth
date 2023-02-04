@@ -28,7 +28,7 @@ const SingleServiceP = (props) => {
         <p>Email: {email}</p>
         <p>Phone: {phone}</p>
       </div>
-      <Link to="/CustomerDashboard">back to all Service Providers</Link>
+      <Link to="/customer/list">back to all Service Providers</Link>
     </section>
   );
 };

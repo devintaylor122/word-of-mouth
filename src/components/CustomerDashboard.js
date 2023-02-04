@@ -14,11 +14,7 @@ import {
 const CustomerDashboard = (props) => {
   const { ownersList } = props.ownersList;
 
-  return (
-    <div>
-      <ServiceProvidersList ownersList={ownersList} />
-    </div>
-  );
+  return <div>{/* <ServiceProvidersList ownersList={ownersList} /> */}</div>;
 };
 
 export default CustomerDashboard;

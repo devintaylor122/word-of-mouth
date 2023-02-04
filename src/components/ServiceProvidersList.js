@@ -6,14 +6,14 @@ import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
 
 function ServiceProvidersList(props) {
-  const serList = props.ownersList;
-  // console.log("IN SPL", serList);
+  const { ownersList } = props.ownersList;
+  console.log("IN SPL", ownersList);
   // const info = useLocation();
   // const serList = info.state?.data;
 
-  const listElements = serList.map((ind) => (
+  const listElements = ownersList.map((ind) => (
     <article key={ind.id}>
-      <Link to={`/CustomerDashboard/${ind.id}`}>
+      <Link to={`/customer/list/${ind.id}`}>
         <ServiceProvider
           serviceProviderList={props.industriesList}
           data={ind}

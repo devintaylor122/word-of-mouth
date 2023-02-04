@@ -174,22 +174,25 @@ function App() {
               path="list"
               element={
                 <ProtectedRoute user={customer}>
-                  <ServiceProvidersList customer={customer} />
+                  <ServiceProvidersList
+                    ownersList={{ ownersList }}
+                    customer={customer}
+                  />
                 </ProtectedRoute>
               }
-            >
-              <Route
-                path=":SPId"
-                element={
-                  <ProtectedRoute user={customer}>
-                    <SingleServiceP
-                      customer={customer}
-                      serviceProviders={ownersList}
-                    />
-                  </ProtectedRoute>
-                }
-              />
-            </Route>
+            />
+            <Route
+              path="list/:SPId"
+              element={
+                <ProtectedRoute user={customer}>
+                  <SingleServiceP
+                    customer={customer}
+                    serviceProviders={ownersList}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            {/* </Route> */}
             {/* <Route path="/messaging" element={<Messages />}/> */}
           </Route>
 
