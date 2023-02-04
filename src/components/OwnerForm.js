@@ -21,70 +21,9 @@ function OwnerForm(props) {
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
 
-  // const togglePasswordVisibility = () => {
-  //   setShowPassword(!showPassword);
-  // };
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //   });
-  // }, []);
-
-  // const createOwner = async () => {
-  //   console.log("Hello");
-  //   await addDoc(usersCollectionRef, {
-  //     company: newCompany,
-  //     owner: newOwner,
-  //     phone: parseInt(newPhone),
-  //     // email: registerEmail,
-  //     industry: newIndustry,
-  //     specialty: newSpecialty,
-  //     hours: newHours,
-  //   });
-  //   console.log("Thank you for coming");
-  // };
-  // const createOwner = addDoc(usersCollectionRef, {
-  //   company: newCompany,
-  //   owner: newOwner,
-  //   phone: parseInt(newPhone),
-  //   // email: registerEmail,
-  //   industry: newIndustry,
-  //   specialty: newSpecialty,
-  //   hours: newHours,
-  // });
-  // console.log("Thank you for coming");
-
-  // const register = async () => {
-  //   try {
-  //     // this will create a new user in our authentication in firbase and at the same time in will log you in
-  //     console.log("HEY");
-  //     createOwner();
-  //     const user = await createUserWithEmailAndPassword(
-  //       auth,
-  //       registerEmail,
-  //       registerPassword
-  //     );
-
-  //     console.log(user);
-  //   } catch (error) {
-  //     alert("Check your email or password");
-  //     console.log(error.message);
-  //   }
-  // };
+  
 
   return (
-    // <form
-    //   className="form"
-    //   onSubmit={createOwner(
-    //     newCompany,
-    //     newOwner,
-    //     newPhone,
-    //     newIndustry,
-    //     newSpecialty,
-    //     newHours
-    //   )}
-    // >
     <div>
       <h3> Register Service Provider</h3>
       <div>

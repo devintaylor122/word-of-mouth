@@ -76,7 +76,22 @@ function App() {
 
   const ownersCollectionRef = collection(db, "owners");
   const customersCollectionRef = collection(db, "customers");
-
+  const createCustomer = async (
+    newName,
+    newPhone,
+    newEmail,
+    newHeardFrom,
+    newCity
+  ) => {
+    console.log("In createCustomer");
+    await addDoc(customersCollectionRef, {
+      name: newName,
+      email: newEmail,
+      phone: parseInt(newPhone),
+      HeardFrom: newHeardFrom,
+      city: newCity,
+    });
+  };
   const createOwner = async (
     newCompany,
     newOwner,
@@ -119,6 +134,7 @@ function App() {
     const getOwners = async () => {
       // console.log("XHELLOOOOO");
       const data = await getDocs(ownersCollectionRef);
+      // const data = await getDocs(customersCollectionRef);
 
       setOwnersList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))); //doc.data access object that contains name and age
       // console.log("data HELLOOOOO", data);
@@ -146,8 +162,7 @@ function App() {
             <Route index element={<Home />} />
             <Route
               path="OwnerForm"
-              element={<OwnerForm createOwner={createOwner} />}
-            />
+              element={<OwnerForm createOwner={createOwner} />} />
             <Route path="CustomerForm" element={<CustomerForm />} />
             <Route path="OwnerCreateAccount" element={<OwnerCreateAccount />} />
             <Route

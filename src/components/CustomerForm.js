@@ -3,64 +3,45 @@
 import { db } from "../firebaseconfig.js";
 import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
+import Dropdown from "./Dropdown.js";
 // import "./CustomerForm.css";
 // import { Link } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { auth } from "../firebaseconfig";
+// import { auth } from "../firebaseconfig";
 
-function CustomerForm() {
-  const [newCustomer, setNewCustomer] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const usersCollectionRef = collection(db, "customers");
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [user, setUser] = useState({});
+function CustomerForm(props) {
+  const [newName, setNewName] = useState("")
   const [newPhone, setNewPhone] = useState(0);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-  }, []);
-
-  // const register = async () => {
-  //   try{
-  //   // this will create a new user in our authentication in firbase and at the same time in will log you in
-  //   const user = await createUserWithEmailAndPassword(
-  //     auth,
-  //     registerEmail,
-  //     registerPassword);
-  //   console.log(user)
-  // } catch (error) {
-  //   console.log(error.message);
-  //   }
-  // };
-
-  const register = async () => {
-    await addDoc(usersCollectionRef, {
-      customer: newCustomer,
-      email: newEmail,
-    });
-  };
+  const [newEmail, setNewEmail] = useState("");
+  const [newHeardFrom, setNewHeardFrom] = useState("true");
+  const [newCity, setNewCity] = useState("")
+  const [select, setSelect] = useState();
+  
+  // const usersCollectionRef = collection(db, "customers");
+  // const [registerEmail, setRegisterEmail] = useState("");
+  // const [registerPassword, setRegisterPassword] = useState("");
+  // const [user, setUser] = useState({});
+  const createCustomer= props.createCustomer;
 
   return (
-    <form className="form">
+    <div>
       <h3> Register Customer</h3>
+
       <div>
         <input
-          placeholder="Name..."
+          placeholder="Customer's Name..."
           onChange={(event) => {
-            setNewCustomer(event.target.value);
+            setNewName(event.target.value);
           }}
         />
       </div>
+
+      <input
+          type="email"
+          placeholder="Email..."
+          onChange={(event) => {
+            setNewEmail(event.target.value);
+          }}
+        />
 
       <div>
         <input
@@ -71,30 +52,51 @@ function CustomerForm() {
           }}
         />
       </div>
-      {/* <button onClick={createCustomer}>Submit</button> */}
+
       <div>
-        {/* <h3> Customer Sign Up </h3> */}
-        {/* <input
-          placeholder="Email..."
+        <input
+          placeholder="City"
           onChange={(event) => {
-            setRegisterEmail(event.target.value);
+            setNewCity(event.target.value);
           }}
         />
-        <div>
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password..."
-            onChange={(event) => {
-              setRegisterPassword(event.target.value);
-            }}
-          />
-          <button onClick={togglePasswordVisibility}>
-            {showPassword ? "Hide" : "Show"} Password
-          </button>
-        </div> */}
-        <button onClick={register}> Submit</button>
       </div>
-    </form>
+
+      
+      <div>
+        <h3>Heard By Word of Mouth?</h3>
+      </div>
+      <div>
+      <select 
+          placeholder="Heard through word of mouth"
+          options={Dropdown.options}
+          onChange={e=>setSelect(e.target.value)}
+        value={select} >
+          <option></option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div>
+        <button
+          onClick={() => {
+            createCustomer(
+              newName,
+              newPhone,
+              newEmail,
+              newHeardFrom,
+              newCity
+            );
+          }}
+        >
+
+          {" "}
+          Submit
+        </button>
+      </div>
+  </div>
+    
   );
 }
 
