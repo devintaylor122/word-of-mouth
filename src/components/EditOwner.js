@@ -116,9 +116,8 @@ const EditOwner = (props) {
         />
         <label>Not Mobile</label>
       </div>
+      
       <div>
-        {/* <h3> Service Provider Sign Up</h3> */}
-        {/* <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/> */}
         <button
           onClick={() => {update(props.user.id)}}
         >
@@ -127,6 +126,7 @@ const EditOwner = (props) {
         </button>
       </div>
     </div>
-    // </form>
   );
 }
+
+export default EditOwner;
