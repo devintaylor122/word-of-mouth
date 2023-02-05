@@ -1,21 +1,68 @@
 //PERHAPS THINK ABOUT COMBINING SERVICE PROVIDER INTO THIS ONE?
 //If I go straight to this page and not mainpage->here, then the SPs don't load/will be null
 //Remove underline from links
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
 
 function ServiceProvidersList(props) {
   let { ownersList } = props.ownersList;
   const [filter, setFilter] = useState("");
+  // const [displayOwners, setDisplayOwners] = useState(ownersList);
   const filterOwners = props.filterOwners;
-  console.log("IN SPL", ownersList);
 
+  // useEffect(() => {
+  //   console.log("Page is rendered");
+  //   const setInitial = async () => {
+  //     setDisplayOwners(ownersList);
+  //   };
+  //   setInitial();
+  //   console.log("Initial is set");
+  // }, []);
+
+  // const filterOwners = async (inputIndustry, ownersList) => {
+  //   const customerIndQuery = query(
+  //     collection(db, "owners"),
+  //     where("industry", "==", inputIndustry) //lower-caseify inputIndustry
+  //     //could set a limit if app grows (ex: limit(10))
+  //   );
+  //   ownersList = [];
+  //   const querySnapshot = await getDocs(customerIndQuery);
+  //   querySnapshot.forEach((snap) => {
+  //     ownersList.push(snap.data());
+  //     console.log("In filterOwners. Data= ", snap.data);
+  //   });
+  // };
   // const filterOwnersList = (filter, ownersList) => {
   //   filterOwners(filter, ownersList)
   // }
-  // const info = useLocation();
-  // const serList = info.state?.data;
+
+  // const filterOwners = (filter, ownersList) => {
+  //   console.log("Inside filterOwners, Filter= ", filter);
+
+  //   const filteredOwnersList = [];
+  //   for (const owner of ownersList) {
+  //     if (owner.industry.includes(filter)) {
+  //       filteredOwnersList.push(owner);
+  //     }
+  //   }
+  //   if (filteredOwnersList.length > 0) {
+  //     setDisplayOwners(filteredOwnersList);
+  //     console.log("not empty filter");
+  //   } else {
+  //     console.log("empty filter");
+  //     setDisplayOwners(ownersList);
+  //   }
+  //   console.log(
+  //     "filteredOwnersList",
+  //     filteredOwnersList,
+  //     "OWNERS",
+  //     ownersList,
+  //     "state",
+  //     displayOwners
+  //   );
+  // };
+  // console.log("OUTSIDE owners", ownersList);
 
   const listElements = ownersList.map((ind) => (
     <article key={ind.id}>
@@ -30,25 +77,26 @@ function ServiceProvidersList(props) {
   ));
   return (
     <div>
-      <form>
-        <input
-          type="text"
-          id="filter"
-          name="filter"
-          placeholder="Enter industry to filter"
-          // value={}
-          onChange={(event) => {
-            setFilter(event.target.value);
-          }}
-        />
-        <button
-          onClick={() => {
-            filterOwners(filter, ownersList);
-          }}
-        >
-          Filter
-        </button>
-      </form>
+      {/* <form> */}
+      <input
+        type="text"
+        id="filter"
+        name="filter"
+        placeholder="Enter industry to filter"
+        // value={}
+        onChange={(event) => {
+          setFilter(event.target.value);
+        }}
+      />
+      <button
+        onClick={() => {
+          // }} //   console.log("button clicked"); // {() => {
+          filterOwners(filter, ownersList);
+        }}
+      >
+        Filter
+      </button>
+      {/* </form> */}
       <div>{listElements}</div>
     </div>
   );

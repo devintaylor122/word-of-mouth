@@ -8,14 +8,14 @@ import { auth } from "../firebaseconfig";
 import { useNavigate } from "react-router-dom";
 import CustomerDashboard from "./CustomerDashboard";
 
-function CustomerLogin({ setAUser })  {
+function CustomerLogin({ setAUser }) {
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  // const setCustomer = props.setCustomer;
+  //   const setCustomer = props.setCustomer;
 
   // const navigate = useNavigate();
 
@@ -54,34 +54,34 @@ function CustomerLogin({ setAUser })  {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-      <h3> Customer Login </h3>
-      <input
-        type="email"
-        placeholder="Email..."
-        onChange={(event) => {
-          setLoginEmail(event.target.value);
-        }}
-      />
-      <input
-        type={showPassword ? "text" : "password"}
-        placeholder="Password..."
-        onChange={(event) => {
-          setLoginPassword(event.target.value);
-        }}
-      />
+        <h3> Customer Login </h3>
+        <input
+          type="email"
+          placeholder="Email..."
+          onChange={(event) => {
+            setLoginEmail(event.target.value);
+          }}
+        />
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password..."
+          onChange={(event) => {
+            setLoginPassword(event.target.value);
+          }}
+        />
 
-      <div>
-        <button onClick={togglePasswordVisibility}>
-          {showPassword ? "Hide" : "Show"} Password
-        </button>
-      </div>
+        <div>
+          <button onClick={togglePasswordVisibility}>
+            {showPassword ? "Hide" : "Show"} Password
+          </button>
+        </div>
 
-      <div>
+        <div>
           <button type="submit" onClick={login}>
             {" "}
             Login
           </button>
-      </div>
+        </div>
 
         {/* <h4> User Logged In: </h4>
         {user?.email} */}

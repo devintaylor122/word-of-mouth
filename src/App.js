@@ -31,6 +31,7 @@ import {
   deleteDoc,
   query,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 import { ReactDOM } from "react";
 
@@ -76,6 +77,7 @@ function App() {
 
   const ownersCollectionRef = collection(db, "owners");
   const customersCollectionRef = collection(db, "customers");
+
   const createCustomer = async (
     newName,
     newPhone,
@@ -114,19 +116,38 @@ function App() {
     });
   };
   //--------------------------------NEED TO FIX--------------------------------
+  // const filterOwners = async (inputIndustry, ownersList) => {
+  //   const customerIndQuery = query(
+  //     collection(db, "owners"),
+  //     where("industry", "==", inputIndustry) //lower-caseify inputIndustry
+  //     //could set a limit if app grows (ex: limit(10))
+  //   );
+  //   ownersList = [];
+  //   // const querySnapshot = await getDocs(customerIndQuery);
+  //   // querySnapshot.forEach((snap) => {
+  //   //   ownersList.push(snap.data());
+
+  //   onSnapshot(customerIndQuery, (querySnapshot)=> {
+  //     querySnapshot.docs.map((e)=> e.data())
+  //   })
+  //   console.log("In filterOwners. Data= ", snap.data);
+  //   };
   const filterOwners = async (inputIndustry, ownersList) => {
-    const customerIndQuery = query(
-      collection(db, "owners"),
-      where("industry", "==", inputIndustry) //lower-caseify inputIndustry
-      //could set a limit if app grows (ex: limit(10))
+    console.log("in filterOwners. Filtered word= ", inputIndustry);
+    console.log("unfiltered Owners: ", ownersList);
+    const q = await query(
+      ownersCollectionRef,
+      where("industry", "array-contains", inputIndustry)
     );
-    ownersList = [];
-    const querySnapshot = await getDocs(customerIndQuery);
-    const allDocs = querySnapshot.forEach((snap) => {
-      ownersList.push(snap.data());
-      console.log("In filterOwners. Data= ", snap.data);
+    const filteredOwnersList = [];
+    onSnapshot(q, (snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        filteredOwnersList.push({ ...doc.data(), id: doc.id });
+      });
+      console.log("filtered Owners: ", filteredOwnersList);
     });
   };
+
   //-----------------------------------------------------------------------------
   // useEffect is called everytime page renders, don't async useEffect - bad practice
   useEffect(() => {
@@ -162,7 +183,8 @@ function App() {
             <Route index element={<Home />} />
             <Route
               path="OwnerForm"
-              element={<OwnerForm createOwner={createOwner} />} />
+              element={<OwnerForm createOwner={createOwner} />}
+            />
             <Route path="CustomerForm" element={<CustomerForm />} />
             <Route path="OwnerCreateAccount" element={<OwnerCreateAccount />} />
             <Route
