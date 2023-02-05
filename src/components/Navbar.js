@@ -2,12 +2,13 @@
 //     return( <nav className="nav">
 // <a href="/" className="Word-of-Mouth"> Word of Mouth</a>
 // <ul>
-// <li>
-// <a href="/ownerCreateAccount">OWNER Create Account> Owner Sign Up</a>
-// <a href="/OwnerForm">OWNER SIGN-Up-Form"> Owner Sign Up Form</a>
-// <a href="/OwnerLogin">OWNER LOG-IN</a>
-// <a href="/CustomerCreateAccount">Customer Create Account</a>
-// <a href="/OwnerForm">OWNER SIGN-Up"> Owner Sign Up</a>
+// <li><a href="/ownerCreateAccount">OWNER Create Account> Owner Sign Up</a></li>
+// <li><a href="/OwnerForm">OWNER SIGN-Up-Form"> Owner Sign Up Form</a></li>
+//<li><a href="/OwnerLogin">OWNER LOG-IN</a></li>
+// <li><a href="/CustomerCreateAccount">Customer Create Account</a></li>
+// <li><a href="/CustomerForm">Customer SIGN-Up"> Customer Sign Up</a></li>
+//<li><a href="/CustomerLogin">Customer LOG-IN</a></li> 
+// </ul>
 
 //     <div className="logged-out-nav">
 //       <nav>

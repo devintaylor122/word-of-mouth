@@ -11,7 +11,7 @@ function SharedLoggedOutLayout() {
         </button>
 
         <button className="ownerSignUp">
-          <Link to="/OwnerForm">OWNER SIGN-UP</Link>
+          <Link to="/OwnerForm">OWNER Form</Link>
         </button>
 
         <button className="ownerCreateAccount">

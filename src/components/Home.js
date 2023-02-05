@@ -39,11 +39,11 @@ function Home() {
           <Link to="CustomerDashboard">Customer Dash</Link>
         </button>
       </nav> */}
-      <p> Welcome to Word of Mouth...</p>
-      <div>
+      <p> Welcome to Word of Mouth. <br></br>This is where customers meet their skilled service providers.</p>
+      <div id="contactTile">
         <OwnerLogin></OwnerLogin>
       </div>
-      <div>
+      <div id="contactTile">
         <CustomerLogin></CustomerLogin>
       </div>
     </div>
