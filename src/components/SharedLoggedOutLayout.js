@@ -6,7 +6,7 @@ function SharedLoggedOutLayout() {
   return (
     <div className="logged-out-nav">
       <nav>
-        <button className="logged-out">
+        <button type="logged-out">
           <Link to="/"> HOME </Link>
         </button>
 
@@ -21,8 +21,8 @@ function SharedLoggedOutLayout() {
           <Link to="/CustomerCreateAccount">Customer Create Account</Link>
         </button>
 
-        <button className="customerSignUp">
-          <Link to="/CustomerForm">CUSTOMER SIGN-IN</Link>
+        <button className="customerForm">
+          <Link to="/CustomerForm">CUSTOMER Form</Link>
         </button>
 
         <button className="ownerLogin">

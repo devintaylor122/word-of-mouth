@@ -21,8 +21,6 @@ function OwnerForm(props) {
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
 
-  
-
   return (
     <div>
       <h3> Register Service Provider</h3>

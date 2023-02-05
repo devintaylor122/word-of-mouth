@@ -74,6 +74,7 @@ function App() {
   };
 
   const [ownersList, setOwnersList] = useState([]);
+  const [displayOwners, setDisplayOwners] = useState([]);
 
   const ownersCollectionRef = collection(db, "owners");
   const customersCollectionRef = collection(db, "customers");
@@ -101,7 +102,8 @@ function App() {
     newIndustry,
     newSpecialty,
     newHours,
-    mobile
+    mobile,
+    isFavorite
   ) => {
     console.log("In createOwner");
     await addDoc(ownersCollectionRef, {
@@ -113,42 +115,48 @@ function App() {
       specialty: newSpecialty,
       hours: newHours,
       mobile: mobile,
+      isFavorite: false,
     });
   };
-  //--------------------------------NEED TO FIX--------------------------------
-  // const filterOwners = async (inputIndustry, ownersList) => {
-  //   const customerIndQuery = query(
-  //     collection(db, "owners"),
-  //     where("industry", "==", inputIndustry) //lower-caseify inputIndustry
-  //     //could set a limit if app grows (ex: limit(10))
-  //   );
-  //   ownersList = [];
-  //   // const querySnapshot = await getDocs(customerIndQuery);
-  //   // querySnapshot.forEach((snap) => {
-  //   //   ownersList.push(snap.data());
+  //--------------------------------FILTER--------------------------------
 
-  //   onSnapshot(customerIndQuery, (querySnapshot)=> {
-  //     querySnapshot.docs.map((e)=> e.data())
-  //   })
-  //   console.log("In filterOwners. Data= ", snap.data);
-  //   };
-  const filterOwners = async (inputIndustry, ownersList) => {
+  const filterOwners = async (inputIndustry) => {
     console.log("in filterOwners. Filtered word= ", inputIndustry);
+    // setDisplayOwners(ownersList);
     console.log("unfiltered Owners: ", ownersList);
+    const filteredOwnersList = [];
     const q = await query(
       ownersCollectionRef,
-      where("industry", "array-contains", inputIndustry)
+      where("industry", "array-contains", inputIndustry /*.toLowerCase()*/)
     );
-    const filteredOwnersList = [];
-    onSnapshot(q, (snapshot) => {
+
+    await onSnapshot(q, (snapshot) => {
       snapshot.docs.forEach((doc) => {
         filteredOwnersList.push({ ...doc.data(), id: doc.id });
       });
       console.log("filtered Owners: ", filteredOwnersList);
+      if (filteredOwnersList.length > 0) {
+        setDisplayOwners(filteredOwnersList);
+      } else {
+        setDisplayOwners(ownersList);
+      }
     });
+    console.log("length", filteredOwnersList.length);
   };
 
   //-----------------------------------------------------------------------------
+  //--------------------------------FAVORITED--------------------------------
+  const updateFav = async (ownerId, isFavorite) => {
+    console.log("In update Fav. Fav Before: ", isFavorite);
+    const userDoc = doc(db, "owners", ownerId);
+    const newFields = { isFavorite: !isFavorite };
+    console.log("isFav", isFavorite);
+    await updateDoc(userDoc, newFields);
+    console.log("finished update", isFavorite);
+  };
+
+  //-----------------------------------------------------------------------------
+
   // useEffect is called everytime page renders, don't async useEffect - bad practice
   useEffect(() => {
     //async function (other option: .then, .catch)
@@ -157,11 +165,14 @@ function App() {
       const data = await getDocs(ownersCollectionRef);
       // const data = await getDocs(customersCollectionRef);
 
-      setOwnersList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))); //doc.data access object that contains name and age
+      setOwnersList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setDisplayOwners(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))); //doc.data access object that contains name and age
       // console.log("data HELLOOOOO", data);
     };
     getOwners();
+    // setDisplayOwners(ownersList);
     console.log("Owners: ", ownersList);
+    console.log("ALSO, ", displayOwners);
   }, []);
   // console.log("SERVICE PROVIDERS", serviceProviderList);
   // const toggleDisplay = async (id, displayStatus) => {
@@ -184,6 +195,10 @@ function App() {
             <Route
               path="OwnerForm"
               element={<OwnerForm createOwner={createOwner} />}
+            />
+            <Route
+              path="CustomerForm"
+              element={<CustomerForm createCustomer={createCustomer} />}
             />
             <Route path="CustomerForm" element={<CustomerForm />} />
             <Route path="OwnerCreateAccount" element={<OwnerCreateAccount />} />
@@ -229,6 +244,7 @@ function App() {
                 <ProtectedRoute user={customer}>
                   <ServiceProvidersList
                     ownersList={{ ownersList }}
+                    displayOwners={{ displayOwners }}
                     customer={customer}
                     filterOwners={filterOwners}
                   />
@@ -241,7 +257,8 @@ function App() {
                 <ProtectedRoute user={customer}>
                   <SingleServiceP
                     customer={customer}
-                    serviceProviders={ownersList}
+                    ownersList={ownersList}
+                    updateFav={updateFav}
                   />
                 </ProtectedRoute>
               }

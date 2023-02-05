@@ -5,6 +5,8 @@
     grid-column-end: 9;
 }
 
+a { text-decoration: none; }
+
 nav {
     grid-row-start: 1;
     grid-row-end: 2;

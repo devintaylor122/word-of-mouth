@@ -7,6 +7,20 @@
   text-align: center;
 }
 
+/* nav {
+  height: 55px;
+  width: 100%;
+  background: rgb(83,51,237);
+  background: linear-gradient(90deg, rgba(83,51,237,1) 0%, rgba(0,137,255,1) 100%);
+  color: white;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+
 * {
   box-sizing: border-box;  
   font-family: "Rubik", sans-serif;
