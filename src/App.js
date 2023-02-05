@@ -75,6 +75,7 @@ function App() {
 
   const [ownersList, setOwnersList] = useState([]);
   const [displayOwners, setDisplayOwners] = useState([]);
+  const [favOwners, setFavOwners] = useState([]);
 
   const ownersCollectionRef = collection(db, "owners");
   const customersCollectionRef = collection(db, "customers");
@@ -120,14 +121,14 @@ function App() {
   };
   //--------------------------------FILTER--------------------------------
 
-  const filterOwners = async (inputIndustry) => {
-    console.log("in filterOwners. Filtered word= ", inputIndustry);
+  const filterOwners = async (filterType, filter, setState) => {
+    console.log("in filterOwners. Filtered word= ", filter);
     // setDisplayOwners(ownersList);
     console.log("unfiltered Owners: ", ownersList);
     const filteredOwnersList = [];
     const q = await query(
       ownersCollectionRef,
-      where("industry", "array-contains", inputIndustry /*.toLowerCase()*/)
+      where(filterType, "array-contains", filter /*.toLowerCase()*/)
     );
 
     await onSnapshot(q, (snapshot) => {
@@ -136,15 +137,50 @@ function App() {
       });
       console.log("filtered Owners: ", filteredOwnersList);
       if (filteredOwnersList.length > 0) {
-        setDisplayOwners(filteredOwnersList);
+        setState(filteredOwnersList);
       } else {
-        setDisplayOwners(ownersList);
+        setState(ownersList);
       }
     });
     console.log("length", filteredOwnersList.length);
   };
 
   //-----------------------------------------------------------------------------
+
+  // useEffect is called everytime page renders, don't async useEffect - bad practice
+  // useEffect(() => {
+  //   //async function (other option: .then, .catch)
+  //   const getOwners = async () => {
+  //     // console.log("XHELLOOOOO");
+  //     const data = await getDocs(ownersCollectionRef);
+  //     // const data = await getDocs(customersCollectionRef);
+
+  //     setOwnersList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //     setDisplayOwners(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))); //doc.data access object that contains name and age
+  //     // console.log("data HELLOOOOO", data);
+  //   };
+  //   getOwners();
+  //   // setDisplayOwners(ownersList);
+  //   console.log("Owners: ", ownersList);
+  //   console.log("ALSO, ", displayOwners);
+  // }, []);
+  useEffect(() => {
+    const getOwners = async () => {
+      const data = await query(ownersCollectionRef);
+      onSnapshot(data, (snapshot) => {
+        setOwnersList(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+        setDisplayOwners(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      });
+    };
+    getOwners();
+    console.log("Owners: ", ownersList);
+    console.log("ALSO, ", displayOwners);
+  }, []);
+
   //--------------------------------FAVORITED--------------------------------
   const updateFav = async (ownerId, isFavorite) => {
     console.log("In update Fav. Fav Before: ", isFavorite);
@@ -157,23 +193,6 @@ function App() {
 
   //-----------------------------------------------------------------------------
 
-  // useEffect is called everytime page renders, don't async useEffect - bad practice
-  useEffect(() => {
-    //async function (other option: .then, .catch)
-    const getOwners = async () => {
-      // console.log("XHELLOOOOO");
-      const data = await getDocs(ownersCollectionRef);
-      // const data = await getDocs(customersCollectionRef);
-
-      setOwnersList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      setDisplayOwners(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))); //doc.data access object that contains name and age
-      // console.log("data HELLOOOOO", data);
-    };
-    getOwners();
-    // setDisplayOwners(ownersList);
-    console.log("Owners: ", ownersList);
-    console.log("ALSO, ", displayOwners);
-  }, []);
   // console.log("SERVICE PROVIDERS", serviceProviderList);
   // const toggleDisplay = async (id, displayStatus) => {
   //   const ownerDoc = doc(db, "owners", id);
@@ -234,7 +253,12 @@ function App() {
               path="dash"
               element={
                 <ProtectedRoute user={customer}>
-                  <CustomerDashboard customer={customer} />
+                  <CustomerDashboard
+                    filterOwners={filterOwners}
+                    customer={customer}
+                    favOwners={favOwners}
+                    setFavOwners={setFavOwners}
+                  />
                 </ProtectedRoute>
               }
             ></Route>
@@ -247,6 +271,7 @@ function App() {
                     displayOwners={{ displayOwners }}
                     customer={customer}
                     filterOwners={filterOwners}
+                    setDisplayOwners={setDisplayOwners}
                   />
                 </ProtectedRoute>
               }

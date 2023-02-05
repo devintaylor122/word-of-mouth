@@ -6,6 +6,7 @@ import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
 
 function ServiceProvidersList(props) {
+  const setDisplayOwners = props.setDisplayOwners;
   let { ownersList } = props.ownersList;
   let { displayOwners } = props.displayOwners;
   const [filter, setFilter] = useState("");
@@ -39,7 +40,7 @@ function ServiceProvidersList(props) {
       <button
         onClick={() => {
           // }} //   console.log("button clicked"); // {() => {
-          filterOwners(filter);
+          filterOwners("industry", filter, setDisplayOwners);
         }}
       >
         Filter
