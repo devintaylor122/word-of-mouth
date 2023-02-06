@@ -3,12 +3,13 @@ import { useState } from "react";
 // import { collection, addDoc } from "firebase/firestore";
 // import Dropdown from "./Dropdown.js";
 // import "./OwnerForm.js";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../firebaseconfig";
+import { useNavigate } from "react-router-dom";
 
 function CustomerCreateAccount() {
   //   const usersCollectionRef = collection(db, "owners");
@@ -16,6 +17,7 @@ function CustomerCreateAccount() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   // const [newPhone, setNewPhone] = useState(0);
 
   const togglePasswordVisibility = () => {
@@ -34,6 +36,7 @@ function CustomerCreateAccount() {
       );
       // setAUser({ email: registerEmail, registerPassword: registerPassword });
       console.log(user);
+      navigate("/customerForm");
     } catch (error) {
       alert("Check your email or password");
       console.log(error.message);
@@ -43,7 +46,7 @@ function CustomerCreateAccount() {
   return (
     <div>
       {/* <section className="section"> */}
-        {/* <Link to="/">back home</Link> */}
+      {/* <Link to="/">back home</Link> */}
       {/* </section> */}
       <h3> Customer Sign Up</h3>
       <input
@@ -66,7 +69,7 @@ function CustomerCreateAccount() {
       <div>
         <button type="signUp" onClick={register}>
           {" "}
-          Sign Up 
+          Sign Up
         </button>
       </div>
     </div>

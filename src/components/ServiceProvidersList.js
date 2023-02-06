@@ -4,13 +4,13 @@
 import React, { useEffect, useState } from "react";
 import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
+import Dropdown from "./Dropdown";
 
 function ServiceProvidersList(props) {
   const setDisplayOwners = props.setDisplayOwners;
   let { ownersList } = props.ownersList;
   let { displayOwners } = props.displayOwners;
   const [filter, setFilter] = useState("");
-  // const [displayOwners, setDisplayOwners] = useState(ownersList);
   const filterOwners = props.filterOwners;
 
   const listElements = displayOwners.map((ind) => (
@@ -26,45 +26,22 @@ function ServiceProvidersList(props) {
   ));
   return (
     <div>
-      {/* <form> */}
-      <input
-        type="text"
-        id="filter"
-        name="filter"
-        placeholder="Enter industry to filter"
-        // value={}
+      <Dropdown
+        placeHolder="Filter Industry..."
+        options={Dropdown.options}
         onChange={(event) => {
-          setFilter(event.target.value);
+          setFilter(event);
         }}
       />
       <button
         onClick={() => {
-          // }} //   console.log("button clicked"); // {() => {
           filterOwners("industry", filter, setDisplayOwners);
         }}
       >
         Filter
       </button>
-      {/* </form> */}
       <div>{listElements}</div>
     </div>
   );
 }
-const industries = [
-  { Industry: "Food", Location: "Seattle" },
-  { Industry: "Beauty", Location: "Seattle" },
-  { Industry: "Therapy", Location: "Seattle" },
-  { Industry: "Housework", Location: "Seattle" },
-  { Industry: "Lawncare", Location: "Seattle" },
-  { Industry: "Petcare", Location: "Seattle" },
-  { Industry: "Childcare", Location: "Seattle" },
-  { Industry: "Cleaning Services", Location: "Seattle" },
-  { Industry: "Seamstress", Location: "Seattle" },
-  { Industry: "Entertainment", Location: "Seattle" },
-];
-
-const element = (
-  <ServiceProvidersList industriesList={industries}></ServiceProvidersList>
-);
-
 export default ServiceProvidersList;

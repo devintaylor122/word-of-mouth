@@ -9,6 +9,7 @@ import {
   Outlet,
   useLocation,
 } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import OwnerForm from "./components/OwnerForm";
 import CustomerForm from "./components/CustomerForm";
@@ -19,6 +20,7 @@ import SingleServiceP from "./components/SingleServiceP";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OwnerCreateAccount from "./components/OwnerCreateAccount";
 import Error from "./components/Error";
+import OwnerDash from "./components/OwnerDash";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
@@ -191,7 +193,6 @@ function App() {
   console.log("THE CUSTOMER: ", customer);
   return (
     <div className="App">
-
       <Router>
         <Routes>
           {/* <Route path="/" element={<Home />} /> */}
@@ -286,7 +287,7 @@ function App() {
               path="dash"
               element={
                 <ProtectedRoute user={owner}>
-                  <CustomerDashboard owner={owner} />
+                  <OwnerDash owner={owner} />
                 </ProtectedRoute>
               }
             />

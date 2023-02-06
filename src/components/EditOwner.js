@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { db } from "./firebase-config";
+import { db } from "./firebaseconfig";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags";
 import { updateDoc, doc } from "firebase/firestore";
@@ -129,7 +129,7 @@ const EditOwner = (props) => {
       <div>
         <button
           onClick={() => {
-            update(props.user.id);
+            update(props.owner.id);
           }}
         >
           {" "}

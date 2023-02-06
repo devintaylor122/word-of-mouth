@@ -4,6 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
 import "./OwnerForm.css";
+import { useNavigate } from "react-router-dom";
 // import { storage } from "./firebase";
 // import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 // import {v4} from 'uuid'
@@ -26,34 +27,46 @@ function OwnerForm(props) {
   const [newTag, setNewTag] = useState([]);
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
+  const navigate = useNavigate();
   // const [imageUpload, setImageUpload] = useState(null);
   // const [imageList, setImageList] = useEffect([])
   // const imageListRef = ref(storage, "images/")
-//   const uploadImage = () => {
-//     if (imageUpload == null) return;
-//     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-//     uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //   const uploadImage = () => {
+  //     if (imageUpload == null) return;
+  //     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+  //     uploadBytes(imageRef, imageUpload).then((snapshot) => {
   //    getDownloadURL(snapshot.ref).then((url) => {
   //       setImageBytes((prev) => [...prev, url])
 
   // })
-  //    
-  //    
   // });
-// };
-// useEffect(() => {
-//   listAll(imageListRef).then((response) => {
-//     console.log(response)
-//      response.items.forEach((item)=> {
-    //   getDowloadURL(item).then((url) => {
-      // setImageList((prev) => [...prev, url])
+  // };
+  // useEffect(() => {
+  //   listAll(imageListRef).then((response) => {
+  //     console.log(response)
+  //      response.items.forEach((item)=> {
+  //   getDowloadURL(item).then((url) => {
+  // setImageList((prev) => [...prev, url])
 
-    // })
+  // })
 
-// })
-//   })
+  // })
+  //   })
 
-// }, []);
+  // }, []);
+  const submitHandler = () => {
+    createOwner(
+      newCompany,
+      newOwner,
+      newPhone,
+      newIndustry,
+      newSpecialty,
+      newHours,
+      newTag,
+      mobile
+    );
+    navigate("/owner/dash");
+  };
 
   return (
     //  uploading image, this will need to be added to the OwnerForm
@@ -184,16 +197,7 @@ function OwnerForm(props) {
         {/* <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}}/> */}
         <button
           onClick={() => {
-            createOwner(
-              newCompany,
-              newOwner,
-              newPhone,
-              newIndustry,
-              newSpecialty,
-              newHours,
-              newTag,
-              mobile
-            );
+            submitHandler();
           }}
         >
           {" "}
@@ -202,7 +206,6 @@ function OwnerForm(props) {
       </div>
     </div>
     // </div>
-   
   );
 }
 

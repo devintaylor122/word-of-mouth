@@ -4,23 +4,25 @@ import { db } from "../firebaseconfig.js";
 import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
+import { useNavigate } from "react-router-dom";
 // import "./CustomerForm.css";
 // import { Link } from "react-router-dom";
 // import { auth } from "../firebaseconfig";
 
 function CustomerForm(props) {
-  const [newName, setNewName] = useState("")
+  const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState(0);
   const [newEmail, setNewEmail] = useState("");
   const [newHeardFrom, setNewHeardFrom] = useState("true");
-  const [newCity, setNewCity] = useState("")
+  const [newCity, setNewCity] = useState("");
   const [select, setSelect] = useState();
-  
+  const navigate = useNavigate();
+
   // const usersCollectionRef = collection(db, "customers");
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   // const [user, setUser] = useState({});
-  const createCustomer= props.createCustomer;
+  const createCustomer = props.createCustomer;
 
   return (
     <div>
@@ -36,12 +38,12 @@ function CustomerForm(props) {
       </div>
 
       <input
-          type="email"
-          placeholder="Email..."
-          onChange={(event) => {
-            setNewEmail(event.target.value);
-          }}
-        />
+        type="email"
+        placeholder="Email..."
+        onChange={(event) => {
+          setNewEmail(event.target.value);
+        }}
+      />
 
       <div>
         <input
@@ -62,16 +64,16 @@ function CustomerForm(props) {
         />
       </div>
 
-      
       <div>
         <h3>Heard By Word of Mouth?</h3>
       </div>
       <div>
-      <select 
+        <select
           placeholder="Heard through word of mouth"
           options={Dropdown.options}
-          onChange={e=>setSelect(e.target.value)}
-        value={select} >
+          onChange={(e) => setSelect(e.target.value)}
+          value={select}
+        >
           <option></option>
           <option>Yes</option>
           <option>No</option>
@@ -81,22 +83,15 @@ function CustomerForm(props) {
       <div>
         <button
           onClick={() => {
-            createCustomer(
-              newName,
-              newPhone,
-              newEmail,
-              newHeardFrom,
-              newCity
-            );
+            createCustomer(newName, newPhone, newEmail, newHeardFrom, newCity);
+            navigate("/customer/dash");
           }}
         >
-
           {" "}
           Submit
         </button>
       </div>
-  </div>
-    
+    </div>
   );
 }
 
