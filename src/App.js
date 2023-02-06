@@ -103,6 +103,7 @@ function App() {
     newIndustry,
     newSpecialty,
     newHours,
+    newTag,
     mobile,
     isFavorite
   ) => {
@@ -115,6 +116,7 @@ function App() {
       industry: newIndustry,
       specialty: newSpecialty,
       hours: newHours,
+      tag: newTag,
       mobile: mobile,
       isFavorite: false,
     });

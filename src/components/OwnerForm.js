@@ -2,6 +2,7 @@ import { db } from "../firebaseconfig.js";
 import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
+import Tags from "./Tags.js";
 import "./OwnerForm.css";
 import { Link } from "react-router-dom";
 // import {
@@ -18,6 +19,7 @@ function OwnerForm(props) {
   const [newSpecialty, setNewSpecialty] = useState("");
   const [newHours, setNewHours] = useState("");
   const [mobile, setMobile] = useState("Not Mobile");
+  const [newTag, setNewTag] = useState([]);
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
 
@@ -81,6 +83,18 @@ function OwnerForm(props) {
       </div>
 
       <div>
+        <Tags
+          isMulti
+          placeHolder="Tag(s)..."
+          options={Tags.options}
+          onChange={(event) => {
+            const tagsList = event.map((ind) => ind);
+            setNewTag(tagsList);
+          }}
+        />
+      </div>
+
+      <div>
         <input
           type="radio"
           name="mobile"
@@ -136,6 +150,7 @@ function OwnerForm(props) {
               newIndustry,
               newSpecialty,
               newHours,
+              newTag,
               mobile
             );
           }}
