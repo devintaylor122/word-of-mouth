@@ -2,21 +2,18 @@ import { useState } from "react";
 import "./App.css";
 import { db } from "./firebase-config";
 import Dropdown from "./Dropdown.js";
-import {
-  updateDoc,
-  doc,
-} from "firebase/firestore";
+import Tags from "./Tags";
+import { updateDoc, doc } from "firebase/firestore";
 
-
-const EditOwner = (props) {
+const EditOwner = (props) => {
   const [updatedCompany, setCompany] = useState(props.owner.company);
   const [updatedOwner, setOwner] = useState(props.owner.owner);
   const [updatedPhone, setPhone] = useState(props.owner.phone);
   const [updatedIndustry, setIndustry] = useState(props.owner.industry);
   const [updatedSpecialty, setSpecialty] = useState(props.owner.specialty);
   const [updatedHours, setHours] = useState(props.owner.hours);
+  const [updateTag, setTag] = useState(props.owner.tag);
   const [updatedMobile, setMobile] = useState(props.owner.mobile);
-
 
   const update = async (id) => {
     const ownerDoc = doc(db, "owners", id);
@@ -29,10 +26,10 @@ const EditOwner = (props) {
       specialty: updatedSpecialty,
       hours: updatedHours,
       mobile: updatedMobile,
-    }
-    await updateDoc(ownerDoc, updatedData)
-  }
-
+      tag: updateTag,
+    };
+    await updateDoc(ownerDoc, updatedData);
+  };
 
   return (
     <div>
@@ -94,11 +91,23 @@ const EditOwner = (props) {
       </div>
 
       <div>
+        <Tags
+          isMulti
+          // placeHolder="Tag(s)..."
+          options={Tags.options}
+          onChange={(event) => {
+            const tagList = event.map((ind) => ind);
+            setTag(tagList);
+          }}
+        />
+      </div>
+
+      <div>
         <input
           type="radio"
           name="mobile"
           value="Mobile"
-          checked={mobile === "Mobile"}
+          checked={updatedMobile === "Mobile"}
           onChange={(event) => {
             setMobile(event.target.value);
           }}
@@ -109,17 +118,19 @@ const EditOwner = (props) {
           type="radio"
           name="mobile"
           value="Not Mobile"
-          checked={mobile === "Not Mobile"}
+          checked={updatedMobile === "Not Mobile"}
           onChange={(event) => {
             setMobile(event.target.value);
           }}
         />
         <label>Not Mobile</label>
       </div>
-      
+
       <div>
         <button
-          onClick={() => {update(props.user.id)}}
+          onClick={() => {
+            update(props.user.id);
+          }}
         >
           {" "}
           Update Info
@@ -127,6 +138,6 @@ const EditOwner = (props) {
       </div>
     </div>
   );
-}
+};
 
 export default EditOwner;
