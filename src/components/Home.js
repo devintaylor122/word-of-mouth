@@ -42,7 +42,7 @@ function Home() {
       <p> Welcome to Word of Mouth. <br></br>This is where customers meet their skilled service providers.</p>
       <div id="contactTile">
         <OwnerLogin></OwnerLogin>
-      </div>
+      </div><br></br>
       <div id="contactTile">
         <CustomerLogin></CustomerLogin>
       </div>

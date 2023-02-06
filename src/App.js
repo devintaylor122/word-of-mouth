@@ -48,27 +48,10 @@ import SharedCustLayout from "./components/SharedCustLayout";
 import SharedOwnerLayout from "./components/SharedOwnerLayout";
 
 function App() {
-  // const [registerEmail, setRegisterEmail] = useState("");
-  // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [owner, setOwner] = useState({});
   const [customer, setCustomer] = useState({});
-
-  // const login = async () => {
-  //   try {
-  //     // this will create a new user in our authentication in firbase and at the same time in will log you in
-  //     const user = await signInWithEmailAndPassword(
-  //       auth,
-  //       loginEmail,
-  //       loginPassword
-  //     );
-  //     console.log(user);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
-
   const logout = async () => {
     await signOut(auth);
   };
@@ -208,6 +191,7 @@ function App() {
   console.log("THE CUSTOMER: ", customer);
   return (
     <div className="App">
+
       <Router>
         <Routes>
           {/* <Route path="/" element={<Home />} /> */}

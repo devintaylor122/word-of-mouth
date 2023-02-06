@@ -4,6 +4,10 @@ import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
 import "./OwnerForm.css";
+// import { storage } from "./firebase";
+// import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+// import {v4} from 'uuid'
+
 import { Link } from "react-router-dom";
 // import {
 //   createUserWithEmailAndPassword,
@@ -22,8 +26,45 @@ function OwnerForm(props) {
   const [newTag, setNewTag] = useState([]);
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
+  // const [imageUpload, setImageUpload] = useState(null);
+  // const [imageList, setImageList] = useEffect([])
+  // const imageListRef = ref(storage, "images/")
+//   const uploadImage = () => {
+//     if (imageUpload == null) return;
+//     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+//     uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //    getDownloadURL(snapshot.ref).then((url) => {
+  //       setImageBytes((prev) => [...prev, url])
+
+  // })
+  //    
+  //    
+  // });
+// };
+// useEffect(() => {
+//   listAll(imageListRef).then((response) => {
+//     console.log(response)
+//      response.items.forEach((item)=> {
+    //   getDowloadURL(item).then((url) => {
+      // setImageList((prev) => [...prev, url])
+
+    // })
+
+// })
+//   })
+
+// }, []);
 
   return (
+    //  uploading image, this will need to be added to the OwnerForm
+    // <div>
+    //   <input type="file" onChange={(event)=> {
+    //     setImageUpload(event.target.files[0]);
+    //     }} />
+    //   <button onClick={uploadImage}> Upload Image</button>
+    //  {imageList.map((url) => {
+    //    return <img src={url}/>
+    // })}
     <div>
       <h3> Register Service Provider</h3>
       <div>
@@ -160,7 +201,8 @@ function OwnerForm(props) {
         </button>
       </div>
     </div>
-    // </form>
+    // </div>
+   
   );
 }
 
