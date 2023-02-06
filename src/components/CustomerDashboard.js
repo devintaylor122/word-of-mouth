@@ -31,7 +31,7 @@ const CustomerDashboard = (props) => {
 
   useEffect(() => {
     const filterFavs = async () => {
-      await filterOwners("isFavorite", true, setFavOwners);
+      await filterOwners("isFavorite", "==", true, setFavOwners);
     };
     filterFavs();
     console.log("WELL now...", displayFavorites);

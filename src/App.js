@@ -107,15 +107,15 @@ function App() {
     });
   };
   //--------------------------------FILTER--------------------------------
-
-  const filterOwners = async (filterType, filter, setState) => {
+  // console.log("OWNERSLIST, ", ownersList);
+  const filterOwners = async (filterType, filterWhere, filter, setState) => {
     console.log("in filterOwners. Filtered word= ", filter);
     // setDisplayOwners(ownersList);
     console.log("unfiltered Owners: ", ownersList);
     const filteredOwnersList = [];
     const q = await query(
       ownersCollectionRef,
-      where(filterType, "array-contains", filter /*.toLowerCase()*/)
+      where(filterType, filterWhere, filter /*.toLowerCase()*/)
     );
 
     await onSnapshot(q, (snapshot) => {
@@ -164,7 +164,7 @@ function App() {
       });
     };
     getOwners();
-    console.log("Owners: ", ownersList);
+    console.log("OWNERSLIST: ", ownersList);
     console.log("ALSO, ", displayOwners);
   }, []);
 

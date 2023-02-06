@@ -35,7 +35,7 @@ function ServiceProvidersList(props) {
       />
       <button
         onClick={() => {
-          filterOwners("industry", filter, setDisplayOwners);
+          filterOwners("industry", "array-contains", filter, setDisplayOwners);
         }}
       >
         Filter
