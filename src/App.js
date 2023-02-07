@@ -22,6 +22,7 @@ import OwnerCreateAccount from "./components/OwnerCreateAccount";
 import Error from "./components/Error";
 import OwnerDash from "./components/OwnerDash";
 import LogOut from "./components/LogOut";
+import { AuthProvider } from "./context/AuthProvider";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
@@ -71,7 +72,8 @@ function App() {
     newPhone,
     newEmail,
     newHeardFrom,
-    newCity
+    newCity,
+    uid
   ) => {
     console.log("In createCustomer");
     await addDoc(customersCollectionRef, {
@@ -80,6 +82,7 @@ function App() {
       phone: parseInt(newPhone),
       HeardFrom: newHeardFrom,
       city: newCity,
+      uid: uid,
     });
   };
   const createOwner = async (
@@ -91,6 +94,7 @@ function App() {
     newHours,
     newTag,
     mobile,
+    uid,
     isFavorite
   ) => {
     console.log("In createOwner");
@@ -105,6 +109,7 @@ function App() {
       tag: newTag,
       mobile: mobile,
       isFavorite: false,
+      uid: uid,
     });
   };
 
@@ -196,34 +201,38 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/" element={<SharedLoggedOutLayout />}>
-            <Route index element={<Home />} />
-            <Route
-              path="OwnerForm"
-              element={<OwnerForm createOwner={createOwner} />}
-            />
-            <Route
-              path="CustomerForm"
-              element={<CustomerForm createCustomer={createCustomer} />}
-            />
-            <Route path="CustomerForm" element={<CustomerForm />} />
-            <Route path="OwnerCreateAccount" element={<OwnerCreateAccount />} />
-            <Route
-              path="CustomerCreateAccount"
-              element={<CustomerCreateAccount />}
-            />
-            <Route
-              path="OwnerLogin"
-              element={<OwnerLogin setAUser={setOwner} />}
-            />
-            <Route
-              path="CustomerLogin"
-              element={<CustomerLogin setCustomer={setCustomer} />}
-            />
+        <AuthProvider>
+          <Routes>
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<SharedLoggedOutLayout />}>
+              <Route index element={<Home />} />
+              <Route
+                path="OwnerForm"
+                element={<OwnerForm createOwner={createOwner} />}
+              />
+              <Route
+                path="CustomerForm"
+                element={<CustomerForm createCustomer={createCustomer} />}
+              />
+              <Route path="CustomerForm" element={<CustomerForm />} />
+              <Route
+                path="OwnerCreateAccount"
+                element={<OwnerCreateAccount />}
+              />
+              <Route
+                path="CustomerCreateAccount"
+                element={<CustomerCreateAccount />}
+              />
+              <Route
+                path="OwnerLogin"
+                element={<OwnerLogin setAUser={setOwner} />}
+              />
+              <Route
+                path="CustomerLogin"
+                element={<CustomerLogin setCustomer={setCustomer} />}
+              />
 
-            {/* <Route
+              {/* <Route
               path="CustomerDashboard"
               // state={{ ServiceProvidersList: serviceProviderList }}
               element={
@@ -233,72 +242,73 @@ function App() {
               }
             />
           </Route> */}
-          </Route>
+            </Route>
 
-          <Route path="/customer" element={<SharedCustLayout />}>
-            {/* <ProtectedRoute customer={customer}>  */}
-            <Route
-              path="dash"
-              element={
-                <ProtectedRoute user={customer}>
-                  <CustomerDashboard
-                    filterOwners={filterOwners}
-                    customer={customer}
-                    favOwners={favOwners}
-                    setFavOwners={setFavOwners}
-                  />
-                </ProtectedRoute>
-              }
-            ></Route>
+            <Route path="/customer" element={<SharedCustLayout />}>
+              {/* <ProtectedRoute customer={customer}>  */}
+              <Route
+                path="dash"
+                element={
+                  <ProtectedRoute user={customer}>
+                    <CustomerDashboard
+                      filterOwners={filterOwners}
+                      customer={customer}
+                      favOwners={favOwners}
+                      setFavOwners={setFavOwners}
+                    />
+                  </ProtectedRoute>
+                }
+              ></Route>
 
-            <Route
-              path="list"
-              element={
-                <ProtectedRoute user={customer}>
-                  <ServiceProvidersList
-                    ownersList={{ ownersList }}
-                    displayOwners={{ displayOwners }}
-                    customer={customer}
-                    filterOwners={filterOwners}
-                    setDisplayOwners={setDisplayOwners}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="list/:SPId"
-              element={
-                <ProtectedRoute user={customer}>
-                  <SingleServiceP
-                    customer={customer}
-                    ownersList={ownersList}
-                    updateFav={updateFav}
-                  />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="list"
+                element={
+                  <ProtectedRoute user={customer}>
+                    <ServiceProvidersList
+                      ownersList={{ ownersList }}
+                      displayOwners={{ displayOwners }}
+                      customer={customer}
+                      filterOwners={filterOwners}
+                      setDisplayOwners={setDisplayOwners}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="list/:SPId"
+                element={
+                  <ProtectedRoute user={customer}>
+                    <SingleServiceP
+                      customer={customer}
+                      ownersList={ownersList}
+                      updateFav={updateFav}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              {/* </Route> */}
+              {/* <Route path="/messaging" element={<Messages />}/> */}
+            </Route>
+
+            {/* </ProtectedRoute> */}
             {/* </Route> */}
-            {/* <Route path="/messaging" element={<Messages />}/> */}
-          </Route>
 
-          {/* </ProtectedRoute> */}
-          {/* </Route> */}
+            <Route path="/owner" element={<SharedOwnerLayout />}>
+              <Route
+                path="dash"
+                element={
+                  <ProtectedRoute user={owner}>
+                    <OwnerDash owner={owner} />
+                  </ProtectedRoute>
+                }
+              />
+              {/* <Route path="/edit" element ={<EditOwner/>}></Route>  */}
+              {/* <Route path="/messaging" element={<Messages />}/> */}
+            </Route>
 
-          <Route path="/owner" element={<SharedOwnerLayout />}>
-            <Route
-              path="dash"
-              element={
-                <ProtectedRoute user={owner}>
-                  <OwnerDash owner={owner} />
-                </ProtectedRoute>
-              }
-            />
-            {/* <Route path="/edit" element ={<EditOwner/>}></Route>  */}
-            {/* <Route path="/messaging" element={<Messages />}/> */}
-          </Route>
-
-          <Route path="*" element={<Error />} />
-        </Routes>
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </AuthProvider>
       </Router>
 
       {/* <Route> */}

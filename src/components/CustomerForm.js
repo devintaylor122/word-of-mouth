@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth.js";
 // import "./CustomerForm.css";
 // import { Link } from "react-router-dom";
 // import { auth } from "../firebaseconfig";
 
 function CustomerForm(props) {
+  const { anyUser } = useAuth();
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState(0);
   const [newEmail, setNewEmail] = useState("");
@@ -37,13 +39,13 @@ function CustomerForm(props) {
         />
       </div>
 
-      <input
+      {/* <input
         type="email"
         placeholder="Email..."
         onChange={(event) => {
           setNewEmail(event.target.value);
         }}
-      />
+      /> */}
 
       <div>
         <input
@@ -83,7 +85,14 @@ function CustomerForm(props) {
       <div>
         <button
           onClick={() => {
-            createCustomer(newName, newPhone, newEmail, newHeardFrom, newCity);
+            createCustomer(
+              newName,
+              newPhone,
+              newEmail,
+              newHeardFrom,
+              newCity,
+              anyUser.uid
+            );
             navigate("/customer/dash");
           }}
         >

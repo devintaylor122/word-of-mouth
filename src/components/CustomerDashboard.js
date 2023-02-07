@@ -11,8 +11,9 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import ServiceProvider from "./ServiceProvider.js";
-
+import useAuth from "../hooks/useAuth";
 const CustomerDashboard = (props) => {
+  const { anyUser } = useAuth();
   const setFavOwners = props.setFavOwners;
   const filterOwners = props.filterOwners;
 
@@ -66,7 +67,7 @@ const CustomerDashboard = (props) => {
   // };
 
   // //--------------------------------------------------------------------
-
+  console.log("user id", anyUser.uid);
   return (
     <div>
       <h2>Your Favorite Services</h2>

@@ -5,6 +5,7 @@ import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
 import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth.js";
 // import { storage } from "./firebase";
 // import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 // import {v4} from 'uuid'
@@ -17,6 +18,7 @@ import { Link } from "react-router-dom";
 // import { auth } from "../firebaseconfig";
 
 function OwnerForm(props) {
+  const { anyUser } = useAuth();
   const [newCompany, setNewCompany] = useState("");
   const [newOwner, setNewOwner] = useState("");
   const [newPhone, setNewPhone] = useState(0);
@@ -63,7 +65,8 @@ function OwnerForm(props) {
       newSpecialty,
       newHours,
       newTag,
-      mobile
+      mobile,
+      anyUser.uid
     );
     navigate("/owner/dash");
   };
