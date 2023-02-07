@@ -10,7 +10,14 @@ function OwnerDash() {
     <div>
       <div>("HI")</div>
       <div>
-        <button onClick={navigate("/owner/edit")}> Edit info</button>
+        <button
+          onClick={() => {
+            navigate("/owner/edit");
+          }}
+        >
+          {" "}
+          Edit info
+        </button>
       </div>
     </div>
   );

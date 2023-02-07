@@ -7,6 +7,7 @@ import { collection, query, where } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebaseconfig";
 import { db } from "../firebaseconfig.js";
+import { getDocs, onSnapshot, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext({});
 
@@ -34,23 +35,50 @@ export const AuthProvider = ({ children }) => {
   //     console.log("ALSO, ", displayOwners);
   //   }, []);
 
-  //   useEffect(() => {
-  //     if (anyUser.length > 0) {
-  //       const filterUsers = async () => {
-  //         // const filteredOwnersList = [];
+  // const q = await query(collection(db, "owners"), where("uid", "==", ownerId));
+  // const querySnapshot = getDocs(q);
+  // querySnapshot.forEach((owner) => {
+  //   console.log(owner.id, " => ", owner.data());
+  // });
+  // console.log(q);
+  // await onSnapshot(q, (snapshot) => {
+  //   snapshot.docs.forEach((doc) => {
+  //     filteredOwnersList.push({ ...doc.data(), id: doc.id });
+  //   });
+  useEffect(() => {
+    // if (anyUser.length > 0) {
+    console.log("Do you see me4 3");
+    const filterUsers = async () => {
+      let currentUserFSID = "";
+      const q = await query(
+        customersCollectionRef,
+        where("uid", "==", anyUser.uid /*.toLowerCase()*/)
+      );
 
-  //         const q = await query(
-  //           customersCollectionRef,
-  //           where("uid", "==", anyUser.uid /*.toLowerCase()*/)
-  //         );
-  //         console.log("Do you see me4 3");
-  //         await setUserFSInfo(q);
+      // await onSnapshot(q, (snapshot) => {
+      //   snapshot.docs.forEach((doc) => {
+      //     currentUser.push({ ...doc.data() });
+      //   });
+      // });
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((user) => {
+        console.log(user.id, "and", user);
+        currentUserFSID = user.id;
+      });
+      console.log("query snap", querySnapshot);
+      // await setUserFSInfo(currentUser);
 
-  //         console.log("q", q);
-  //       };
-  //       filterUsers();
-  //     }
-  //   }, []);
+      console.log("currentUser", currentUserFSID);
+      const docSnap = await getDoc(db, "customers", currentUserFSID);
+      console.log("doc data", docSnap.data());
+    };
+
+    if (anyUser) {
+      filterUsers();
+    }
+    // }
+  }, []);
+
   // await onSnapshot(q, (snapshot) => {
   //   snapshot.docs.forEach((doc) => {
   //     filteredOwnersList.push({ ...doc.data(), id: doc.id });

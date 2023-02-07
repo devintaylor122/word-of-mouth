@@ -78,7 +78,6 @@ function App() {
     newCity,
     uid
   ) => {
-    console.log("In createCustomer");
     await addDoc(customersCollectionRef, {
       name: newName,
       email: newEmail,
@@ -101,7 +100,6 @@ function App() {
     uid
     // isFavorite
   ) => {
-    console.log("In createOwner");
     await addDoc(ownersCollectionRef, {
       company: newCompany,
       owner: newOwner,
@@ -120,9 +118,7 @@ function App() {
   //--------------------------------FILTER--------------------------------
   // console.log("OWNERSLIST, ", ownersList);
   const filterOwners = async (filterType, filterWhere, filter, setState) => {
-    console.log("in filterOwners. Filtered word= ", filter);
     // setDisplayOwners(ownersList);
-    console.log("unfiltered Owners: ", ownersList);
     const filteredOwnersList = [];
     const q = await query(
       ownersCollectionRef,
@@ -133,16 +129,44 @@ function App() {
       snapshot.docs.forEach((doc) => {
         filteredOwnersList.push({ ...doc.data(), id: doc.id });
       });
-      console.log("filtered Owners: ", filteredOwnersList);
       if (filteredOwnersList.length > 0) {
         setState(filteredOwnersList);
       } else {
         setState(ownersList);
       }
     });
-    console.log("length", filteredOwnersList.length);
   };
+  //-----------------------------EDIT----------------------
+  const update = async (
+    id,
+    updatedCompany,
+    updatedOwner,
+    updatedPhone,
+    updatedIndustry,
+    updatedSpecialty,
+    updatedHours,
+    updatedMobile,
+    updateTag,
+    navigate
+    // uid
+  ) => {
+    const ownerDoc = await doc(db, "owners", id);
+    console.log(id);
+    const updatedData = {
+      company: updatedCompany,
+      owner: updatedOwner,
+      phone: parseInt(updatedPhone),
+      industry: updatedIndustry,
+      specialty: updatedSpecialty,
+      hours: updatedHours,
+      mobile: updatedMobile,
+      tag: updateTag,
+      // uid: uid,
+    };
 
+    await updateDoc(ownerDoc, updatedData);
+    navigate("/owner/dash");
+  };
   //-----------------------------------------------------------------------------
 
   // useEffect is called everytime page renders, don't async useEffect - bad practice
@@ -175,8 +199,6 @@ function App() {
       });
     };
     getOwners();
-    console.log("OWNERSLIST: ", ownersList);
-    console.log("ALSO, ", displayOwners);
   }, []);
 
   //--------------------------------FAVORITED--------------------------------
@@ -220,7 +242,7 @@ function App() {
   //   );
   // };
   // console.log(user);
-  console.log("THE CUSTOMER: ", customer);
+  // console.log("THE CUSTOMER: ", customer);
   return (
     <div className="App">
       <Router>
@@ -325,7 +347,19 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="edit" element={<EditOwner />}></Route>
+              <Route
+                path="edit"
+                element={
+                  <ProtectedRoute user={owner}>
+                    <EditOwner
+                      ownersList={ownersList}
+                      update={update}
+                      user={owner}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              {/* <Route path="edit" element={<EditOwner />}></Route> */}
               {/* <Route path="/messaging" element={<Messages />}/> */}
             </Route>
 

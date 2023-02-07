@@ -1,21 +1,21 @@
 import { useState } from "react";
 import "../App.css";
-import { db } from "../firebaseconfig";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags";
-import { updateDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import "./OwnerForm.css";
 
-const EditOwner = () => {
+const EditOwner = (props) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const ownerId = user.uid;
+  const update = props.update;
+  const ownersList = props.ownersList;
 
-  const q = query(collection(db, "owners"), where("uid", "==", ownerId));
-  const owner = getDocs(q);
-
+  const owner = ownersList.find(
+    (serviceProvider) => serviceProvider.uid === ownerId
+  );
   const navigate = useNavigate();
 
   const [updatedCompany, setCompany] = useState(owner.company);
@@ -27,29 +27,12 @@ const EditOwner = () => {
   const [updateTag, setTag] = useState(owner.tag);
   const [updatedMobile, setMobile] = useState(owner.mobile);
 
-  const update = async (id) => {
-    const ownerDoc = doc(db, "owners", id);
-
-    const updatedData = {
-      company: updatedCompany,
-      owner: updatedOwner,
-      phone: parseInt(updatedPhone),
-      industry: updatedIndustry,
-      specialty: updatedSpecialty,
-      hours: updatedHours,
-      mobile: updatedMobile,
-      tag: updateTag,
-    };
-    await updateDoc(ownerDoc, updatedData);
-    navigate("/owner/dash");
-  };
-
   return (
     <div>
       <h3> Update Service Provider</h3>
       <div>
         <input
-          // placeholder="Company Name..."
+          placeholder="Company Name..."
           onChange={(event) => {
             setCompany(event.target.value);
           }}
@@ -58,7 +41,7 @@ const EditOwner = () => {
 
       <div>
         <input
-          // placeholder="Owner Name..."
+          placeholder="Owner Name..."
           onChange={(event) => {
             setOwner(event.target.value);
           }}
@@ -67,7 +50,7 @@ const EditOwner = () => {
 
       <div>
         <input
-          // placeholder="Phone number (no spaces)"
+          placeholder="Phone number (no spaces)"
           onChange={(event) => {
             setPhone(event.target.value);
           }}
@@ -76,7 +59,7 @@ const EditOwner = () => {
       <div>
         <Dropdown
           isMulti
-          // placeHolder="Industry..."
+          placeHolder="Industry..."
           options={Dropdown.options}
           onChange={(event) => {
             const industryList = event.map((ind) => ind);
@@ -87,7 +70,7 @@ const EditOwner = () => {
 
       <div>
         <input
-          // placeholder="Specialty/Specialties"
+          placeholder="Specialty/Specialties"
           onChange={(event) => {
             setSpecialty(event.target.value);
           }}
@@ -96,7 +79,7 @@ const EditOwner = () => {
 
       <div>
         <input
-          // placeholder="Hours..."
+          placeholder="Hours..."
           onChange={(event) => {
             setHours(event.target.value);
           }}
@@ -106,7 +89,7 @@ const EditOwner = () => {
       <div>
         <Tags
           isMulti
-          // placeHolder="Tag(s)..."
+          placeHolder="Tag(s)..."
           options={Tags.options}
           onChange={(event) => {
             const tagList = event.map((ind) => ind);
@@ -142,7 +125,18 @@ const EditOwner = () => {
       <div>
         <button
           onClick={() => {
-            update(ownerId);
+            update(
+              owner.id,
+              updatedCompany,
+              updatedOwner,
+              updatedPhone,
+              updatedIndustry,
+              updatedSpecialty,
+              updatedHours,
+              updatedMobile,
+              updateTag,
+              navigate
+            );
           }}
         >
           {" "}

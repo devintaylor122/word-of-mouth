@@ -11,11 +11,11 @@ function SharedOwnerLayout() {
         </button>
 
         <button className="owner-dash">
-          <Link to="/ownerdash">DASH</Link>
+          <Link to="/owner/dash">DASH</Link>
         </button>
 
         <button className="messages">
-          <Link to="/customerdash/messages">MESSAGES</Link>
+          <Link to="/owner/dash/messages">MESSAGES</Link>
         </button>
 
         <button className="logout">
