@@ -1,19 +1,31 @@
 import { useState } from "react";
-import "./App.css";
-import { db } from "./firebaseconfig";
+import "../App.css";
+import { db } from "../firebaseconfig";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags";
 import { updateDoc, doc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
-const EditOwner = (props) => {
-  const [updatedCompany, setCompany] = useState(props.owner.company);
-  const [updatedOwner, setOwner] = useState(props.owner.owner);
-  const [updatedPhone, setPhone] = useState(props.owner.phone);
-  const [updatedIndustry, setIndustry] = useState(props.owner.industry);
-  const [updatedSpecialty, setSpecialty] = useState(props.owner.specialty);
-  const [updatedHours, setHours] = useState(props.owner.hours);
-  const [updateTag, setTag] = useState(props.owner.tag);
-  const [updatedMobile, setMobile] = useState(props.owner.mobile);
+const EditOwner = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const ownerId = user.uid;
+
+  const q = query(collection(db, "owners"), where("uid", "==", ownerId));
+  const owner = getDocs(q);
+
+  const navigate = useNavigate();
+
+  const [updatedCompany, setCompany] = useState(owner.company);
+  const [updatedOwner, setOwner] = useState(owner.owner);
+  const [updatedPhone, setPhone] = useState(owner.phone);
+  const [updatedIndustry, setIndustry] = useState(owner.industry);
+  const [updatedSpecialty, setSpecialty] = useState(owner.specialty);
+  const [updatedHours, setHours] = useState(owner.hours);
+  const [updateTag, setTag] = useState(owner.tag);
+  const [updatedMobile, setMobile] = useState(owner.mobile);
 
   const update = async (id) => {
     const ownerDoc = doc(db, "owners", id);
@@ -29,6 +41,7 @@ const EditOwner = (props) => {
       tag: updateTag,
     };
     await updateDoc(ownerDoc, updatedData);
+    navigate("/owner/dash");
   };
 
   return (
@@ -129,7 +142,7 @@ const EditOwner = (props) => {
       <div>
         <button
           onClick={() => {
-            update(props.owner.id);
+            update(ownerId);
           }}
         >
           {" "}

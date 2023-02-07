@@ -39,14 +39,6 @@ function CustomerForm(props) {
         />
       </div>
 
-      {/* <input
-        type="email"
-        placeholder="Email..."
-        onChange={(event) => {
-          setNewEmail(event.target.value);
-        }}
-      /> */}
-
       <div>
         <input
           type="number"

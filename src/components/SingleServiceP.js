@@ -1,8 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 // import ServiceProvider from './ServiceProvider';
 import ServiceProvidersList from "./ServiceProvidersList";
+import useAuth from "../hooks/useAuth";
 
 const SingleServiceP = (props) => {
+  const { anyUser, userFSInfo } = useAuth();
   const updateFav = props.updateFav;
   const serviceProviders = props.ownersList;
   const { SPId } = useParams();
@@ -11,24 +13,32 @@ const SingleServiceP = (props) => {
     (serviceProvider) => serviceProvider.id === SPId
   );
   console.log("SEE", singleServiceProvider.isFavorite);
-  const isFavorite = singleServiceProvider.isFavorite;
+  // const isFavorite = singleServiceProvider.isFavorite;
 
   const { company, email, hours, industry, owner, phone, specialty } =
     singleServiceProvider;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
 
-  let buttonContent = isFavorite ? "Favorited 💗" : "Favorite 🤍";
+  // let buttonContent = isFavorite ? "Favorited 💗" : "Favorite 🤍";
+  let buttonContent = userFSInfo.favOwners.includes(singleServiceProvider.id)
+    ? "Favorited 💗"
+    : "Favorite 🤍";
   // let buttonContent = "";
 
-  // function changeLikes(isFavorite) {
-  //   if (!isFavorite) {
-  //     updateFav(SPId);
-  //   }
-  // }
+  // const toggleFav = async () => {
+  //   await updateFav(SPId, isFavorite);
+  //   buttonContent = isFavorite ? "Favorited 💗" : "Favorite 🤍";
+  // };
   const toggleFav = async () => {
-    await updateFav(SPId, isFavorite);
-    buttonContent = isFavorite ? "Favorited 💗" : "Favorite 🤍";
+    await updateFav(
+      userFSInfo.uid,
+      singleServiceProvider.id,
+      userFSInfo.favOwners
+    );
+    buttonContent = userFSInfo.favOwners.includes(singleServiceProvider.id)
+      ? "Favorited 💗"
+      : "Favorite 🤍";
   };
 
   return (

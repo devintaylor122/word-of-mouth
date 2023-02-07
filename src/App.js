@@ -22,6 +22,7 @@ import OwnerCreateAccount from "./components/OwnerCreateAccount";
 import Error from "./components/Error";
 import OwnerDash from "./components/OwnerDash";
 import LogOut from "./components/LogOut";
+import EditOwner from "./components/EditOwner";
 import { AuthProvider } from "./context/AuthProvider";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
@@ -36,6 +37,8 @@ import {
   query,
   where,
   onSnapshot,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { ReactDOM } from "react";
 
@@ -83,6 +86,7 @@ function App() {
       HeardFrom: newHeardFrom,
       city: newCity,
       uid: uid,
+      favOwners: [],
     });
   };
   const createOwner = async (
@@ -94,8 +98,8 @@ function App() {
     newHours,
     newTag,
     mobile,
-    uid,
-    isFavorite
+    uid
+    // isFavorite
   ) => {
     console.log("In createOwner");
     await addDoc(ownersCollectionRef, {
@@ -108,7 +112,7 @@ function App() {
       hours: newHours,
       tag: newTag,
       mobile: mobile,
-      isFavorite: false,
+      // isFavorite: false,
       uid: uid,
     });
   };
@@ -176,13 +180,32 @@ function App() {
   }, []);
 
   //--------------------------------FAVORITED--------------------------------
-  const updateFav = async (ownerId, isFavorite) => {
-    console.log("In update Fav. Fav Before: ", isFavorite);
-    const userDoc = doc(db, "owners", ownerId);
-    const newFields = { isFavorite: !isFavorite };
-    console.log("isFav", isFavorite);
-    await updateDoc(userDoc, newFields);
-    console.log("finished update", isFavorite);
+  const updateFav = async (customerId, ownerId, favOwners) => {
+    // console.log("In update Fav. Fav Before: ", isFavorite);
+    // const userDoc = doc(db, "owners", ownerId);
+    // const newFields = { isFavorite: !isFavorite };
+    // console.log("isFav", isFavorite);
+    // await updateDoc(userDoc, newFields);
+    // console.log("finished update", isFavorite);
+    //Click favorite button
+    //OwnerId is added to a favOwners list in customer's info
+    //Button is changed to a heart
+    // let newFields = ""
+    const userDoc = doc(db, "customers", customerId);
+    if (favOwners.includes(ownerId)) {
+      await updateDoc(userDoc, {
+        favOwners: arrayRemove(ownerId),
+      });
+      // newFields = {favOwners: favOwners.push(ownerId)}
+    } else {
+      await updateDoc(userDoc, { favOwners: arrayUnion(ownerId) });
+
+      // const index = favOwners.indexOf(ownerId)
+      // const removedOwner = favOwners.splice(index, 1)
+      // newFields = {favOwners: favOwners}
+    }
+
+    // await updateDoc(userDoc, newFields);
   };
 
   //-----------------------------------------------------------------------------
@@ -302,7 +325,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* <Route path="/edit" element ={<EditOwner/>}></Route>  */}
+              <Route path="edit" element={<EditOwner />}></Route>
               {/* <Route path="/messaging" element={<Messages />}/> */}
             </Route>
 
