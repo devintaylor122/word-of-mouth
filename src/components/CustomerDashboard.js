@@ -27,6 +27,7 @@ const CustomerDashboard = (props) => {
       </Link>
     </article>
   ));
+
   console.log("UH HELLO", displayFavorites);
 
   useEffect(() => {
@@ -68,6 +69,7 @@ const CustomerDashboard = (props) => {
 
   return (
     <div>
+      <h2>Your Favorite Services</h2>
       <div>{displayFavorites}</div>
       {/* <ServiceProvidersList ownersList={ownersList} /> */}
     </div>

@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import OwnerCreateAccount from "./components/OwnerCreateAccount";
 import Error from "./components/Error";
 import OwnerDash from "./components/OwnerDash";
+import LogOut from "./components/LogOut";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
@@ -106,6 +107,7 @@ function App() {
       isFavorite: false,
     });
   };
+
   //--------------------------------FILTER--------------------------------
   // console.log("OWNERSLIST, ", ownersList);
   const filterOwners = async (filterType, filterWhere, filter, setState) => {
@@ -216,7 +218,6 @@ function App() {
               path="OwnerLogin"
               element={<OwnerLogin setAUser={setOwner} />}
             />
-            {/* <Route path="/OwnerLogin" element={<OwnerLogin />} /> */}
             <Route
               path="CustomerLogin"
               element={<CustomerLogin setCustomer={setCustomer} />}
@@ -235,7 +236,7 @@ function App() {
           </Route>
 
           <Route path="/customer" element={<SharedCustLayout />}>
-            {/* <ProtectedRoute customer={customer}> */}
+            {/* <ProtectedRoute customer={customer}>  */}
             <Route
               path="dash"
               element={
@@ -249,6 +250,7 @@ function App() {
                 </ProtectedRoute>
               }
             ></Route>
+
             <Route
               path="list"
               element={
@@ -298,10 +300,16 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
-      <button className="logout" onClick={logout}>
+
+      {/* <Route> */}
+      {/* <button className="logout" element={<LogOut />}>
         {" "}
-        Sign Out
-      </button>
+        LOG OUT
+      </button> */}
+      {/* </Route> */}
+      {/* <button className="logout">
+          <Link to="/">LOGOUT</Link>
+        </button> */}
     </div>
   );
 }

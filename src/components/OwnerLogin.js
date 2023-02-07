@@ -14,18 +14,17 @@ import {
 // import OwnerLogin from "../components/OwnerLogin";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebaseconfig";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function OwnerLogin({ setAUser }) {
+function OwnerLogin() {
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-
-  // const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  console.log("AUTH in FBC: ", auth);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -39,8 +38,9 @@ function OwnerLogin({ setAUser }) {
         loginEmail,
         loginPassword
       );
-      setAUser({ email: loginEmail, loginPassword: loginPassword });
+      // setOwner({ email: loginEmail, loginPassword: loginPassword });
       console.log(user);
+      navigate("/owner/dash");
     } catch (error) {
       alert("Check your email or password");
       console.log(error.message);
@@ -49,14 +49,15 @@ function OwnerLogin({ setAUser }) {
 
   const logout = async () => {
     await signOut(auth);
-    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    // setOwner({ email: loginEmail, loginPassword: loginPassword });
+    navigate("/");
     console.log(loginEmail, "Logout", loginPassword);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!loginPassword || !loginEmail) return;
-    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    // setOwner({ email: loginEmail, loginPassword: loginPassword });
     // navigate("/customer/dash");
   };
 

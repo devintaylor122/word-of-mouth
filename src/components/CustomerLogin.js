@@ -7,17 +7,18 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebaseconfig";
 // import { useNavigate } from "react-router-dom";
 import CustomerDashboard from "./CustomerDashboard";
+import { link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function CustomerLogin({ setAUser }) {
+function CustomerLogin(/*{ setCustomer }*/) {
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [user, setUser] = useState({});
+  const [thisuser, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  //   const setCustomer = props.setCustomer;
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  // const setCustomer = props.setCustomer;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -31,23 +32,26 @@ function CustomerLogin({ setAUser }) {
         loginEmail,
         loginPassword
       );
-      setAUser({ email: loginEmail, loginPassword: loginPassword });
+      // setCustomer({ email: loginEmail, loginPassword: loginPassword });
       console.log(user);
+      setUser(user);
+      navigate("/customer/dash");
     } catch (error) {
       alert("Check your email or password");
-      console.log(error.message);
+      console.log("ERROR", error.message);
     }
   };
   const logout = async () => {
     await signOut(auth);
-    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    // setAUser({ email: loginEmail, loginPassword: loginPassword });
+    navigate("/");
     console.log(loginEmail, "Logout", loginPassword);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!loginPassword || !loginEmail) return;
-    setAUser({ email: loginEmail, loginPassword: loginPassword });
+    // setCustomer({ email: loginEmail, loginPassword: loginPassword });
     // navigate("/owner/dash");
   };
 

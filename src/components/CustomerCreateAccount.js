@@ -1,3 +1,4 @@
+//What if we have create an error useState and setError, then console.log it in the catch block of the register function
 // import { db } from "../firebaseconfig.js";
 import { useState } from "react";
 // import { collection, addDoc } from "firebase/firestore";

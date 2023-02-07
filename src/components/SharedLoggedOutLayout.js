@@ -10,32 +10,35 @@ function SharedLoggedOutLayout() {
           <Link to="/"> HOME </Link>
         </button>
 
-        <button className="ownerSignUp">
+        {/* <button className="ownerSignUp">
           <Link to="/OwnerForm">OWNER Form</Link>
-        </button>
+        </button> */}
 
         <button className="ownerCreateAccount">
-          <Link to="/ownerCreateAccount">OWNER Create Account</Link>
+          <Link to="/ownerCreateAccount">OWNER Sign Up</Link>
         </button>
         <button className="CustomerCreateAccount">
-          <Link to="/CustomerCreateAccount">Customer Create Account</Link>
+          <Link to="/CustomerCreateAccount">Customer Sign Up</Link>
         </button>
+        {/* <button className="logout">
+          <Link to="/">LOGOUT</Link>
+        </button> */}
 
-        <button className="customerForm">
+        {/* <button className="customerForm">
           <Link to="/CustomerForm">CUSTOMER Form</Link>
-        </button>
+        </button> */}
 
-        <button className="ownerLogin">
+        {/* <button className="ownerLogin">
           <Link to="/OwnerLogin">OWNER LOG-IN</Link>
         </button>
 
         <button className="customerLogin">
           <Link to="/CustomerLogin">CUSTOMER LOG-IN</Link>
-        </button>
+        </button> */}
 
-        <button className="customerDash">
+        {/* <button className="customerDash">
           <Link to="/CustomerDashboard">Customer Dash</Link>
-        </button>
+        </button> */}
       </nav>
       <Outlet />
     </div>
