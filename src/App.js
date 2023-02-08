@@ -243,10 +243,11 @@ function App() {
   // };
   // console.log(user);
   // console.log("THE CUSTOMER: ", customer);
+  const testVar = "hello"
   return (
     <div className="App">
       <Router>
-        <AuthProvider>
+        <AuthProvider testVar={testVar}>
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/" element={<SharedLoggedOutLayout />}>
