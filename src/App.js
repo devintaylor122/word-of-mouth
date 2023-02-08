@@ -67,6 +67,8 @@ function App() {
   const [displayOwners, setDisplayOwners] = useState([]);
   const [favOwners, setFavOwners] = useState([]);
 
+  const [customersList, setCustomersList] = useState([]);
+
   const ownersCollectionRef = collection(db, "owners");
   const customersCollectionRef = collection(db, "customers");
 
@@ -196,10 +198,25 @@ function App() {
         setDisplayOwners(
           snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
+        console.log("I like really dont get it");
       });
     };
     getOwners();
   }, []);
+
+  useEffect(() => {
+    const getCustomers = async () => {
+      console.log("possibly First");
+      const data = await query(customersCollectionRef);
+      onSnapshot(data, (snapshot) => {
+        setCustomersList(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      });
+    };
+    getCustomers();
+  }, []);
+  console.log("IN APPPPP: CUSTOMERSLIST: ", customersList, ownersList);
 
   //--------------------------------FAVORITED--------------------------------
   const updateFav = async (customerId, ownerId, favOwners) => {
@@ -242,12 +259,11 @@ function App() {
   //   );
   // };
   // console.log(user);
-  // console.log("THE CUSTOMER: ", customer);
-  const testVar = "hello"
+
   return (
     <div className="App">
       <Router>
-        <AuthProvider testVar={testVar}>
+        <AuthProvider>
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/" element={<SharedLoggedOutLayout />}>
@@ -297,14 +313,15 @@ function App() {
                 element={
                   <ProtectedRoute user={customer}>
                     <CustomerDashboard
-                      filterOwners={filterOwners}
+                      // filterOwners={filterOwners}
                       customer={customer}
-                      favOwners={favOwners}
-                      setFavOwners={setFavOwners}
+                      // favOwners={favOwners}
+                      // setFavOwners={setFavOwners}
+                      customers={customersList}
                     />
                   </ProtectedRoute>
                 }
-              ></Route>
+              />
 
               <Route
                 path="list"
@@ -325,6 +342,7 @@ function App() {
                 element={
                   <ProtectedRoute user={customer}>
                     <SingleServiceP
+                      customersList={customersList}
                       customer={customer}
                       ownersList={ownersList}
                       updateFav={updateFav}

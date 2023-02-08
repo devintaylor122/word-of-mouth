@@ -7,15 +7,16 @@ import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 import { storage } from "../firebaseconfig.js";
-import { ref, uploadBytes, listAll, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import {v4} from 'uuid'
+import {
+  ref,
+  uploadBytes,
+  listAll,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { v4 } from "uuid";
 
 import { Link } from "react-router-dom";
-// import {
-//   createUserWithEmailAndPassword,
-//   onAuthStateChanged,
-// } from "firebase/auth";
-// import { auth } from "../firebaseconfig";
 
 function OwnerForm(props) {
   const { anyUser } = useAuth();
@@ -30,99 +31,89 @@ function OwnerForm(props) {
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
   const navigate = useNavigate();
-  
-  // const [file, setFile] = useState("");
-  // const [data, setData] = useState({});
-  const [imageUpload, setImageUpload] = useState(null);
-  const [imageList, setImageList] = useState([])
-  // const storage = getStorage();
-  
-  
-  
-//   useEffect(() => {
-//       const uploadImage = () => {
-//         const storageRef = ref(storage, "images/");
-//         const uploadTask = uploadBytesResumable(storageRef, file);
-//         uploadTask.on(
-//           "state_changed", 
-//           (snapshot) => {
-//           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//     console.log('Upload is ' + progress + '% done');
-//     switch (snapshot.state) {
-//       case 'paused':
-//         console.log('Upload is paused');
-//         break;
-//       case 'running':
-//         console.log('Upload is running');
-//         break;
-//         default:
-//           break
-//     }
-//   }, 
-//   (error) => {
-  
-//   }, 
-//   () => {
-//       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-//        setData((prev)=>({...prev, img:downloadURL}))
-//     });
-//   }
-// );
-// };
-// file && uploadImage();
-// }, [file]);
-        
-    //     (imageListRef).then((response) => {
-    //     console.log(response)
-    //      response.items.forEach((item)=> {
-    //   getDowloadURL(item).then((url) => {
-    // setImageList((prev) => [...prev, url])
-    // })
 
-  const imageListRef = ref(storage, "images/" )
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageList, setImageList] = useState([]);
+
+  //   useEffect(() => {
+  //       const uploadImage = () => {
+  //         const storageRef = ref(storage, "images/");
+  //         const uploadTask = uploadBytesResumable(storageRef, file);
+  //         uploadTask.on(
+  //           "state_changed",
+  //           (snapshot) => {
+  //           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //     console.log('Upload is ' + progress + '% done');
+  //     switch (snapshot.state) {
+  //       case 'paused':
+  //         console.log('Upload is paused');
+  //         break;
+  //       case 'running':
+  //         console.log('Upload is running');
+  //         break;
+  //         default:
+  //           break
+  //     }
+  //   },
+  //   (error) => {
+
+  //   },
+  //   () => {
+  //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+  //        setData((prev)=>({...prev, img:downloadURL}))
+  //     });
+  //   }
+  // );
+  // };
+  // file && uploadImage();
+  // }, [file]);
+
+  //     (imageListRef).then((response) => {
+  //     console.log(response)
+  //      response.items.forEach((item)=> {
+  //   getDowloadURL(item).then((url) => {
+  // setImageList((prev) => [...prev, url])
+  // })
+  const uniqueKey = v4();
+  const imageListRef = ref(storage, "images/");
   const uploadImage = () => {
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot)=> {
+    // const imageRef = ref(storage, `images/${imageUpload.name + uniqueKey}`);
+    const imageRef = ref(storage, `images/${uniqueKey}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        setImageList((prev) => [...prev, url])
-        alert("Image Uploaded")
-      })
-    })
+        setImageList((prev) => [...prev, url]);
+        alert("Image Uploaded");
+      });
+    });
     // console.log("image: ", imageUpload)
   };
 
   useEffect(() => {
     listAll(imageListRef).then((response) => {
-      response.items.forEach(() => { 
+      response.items.forEach(() => {
         getDownloadURL().then((url) => {
-          setImageList((prev) => [...prev, url])
-
-        })
-      })
+          setImageList((prev) => [...prev, url]);
+        });
+      });
     });
-
   }, []);
-  
+  // ......Firebase Rules to allow 1 image.......
+  // rules_version = '2';
+  // service firebase.storage {
+  //   match /b/{bucket}/o {
+  //     match /{allPaths=**} {
+  //       allow write: if request.auth.uid == userId
+  //       && (!exists(/databases/$(database)/documents/users/$(request.auth.uid)/images/$(image))
+  //       || exists(/databases/$(database)/documents/users/$(request.auth.uid)/images/$(image))
+  //       && size(/databases/$(database)/documents/users/$(request.auth.uid)/images) == 1);
 
-  
-  // 
-  //   const uploadImage = () => {
-  //     if (imageUpload == null) return;
-  //     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-  //     uploadBytes(imageRef, imageUpload).then((snapshot) => {
-  //    getDownloadURL(snapshot.ref).then((url) => {
-  //       setImageBytes((prev) => [...prev, url])
+  //       allow delete: if request.auth.uid == userId
+  //       && exists(/databases/$(database)/documents/users/$(request.auth.uid)/images/$(image))
+  //       && size(/databases/$(database)/documents/users/$(request.auth.uid)/images) == 1;
+  //     }
+  //   }
 
-  // })
-  // });
-  // };
-  //
-
-  // })
-  //   })
-
-  
   const submitHandler = () => {
     createOwner(
       newCompany,
@@ -137,7 +128,6 @@ function OwnerForm(props) {
     );
     navigate("/owner/dash");
   };
-
 
   return (
     //  uploading image, this will need to be added to the OwnerForm
@@ -245,15 +235,15 @@ function OwnerForm(props) {
 
       <div>
         <br />
-        <input 
-        type="file" 
-        onChange={(event) => {
-          setImageUpload(event.target.files[0])
+        <input
+          type="file"
+          onChange={(event) => {
+            setImageUpload(event.target.files[0]);
           }}
-          />
+        />
         <button onClick={uploadImage}>Upload image</button>
         {imageList.map((url) => {
-          return <img src={url} />;
+          return <img key="uniqueKey" alt="userImage" src={url} />;
         })}
       </div>
       {/* <div>

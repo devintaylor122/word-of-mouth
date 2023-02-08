@@ -9,35 +9,47 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  onSnapshot,
+  query,
 } from "firebase/firestore";
 import ServiceProvider from "./ServiceProvider.js";
 import useAuth from "../hooks/useAuth";
+
 const CustomerDashboard = (props) => {
+  console.log("i dont get it");
   const { anyUser } = useAuth();
   const setFavOwners = props.setFavOwners;
   const filterOwners = props.filterOwners;
+  const customers = props.customersList;
 
-  const displayFavorites = props.favOwners.map((ind) => (
-    <article key={ind.id}>
-      <Link to={`/customer/list/${ind.id}`}>
-        <ServiceProvider
-          serviceProviderList={props.industriesList}
-          data={ind}
-          toggleDisplay={props.toggleDisplay}
-        ></ServiceProvider>
-      </Link>
-    </article>
-  ));
+  const singleCustomer = customers.find(
+    (customer) => customer.uid === anyUser.uid
+  );
+  console.log("FAV", customers);
+  // const displayFavorites = "hi";
+  const displayFavorites = singleCustomer.favOwners
+    ? singleCustomer.favOwners.map((ind) => (
+        <article key={ind.id}>
+          <Link to={`/customer/list/${ind.id}`}>
+            <ServiceProvider
+              serviceProviderList={props.industriesList}
+              data={ind}
+              toggleDisplay={props.toggleDisplay}
+            ></ServiceProvider>
+          </Link>
+        </article>
+      ))
+    : "NOTHING FAVORITED YET";
 
   console.log("UH HELLO", displayFavorites);
 
-  useEffect(() => {
-    const filterFavs = async () => {
-      await filterOwners("isFavorite", "==", true, setFavOwners);
-    };
-    filterFavs();
-    console.log("WELL now...", displayFavorites);
-  }, []);
+  // useEffect(() => {
+  //   const filterFavs = async () => {
+  //     await filterOwners("isFavorite", "==", true, setFavOwners);
+  //   };
+  //   filterFavs();
+  //   console.log("WELL now...", displayFavorites);
+  // }, []);
   // const displayFavorites = ""
   // const { ownersList } = props.ownersList;
   //  //--------------------------------FILTER--------------------------------
@@ -67,7 +79,7 @@ const CustomerDashboard = (props) => {
   // };
 
   // //--------------------------------------------------------------------
-  console.log("user id", anyUser.uid);
+  // console.log("user id", anyUser.uid);
   return (
     <div>
       <h2>Your Favorite Services</h2>

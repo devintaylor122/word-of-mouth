@@ -4,24 +4,31 @@ import ServiceProvidersList from "./ServiceProvidersList";
 import useAuth from "../hooks/useAuth";
 
 const SingleServiceP = (props) => {
-  const { anyUser, userFSInfo } = useAuth();
+  const { anyUser } = useAuth();
   const updateFav = props.updateFav;
   const serviceProviders = props.ownersList;
+  const customers = props.customersList;
   const { SPId } = useParams();
   // console.log("SPL", serviceProviders);
   const singleServiceProvider = serviceProviders.find(
     (serviceProvider) => serviceProvider.id === SPId
   );
-  console.log("SEE", singleServiceProvider.isFavorite);
+  console.log("CUSTOMERSSSS", customers);
+  const singleCustomer = customers.find(
+    (customer) => customer.uid === anyUser.uid
+  );
+  // console.log("SEE", singleServiceProvider.favOwners);
   // const isFavorite = singleServiceProvider.isFavorite;
-
+  console.log("SINGLE CUST ", singleCustomer);
   const { company, email, hours, industry, owner, phone, specialty } =
     singleServiceProvider;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
 
   // let buttonContent = isFavorite ? "Favorited 💗" : "Favorite 🤍";
-  let buttonContent = userFSInfo.favOwners.includes(singleServiceProvider.id)
+  let buttonContent = singleCustomer.favOwners.includes(
+    singleServiceProvider.id
+  )
     ? "Favorited 💗"
     : "Favorite 🤍";
   // let buttonContent = "";
@@ -32,11 +39,11 @@ const SingleServiceP = (props) => {
   // };
   const toggleFav = async () => {
     await updateFav(
-      userFSInfo.uid,
+      singleCustomer.id,
       singleServiceProvider.id,
-      userFSInfo.favOwners
+      singleCustomer.favOwners
     );
-    buttonContent = userFSInfo.favOwners.includes(singleServiceProvider.id)
+    buttonContent = singleCustomer.favOwners.includes(singleServiceProvider.id)
       ? "Favorited 💗"
       : "Favorite 🤍";
   };
