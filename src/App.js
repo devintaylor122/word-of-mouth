@@ -378,7 +378,6 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* <Route path="edit" element={<EditOwner />}></Route> */}
               {/* <Route path="/messaging" element={<Messages />}/> */}
             </Route>
 
