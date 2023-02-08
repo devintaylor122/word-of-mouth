@@ -56,6 +56,8 @@ function CustomerCreateAccount() {
           setRegisterEmail(event.target.value);
         }}
       />
+      <br></br>
+      <br></br>
       <input
         type={showPassword ? "text" : "password"}
         placeholder="Password..."
@@ -63,10 +65,13 @@ function CustomerCreateAccount() {
           setRegisterPassword(event.target.value);
         }}
       />
+      <br></br>
+      <br></br>
       <button onClick={togglePasswordVisibility}>
         {showPassword ? "Hide" : "Show"} Password
       </button>
-
+      <br></br>
+      <br></br>
       <div>
         <button type="signUp" onClick={register}>
           {" "}

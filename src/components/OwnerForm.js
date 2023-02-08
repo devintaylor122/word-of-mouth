@@ -6,9 +6,9 @@ import Tags from "./Tags.js";
 import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
-// import { storage } from "./firebase";
-// import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-// import {v4} from 'uuid'
+import { storage } from "../firebaseconfig.js";
+import { ref, uploadBytes, listAll, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import {v4} from 'uuid'
 
 import { Link } from "react-router-dom";
 // import {
@@ -30,9 +30,83 @@ function OwnerForm(props) {
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
   const navigate = useNavigate();
-  // const [imageUpload, setImageUpload] = useState(null);
-  // const [imageList, setImageList] = useEffect([])
-  // const imageListRef = ref(storage, "images/")
+  
+  // const [file, setFile] = useState("");
+  // const [data, setData] = useState({});
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageList, setImageList] = useState([])
+  // const storage = getStorage();
+  
+  
+  
+//   useEffect(() => {
+//       const uploadImage = () => {
+//         const storageRef = ref(storage, "images/");
+//         const uploadTask = uploadBytesResumable(storageRef, file);
+//         uploadTask.on(
+//           "state_changed", 
+//           (snapshot) => {
+//           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//     console.log('Upload is ' + progress + '% done');
+//     switch (snapshot.state) {
+//       case 'paused':
+//         console.log('Upload is paused');
+//         break;
+//       case 'running':
+//         console.log('Upload is running');
+//         break;
+//         default:
+//           break
+//     }
+//   }, 
+//   (error) => {
+  
+//   }, 
+//   () => {
+//       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+//        setData((prev)=>({...prev, img:downloadURL}))
+//     });
+//   }
+// );
+// };
+// file && uploadImage();
+// }, [file]);
+        
+    //     (imageListRef).then((response) => {
+    //     console.log(response)
+    //      response.items.forEach((item)=> {
+    //   getDowloadURL(item).then((url) => {
+    // setImageList((prev) => [...prev, url])
+    // })
+
+  const imageListRef = ref(storage, "images/" )
+  const uploadImage = () => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot)=> {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageList((prev) => [...prev, url])
+        alert("Image Uploaded")
+      })
+    })
+    // console.log("image: ", imageUpload)
+  };
+
+  useEffect(() => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach(() => { 
+        getDownloadURL().then((url) => {
+          setImageList((prev) => [...prev, url])
+
+        })
+      })
+    });
+
+  }, []);
+  
+
+  
+  // 
   //   const uploadImage = () => {
   //     if (imageUpload == null) return;
   //     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
@@ -43,19 +117,12 @@ function OwnerForm(props) {
   // })
   // });
   // };
-  // useEffect(() => {
-  //   listAll(imageListRef).then((response) => {
-  //     console.log(response)
-  //      response.items.forEach((item)=> {
-  //   getDowloadURL(item).then((url) => {
-  // setImageList((prev) => [...prev, url])
-
-  // })
+  //
 
   // })
   //   })
 
-  // }, []);
+  
   const submitHandler = () => {
     createOwner(
       newCompany,
@@ -70,6 +137,7 @@ function OwnerForm(props) {
     );
     navigate("/owner/dash");
   };
+
 
   return (
     //  uploading image, this will need to be added to the OwnerForm
@@ -173,6 +241,20 @@ function OwnerForm(props) {
           }}
         />
         <label>Not Mobile</label>
+      </div>
+
+      <div>
+        <br />
+        <input 
+        type="file" 
+        onChange={(event) => {
+          setImageUpload(event.target.files[0])
+          }}
+          />
+        <button onClick={uploadImage}>Upload image</button>
+        {imageList.map((url) => {
+          return <img src={url} />;
+        })}
       </div>
       {/* <div>
         <input
