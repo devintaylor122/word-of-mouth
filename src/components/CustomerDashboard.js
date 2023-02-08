@@ -11,37 +11,44 @@ import {
   deleteDoc,
   onSnapshot,
   query,
+  where,
 } from "firebase/firestore";
 import ServiceProvider from "./ServiceProvider.js";
 import useAuth from "../hooks/useAuth";
+import { getAuth } from "firebase/auth";
 
 const CustomerDashboard = (props) => {
   console.log("i dont get it");
-  const { anyUser } = useAuth();
+  // const { anyUser } = useAuth();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const customerId = user.uid;
   const setFavOwners = props.setFavOwners;
   const filterOwners = props.filterOwners;
-  const customers = props.customersList;
 
-  const singleCustomer = customers.find(
-    (customer) => customer.uid === anyUser.uid
-  );
-  console.log("FAV", customers);
-  // const displayFavorites = "hi";
-  const displayFavorites = singleCustomer.favOwners
-    ? singleCustomer.favOwners.map((ind) => (
-        <article key={ind.id}>
-          <Link to={`/customer/list/${ind.id}`}>
-            <ServiceProvider
-              serviceProviderList={props.industriesList}
-              data={ind}
-              toggleDisplay={props.toggleDisplay}
-            ></ServiceProvider>
-          </Link>
-        </article>
-      ))
-    : "NOTHING FAVORITED YET";
-
-  console.log("UH HELLO", displayFavorites);
+  const customerRef = collection(db, "customers");
+  const q = query(customerRef, where("uid", "==", customerId));
+  console.log("q", q);
+  // const customers = props.customersList;
+  console.log("LOOk", customerId);
+  // const singleCustomer = props.customersList.find(
+  //   (customer) => customer.uid === customerId
+  // );
+  console.log("FAV", props.customersList);
+  const displayFavorites = "hi";
+  // const displayFavorites = singleCustomer.favOwners
+  //   ? singleCustomer.favOwners.map((ind) => (
+  //       <article key={ind.id}>
+  //         <Link to={`/customer/list/${ind.id}`}>
+  //           <ServiceProvider
+  //             serviceProviderList={props.industriesList}
+  //             data={ind}
+  //             toggleDisplay={props.toggleDisplay}
+  //           ></ServiceProvider>
+  //         </Link>
+  //       </article>
+  //     ))
+  //   : "NOTHING FAVORITED YET";
 
   // useEffect(() => {
   //   const filterFavs = async () => {
