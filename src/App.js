@@ -37,6 +37,7 @@ import SharedLoggedOutLayout from "./components/SharedLoggedOutLayout";
 import SharedCustLayout from "./components/SharedCustLayout";
 import SharedOwnerLayout from "./components/SharedOwnerLayout";
 import useAuth from "./hooks/useAuth";
+import { getAuth } from "firebase/auth";
 
 function App() {
   const { anyUser } = useAuth();
@@ -65,6 +66,22 @@ function App() {
   //   }
   //   console.log(user);
   // }, []);
+  const auth = getAuth();
+  const user = auth.currentUser;
+  let userId;
+  if (user) {
+    userId = user.uid;
+    console.log("userId: ", userId);
+  } else {
+    console.warn("User is null or undefined");
+  }
+  const testCurrentUser = customersList.find(
+    (customer) => customer.uid === userId
+  );
+  console.log("test current usre: ", testCurrentUser);
+  // useEffect(()=> {
+  //   if
+  // })
 
   //--------------------CREATING USERS------------------------------------------
   const createCustomer = async (
@@ -285,9 +302,7 @@ function App() {
               <Route
                 path="OwnerLogin"
                 element={
-                  <OwnerLogin
-                    ownersList={ownersList} setOwner={setOwner} 
-                  />
+                  <OwnerLogin ownersList={ownersList} setOwner={setOwner} />
                 }
               />
               <Route

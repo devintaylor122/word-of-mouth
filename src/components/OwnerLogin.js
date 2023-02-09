@@ -21,7 +21,7 @@ function OwnerLogin(props) {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  console.log("setO", setOwner);
   const login = async () => {
     try {
       // this will create a new user in our authentication in firbase and at the same time in will log you in
@@ -31,13 +31,7 @@ function OwnerLogin(props) {
         loginEmail,
         loginPassword
       );
-      // setOwner({ email: loginEmail, loginPassword: loginPassword });
-      setOwner(user.user.uid)
-      console.log("check", user.user.uid);
-      // const currentOwner = props.ownersList.find(
-      //   (owner) => owner.uid === user.user.uid
-      // );
-      // console.log("Another Check, ", currentOwner);
+
       navigate("/owner/dash");
     } catch (error) {
       alert("Check your email or password");
