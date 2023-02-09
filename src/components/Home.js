@@ -40,19 +40,18 @@ function Home() {
           <Link to="CustomerDashboard">Customer Dash</Link>
         </button>
       </nav> */}
+      <h2 className="welcome">Welcome to Word of Mouth.</h2>
       <p>
-        {" "}
-        Welcome to Word of Mouth. <br></br>This is where customers meet their
-        skilled service providers.
+        Are you ready to explore what new WOM businesses you can support? Go
+        ahead and Sign-Up to start exploring what local, small service providers
+        are near you
       </p>
-      <div className="login-container">
-        <div id="contactTile">
-          <OwnerLogin></OwnerLogin>
-        </div>
+      <div id="owner-login" class="contactTile">
+        <OwnerLogin></OwnerLogin>
+      </div>
 
-        <div id="contactTile">
-          <CustomerLogin></CustomerLogin>
-        </div>
+      <div id="customer-login" className="contactTile">
+        <CustomerLogin></CustomerLogin>
       </div>
     </div>
   );

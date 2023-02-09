@@ -1,35 +1,51 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
 
-body {
+/* .App {
   display: grid;
   grid-template-columns: repeat(10, 10%);
   grid-template-rows: repeat(5, 20%);
   text-align: center;
+} */
+
+html, body {
+  display: inline;
 }
 
-#root {
+/* #root {
   grid-row-start: 1;
   grid-row-end: 6;
   grid-column-start: 1;
   grid-column-end: 11;
+} */
+
+.App > div{
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+  grid-template-rows: repeat(10, 10%);
+  text-align: center;
 }
 
 .page{
   grid-row-start: 2;
   grid-row-end: 6;
+  grid-column-start: 1;
+  grid-column-end: 11;
+  display: grid;
+  grid-template-columns: repeat(10, 135px);
+  grid-template-rows: repeat(10, 80px);
 }
 
 .nav-container {
   grid-row-start: 1;
   grid-row-end: 2;
-  grid-column-start: 5;
-  grid-column-end: 11;
+  grid-column-start: 4;
+  grid-column-end: 8;
 }
 
 nav {
   display: flex;
   flex-direction: center;
-  justify-content: space-evenly, center;
+  justify-content: space-between, right;
 }
 
 
@@ -44,7 +60,6 @@ nav {
 *::before, *::after {
   box-sizing: border-box;
 }
-
 
 
 nav > button {

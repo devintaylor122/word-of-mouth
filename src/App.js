@@ -16,6 +16,12 @@ import Error from "./components/Error";
 import OwnerDash from "./components/OwnerDash";
 import EditOwner from "./components/EditOwner";
 import { AuthProvider } from "./context/AuthProvider";
+// import {
+//   createUserWithEmailAndPassword,
+//   onAuthStateChanged,
+//   signInWithEmailAndPassword,
+//   getAuth,
+// } from "firebase/auth";
 
 import ServiceProvidersList from "./components/ServiceProvidersList";
 
@@ -66,6 +72,34 @@ function App() {
   //   }
   //   console.log(user);
   // }, []);
+  // const [anyUser, setAnyUser] = useState();
+  //-------------------------------------------------------------------------
+  // const [currentUserUID, setCurrentUserUID] = useState();
+  // // const [userDBInfo, setUserDBInfo] = useState();
+  // // const [ownersList, setOwnersList] = useState([]);
+  // // const [customersList, setCustomersList] = useState([]);
+  // // const customersCollectionRef = collection(db, "customers");
+  // // const ownersCollectionRef = collection(db, "owners");
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       // User is signed in, see docs for a list of available properties
+  //       // https://firebase.google.com/docs/reference/js/firebase.User
+  //       const uid = user.uid;
+  //       console.log(user);
+  //       console.log(uid);
+  //       setCurrentUser(user);
+  //       setCurrentUserUID(uid);
+  //       // ...
+  //     }
+  //     // else {
+  //     //   // User is signed out
+  //     //   // ...
+  //     // }
+  //   });
+  // }, []);
+  // console.log("Info", currentUser, currentUserUID);
+  //-------------------------------------------------------------------------
   const auth = getAuth();
   const user = auth.currentUser;
   let userId;
@@ -79,9 +113,9 @@ function App() {
     (customer) => customer.uid === userId
   );
   console.log("test current usre: ", testCurrentUser);
-  // useEffect(()=> {
-  //   if
-  // })
+  // // useEffect(()=> {
+  // //   if
+  // // })
 
   //--------------------CREATING USERS------------------------------------------
   const createCustomer = async (
@@ -329,6 +363,8 @@ function App() {
                   customersList={customersList}
                   allowedRole="customer"
                   user={customer}
+                  // currentUser={currentUser}
+                  // currentUserUID={currentUserUID}
                 />
               }
             >

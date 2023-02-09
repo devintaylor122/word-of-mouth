@@ -4,8 +4,8 @@ import "./Home.css";
 
 function SharedLoggedOutLayout() {
   return (
-    <div className="nav-container">
-      <nav>
+    <div>
+      <nav className="nav-container">
         <button type="logged-out">
           <Link to="/"> HOME </Link>
         </button>
@@ -40,7 +40,7 @@ function SharedLoggedOutLayout() {
           <Link to="/CustomerDashboard">Customer Dash</Link>
         </button> */}
       </nav>
-      <Outlet />
+      <Outlet className="page" />
     </div>
   );
 }

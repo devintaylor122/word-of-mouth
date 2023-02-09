@@ -4,11 +4,13 @@ import useAuth from "../hooks/useAuth";
 
 const ProtectedRoute = (props) => {
   const { anyUser } = useAuth();
+  // const uid = props.currentUserUID;
+  // const currentUser = props.currentUser;
   const location = useLocation();
   const ownersList = props.ownersList;
   const customersList = props.customersList;
   const allowedRole = props.allowedRole;
-  console.log(ownersList);
+  // console.log(ownersList);
 
   let userId;
   if (anyUser) {
@@ -17,7 +19,7 @@ const ProtectedRoute = (props) => {
   } else {
     console.warn("User is null or undefined");
   }
-
+  // console.log("UIDDDD", uid);
   let user = "";
   if (allowedRole === "owner") {
     user = ownersList.find((owner) => owner.uid === userId);

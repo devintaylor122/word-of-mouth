@@ -26,7 +26,9 @@ function CustomerCreateAccount() {
   };
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
+    // console.log("InCreateAccount onAuthStateChanged. ", currentUser);
   });
+  // console.log("InCreateAccount. ", user);
   const register = async () => {
     try {
       // this will create a new user in our authentication in firbase and at the same time in will log you in
@@ -38,6 +40,7 @@ function CustomerCreateAccount() {
       // setAUser({ email: registerEmail, registerPassword: registerPassword });
       console.log(user);
       navigate("/customerForm");
+      // console.log("InCreateAccount register. ", user);
     } catch (error) {
       alert("Check your email or password");
       console.log(error.message);

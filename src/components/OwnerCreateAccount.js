@@ -52,7 +52,8 @@ function OwnerCreateAccount() {
         onChange={(event) => {
           setRegisterEmail(event.target.value);
         }}
-      /><br></br>
+      />
+      <br></br>
       <br></br>
       <input
         type={showPassword ? "text" : "password"}
@@ -60,7 +61,8 @@ function OwnerCreateAccount() {
         onChange={(event) => {
           setRegisterPassword(event.target.value);
         }}
-      /><br></br>
+      />
+      <br></br>
       <br></br>
       <button onClick={togglePasswordVisibility}>
         {showPassword ? "Hide" : "Show"} Password
