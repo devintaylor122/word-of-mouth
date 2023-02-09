@@ -5,7 +5,8 @@ import { auth } from "../firebaseconfig";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-function OwnerLogin() {
+function OwnerLogin(props) {
+  const setOwner = props.setOwner;
   const { anyUser } = useAuth();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -31,7 +32,12 @@ function OwnerLogin() {
         loginPassword
       );
       // setOwner({ email: loginEmail, loginPassword: loginPassword });
-      console.log(user);
+      setOwner(user.user.uid)
+      console.log("check", user.user.uid);
+      // const currentOwner = props.ownersList.find(
+      //   (owner) => owner.uid === user.user.uid
+      // );
+      // console.log("Another Check, ", currentOwner);
       navigate("/owner/dash");
     } catch (error) {
       alert("Check your email or password");

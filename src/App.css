@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
 
-.App {
+body {
   display: grid;
   grid-template-columns: repeat(10, 10%);
   grid-template-rows: repeat(5, 20%);
   text-align: center;
+}
+
+#root {
+  grid-row-start: 1;
+  grid-row-end: 6;
+  grid-column-start: 1;
+  grid-column-end: 11;
 }
 
 .page{

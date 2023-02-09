@@ -12,7 +12,7 @@ function ServiceProvidersList(props) {
   let { displayOwners } = props.displayOwners;
   const [filter, setFilter] = useState("");
   const filterOwners = props.filterOwners;
-
+  console.log("display: ", displayOwners);
   const listElements = displayOwners.map((ind) => (
     <article key={ind.id}>
       <Link to={`/customer/list/${ind.id}`}>

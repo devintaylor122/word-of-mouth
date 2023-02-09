@@ -20,9 +20,12 @@ import { getAuth } from "firebase/auth";
 
 const CustomerDashboard = (props) => {
   const auth = getAuth();
-  const userId = auth.currentUser.uid;
+
+  const user = auth.currentUser;
+  // const userId = user.uid;
+  // console.log("userId: ", userId);
   // const { anyUser } = useAuth();
-  console.log(userId);
+  // console.log("this is userId: ", userId);
   console.log("i dont get it");
 
   // const customerId = anyUser.uid;
@@ -31,23 +34,23 @@ const CustomerDashboard = (props) => {
 
   const customers = props.customers;
 
-  const singleCustomer = customers.find((customer) => customer.uid === userId);
+  // const singleCustomer = customers.find((customer) => customer.uid === userId);
   console.log("FAV", customers);
 
-  // const displayFavorites = "hi";
-  const displayFavorites = singleCustomer.favOwners
-    ? singleCustomer.favOwners.map((ind) => (
-        <article key={ind.id}>
-          <Link to={`/customer/list/${ind.id}`}>
-            <ServiceProvider
-              serviceProviderList={props.industriesList}
-              data={ind}
-              toggleDisplay={props.toggleDisplay}
-            ></ServiceProvider>
-          </Link>
-        </article>
-      ))
-    : "NOTHING FAVORITED YET";
+  const displayFavorites = "hi";
+  // const displayFavorites = singleCustomer.favOwners
+  //   ? singleCustomer.favOwners.map((ind) => (
+  //       <article key={ind.id}>
+  //         <Link to={`/customer/list/${ind.id}`}>
+  //           <ServiceProvider
+  //             serviceProviderList={props.industriesList}
+  //             data={ind}
+  //             toggleDisplay={props.toggleDisplay}
+  //           ></ServiceProvider>
+  //         </Link>
+  //       </article>
+  //     ))
+  //   : "NOTHING FAVORITED YET";
 
   // useEffect(() => {
   //   const filterFavs = async () => {
