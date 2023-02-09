@@ -1,14 +1,7 @@
 import "./App.css";
 import { db } from "./firebaseconfig.js";
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Outlet,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import OwnerForm from "./components/OwnerForm";
@@ -21,7 +14,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import OwnerCreateAccount from "./components/OwnerCreateAccount";
 import Error from "./components/Error";
 import OwnerDash from "./components/OwnerDash";
-import LogOut from "./components/LogOut";
 import EditOwner from "./components/EditOwner";
 import { AuthProvider } from "./context/AuthProvider";
 
@@ -29,39 +21,31 @@ import ServiceProvidersList from "./components/ServiceProvidersList";
 
 import {
   collection,
-  getDocs,
   addDoc,
   updateDoc,
   doc,
-  deleteDoc,
   query,
   where,
   onSnapshot,
   arrayUnion,
   arrayRemove,
 } from "firebase/firestore";
-import { ReactDOM } from "react";
 
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import { auth } from "./firebaseconfig";
 import CustomerCreateAccount from "./components/CustomerCreateAccount";
 import SharedLoggedOutLayout from "./components/SharedLoggedOutLayout";
 import SharedCustLayout from "./components/SharedCustLayout";
 import SharedOwnerLayout from "./components/SharedOwnerLayout";
+import useAuth from "./hooks/useAuth";
 
 function App() {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const { anyUser } = useAuth();
+
   const [owner, setOwner] = useState({});
   const [customer, setCustomer] = useState({});
-  const logout = async () => {
-    await signOut(auth);
-  };
+  // const logout = async () => {
+  //   await signOut(auth);
+  // };
 
   const [ownersList, setOwnersList] = useState([]);
   const [displayOwners, setDisplayOwners] = useState([]);
@@ -71,7 +55,17 @@ function App() {
 
   const ownersCollectionRef = collection(db, "owners");
   const customersCollectionRef = collection(db, "customers");
+  //------------------------------------------------------------------------------
+  useEffect(() => {
+    console.log(anyUser);
+    let user = ownersList.find((owner) => owner.uid === anyUser.uid);
+    if (user == null) {
+      user = customersList.find((customer) => customer.uid === anyUser.uid);
+    }
+    console.log(user);
+  }, []);
 
+  //--------------------CREATING USERS------------------------------------------
   const createCustomer = async (
     newName,
     newPhone,
@@ -88,6 +82,7 @@ function App() {
       city: newCity,
       uid: uid,
       favOwners: [],
+      role: "customer",
     });
   };
   const createOwner = async (
@@ -114,10 +109,11 @@ function App() {
       mobile: mobile,
       // isFavorite: false,
       uid: uid,
+      role: "owner",
     });
   };
-
-  //--------------------------------FILTER--------------------------------
+  //------------------------------------------------------------------------
+  //--------------------------------FILTER----------------------------------------
   // console.log("OWNERSLIST, ", ownersList);
   const filterOwners = async (filterType, filterWhere, filter, setState) => {
     // setDisplayOwners(ownersList);
@@ -287,11 +283,11 @@ function App() {
               />
               <Route
                 path="OwnerLogin"
-                element={<OwnerLogin setAUser={setOwner} />}
+                element={<OwnerLogin /*setAUser={setOwner} */ />}
               />
               <Route
                 path="CustomerLogin"
-                element={<CustomerLogin setCustomer={setCustomer} />}
+                element={<CustomerLogin /*setCustomer={setCustomer} */ />}
               />
 
               {/* <Route
@@ -356,7 +352,6 @@ function App() {
 
             {/* </ProtectedRoute> */}
             {/* </Route> */}
-
             <Route path="/owner" element={<SharedOwnerLayout />}>
               <Route
                 path="dash"
@@ -380,6 +375,31 @@ function App() {
               />
               {/* <Route path="/messaging" element={<Messages />}/> */}
             </Route>
+            {/* <Route
+              element={
+                <ProtectedRoute
+                  ownersList={ownersList}
+                  customersList={customersList}
+                  allowedRole="owner"
+                  user={owner}
+                />
+              }
+            >
+              <Route path="/owner" element={<SharedOwnerLayout />}>
+                <Route path="dash" element={<OwnerDash user={owner} />} />
+                <Route
+                  path="edit"
+                  element={
+                    <EditOwner
+                      ownersList={ownersList}
+                      update={update}
+                      user={owner}
+                    />
+                  }
+                />
+                <Route path="/messaging" element={<Messages />}/>
+              </Route>
+            </Route> */}
 
             <Route path="*" element={<Error />} />
           </Routes>

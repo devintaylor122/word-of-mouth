@@ -76,7 +76,7 @@ ServiceProvider.propTypes = {
       specialty: PropTypes.string.isRequired,
     })
   ),
-  toggleDisplay: PropTypes.func.isRequired,
+  // toggleDisplay: PropTypes.func.isRequired,
 };
 
 export default ServiceProvider;

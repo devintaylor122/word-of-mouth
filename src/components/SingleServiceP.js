@@ -9,6 +9,7 @@ const SingleServiceP = (props) => {
   const serviceProviders = props.ownersList;
   const customers = props.customersList;
   const { SPId } = useParams();
+
   // console.log("SPL", serviceProviders);
   const singleServiceProvider = serviceProviders.find(
     (serviceProvider) => serviceProvider.id === SPId

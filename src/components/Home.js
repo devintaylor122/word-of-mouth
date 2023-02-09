@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CustomerLogin from "./CustomerLogin";
 import "./Home.css";
+import "../App.css";
 import OwnerLogin from "./OwnerLogin";
 
 function Home() {
   return (
-    <div className="home-page">
+    <div className="page">
       {/* <nav>
         <button className="home">
           <Link to="/"> HOME </Link>
@@ -39,12 +40,19 @@ function Home() {
           <Link to="CustomerDashboard">Customer Dash</Link>
         </button>
       </nav> */}
-      <p> Welcome to Word of Mouth. <br></br>This is where customers meet their skilled service providers.</p>
-      <div id="contactTile">
-        <OwnerLogin></OwnerLogin>
-      </div><br></br>
-      <div id="contactTile">
-        <CustomerLogin></CustomerLogin>
+      <p>
+        {" "}
+        Welcome to Word of Mouth. <br></br>This is where customers meet their
+        skilled service providers.
+      </p>
+      <div className="login-container">
+        <div id="contactTile">
+          <OwnerLogin></OwnerLogin>
+        </div>
+
+        <div id="contactTile">
+          <CustomerLogin></CustomerLogin>
+        </div>
       </div>
     </div>
   );

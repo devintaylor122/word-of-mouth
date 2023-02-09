@@ -9,6 +9,8 @@ import "./OwnerForm.css";
 const EditOwner = (props) => {
   const auth = getAuth();
   const user = auth.currentUser;
+  console.log("Edit owner user");
+  console.log(user);
   const ownerId = user.uid;
   const update = props.update;
   const ownersList = props.ownersList;

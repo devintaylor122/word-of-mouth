@@ -4,7 +4,7 @@ import "./Home.css";
 
 function SharedLoggedOutLayout() {
   return (
-    <div className="logged-out-nav">
+    <div className="nav-container">
       <nav>
         <button type="logged-out">
           <Link to="/"> HOME </Link>

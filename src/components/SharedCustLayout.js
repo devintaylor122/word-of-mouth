@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 function SharedCustLayout() {
+  const { anyUser } = useAuth();
   return (
     <div>
       <nav>
@@ -25,6 +27,7 @@ function SharedCustLayout() {
           <Link to="/">LOGOUT</Link>
         </button>
       </nav>
+      <h2>Logged in as: {anyUser.email}</h2>
       <Outlet />
     </div>
   );

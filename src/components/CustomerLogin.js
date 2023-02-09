@@ -1,8 +1,5 @@
 import { useState, useContext } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import Home from "./components/Home";
-// import OwnerForm from "./components/OwnerForm";
-// import CustomerLogin from "../components/CustomerLogin";
+
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebaseconfig";
 // import { useNavigate } from "react-router-dom";

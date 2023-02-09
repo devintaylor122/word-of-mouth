@@ -1,22 +1,14 @@
-//eventually need to change to make sure owner login sends owner to their dashboard, not customer dashboard
-//FEB 2 - SHOW PASSWORD IS SUBMITTING INFO
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Switch,
-  BrowserRouter,
-} from "react-router-dom";
-// import Home from "./components/Home";
-// import OwnerForm from "./components/OwnerForm";
-// import OwnerLogin from "../components/OwnerLogin";
+
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebaseconfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 function OwnerLogin() {
+  const { anyUser } = useAuth();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
