@@ -50,7 +50,7 @@ const SingleServiceP = (props) => {
   };
 
   return (
-    <section className="section product">
+    <section className="section owner">
       {/* <img src={image} alt={name} /> */}
       <h5>
         {company} - {industry}

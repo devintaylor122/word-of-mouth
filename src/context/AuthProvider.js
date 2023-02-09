@@ -6,7 +6,7 @@ import {
 import { collection, query, where } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebaseconfig";
-import { db } from "../firebaseconfig.js";
+// import { db } from "../firebaseconfig.js";
 import { getDocs, onSnapshot, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext({});

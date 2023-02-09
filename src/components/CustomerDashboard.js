@@ -15,38 +15,39 @@ import {
   where,
 } from "firebase/firestore";
 import ServiceProvider from "./ServiceProvider.js";
-import useAuth from "../hooks/useAuth";
+// import useAuth from "../hooks/useAuth";
+import { getAuth } from "firebase/auth";
 
 const CustomerDashboard = (props) => {
-  const { anyUser } = useAuth();
-  console.log(anyUser);
-  console.log("i dont get it");
+  const auth = getAuth();
+  const userId = auth.currentUser.uid;
   // const { anyUser } = useAuth();
+  console.log(userId);
+  console.log("i dont get it");
 
   // const customerId = anyUser.uid;
   const setFavOwners = props.setFavOwners;
   const filterOwners = props.filterOwners;
 
-  // const customers = props.customersList;
-  // console.log("LOOk", customerId);
-  // const singleCustomer = props.customers.find(
-  //   (customer) => customer.uid === customerId
-  // );
-  // console.log("FAV", props.customersList);
-  const displayFavorites = "hi";
-  // const displayFavorites = singleCustomer.favOwners
-  //   ? singleCustomer.favOwners.map((ind) => (
-  //       <article key={ind.id}>
-  //         <Link to={`/customer/list/${ind.id}`}>
-  //           <ServiceProvider
-  //             serviceProviderList={props.industriesList}
-  //             data={ind}
-  //             toggleDisplay={props.toggleDisplay}
-  //           ></ServiceProvider>
-  //         </Link>
-  //       </article>
-  //     ))
-  //   : "NOTHING FAVORITED YET";
+  const customers = props.customers;
+
+  const singleCustomer = customers.find((customer) => customer.uid === userId);
+  console.log("FAV", customers);
+
+  // const displayFavorites = "hi";
+  const displayFavorites = singleCustomer.favOwners
+    ? singleCustomer.favOwners.map((ind) => (
+        <article key={ind.id}>
+          <Link to={`/customer/list/${ind.id}`}>
+            <ServiceProvider
+              serviceProviderList={props.industriesList}
+              data={ind}
+              toggleDisplay={props.toggleDisplay}
+            ></ServiceProvider>
+          </Link>
+        </article>
+      ))
+    : "NOTHING FAVORITED YET";
 
   // useEffect(() => {
   //   const filterFavs = async () => {
