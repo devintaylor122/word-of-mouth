@@ -29,6 +29,7 @@ import {
   collection,
   addDoc,
   updateDoc,
+  deleteDoc,
   doc,
   query,
   where,
@@ -113,6 +114,7 @@ function App() {
     (customer) => customer.uid === userId
   );
   console.log("test current usre: ", testCurrentUser);
+  console.log("USERID", userId)
   // // useEffect(()=> {
   // //   if
   // // })
@@ -146,6 +148,7 @@ function App() {
     newHours,
     newTag,
     mobile,
+    newBio,
     uid
     // isFavorite
   ) => {
@@ -159,6 +162,7 @@ function App() {
       hours: newHours,
       tag: newTag,
       mobile: mobile,
+      bio: newBio,
       // isFavorite: false,
       uid: uid,
       role: "owner",
@@ -197,6 +201,7 @@ function App() {
     updatedHours,
     updatedMobile,
     updateTag,
+    updateBio,
     navigate
     // uid
   ) => {
@@ -211,11 +216,18 @@ function App() {
       hours: updatedHours,
       mobile: updatedMobile,
       tag: updateTag,
+      bio: updateBio
       // uid: uid,
     };
 
     await updateDoc(ownerDoc, updatedData);
     navigate("/owner/dash");
+  };
+
+  const deleteUser = async (id, navigate) => {
+    const userDoc = doc(db, "owners", id);
+    await deleteDoc(userDoc);
+    navigate("/")
   };
   //-----------------------------------------------------------------------------
 
@@ -448,7 +460,7 @@ function App() {
               }
             >
               <Route path="/owner" element={<SharedOwnerLayout />}>
-                <Route path="dash" element={<OwnerDash user={owner} />} />
+                <Route path= "dash"element={<OwnerDash deleteUser={deleteUser} owners={ownersList} user={owner} />} />
                 <Route
                   path="edit"
                   element={

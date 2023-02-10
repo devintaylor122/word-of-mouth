@@ -28,6 +28,7 @@ function OwnerForm(props) {
   const [newHours, setNewHours] = useState("");
   const [mobile, setMobile] = useState("Not Mobile");
   const [newTag, setNewTag] = useState([]);
+  const [newBio, setNewBio] = useState("")
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
   const navigate = useNavigate();
@@ -124,6 +125,7 @@ function OwnerForm(props) {
       newHours,
       newTag,
       mobile,
+      newBio,
       anyUser.uid
     );
     navigate("/owner/dash");
@@ -231,6 +233,16 @@ function OwnerForm(props) {
           }}
         />
         <label>Not Mobile</label>
+      </div>
+
+      <div>
+      <input
+            type="text"
+            placeholder="Add bio or any extra info you want customers to know"
+            onChange={(event) =>{
+              setNewBio(event.target.value)
+            }}
+         />
       </div>
 
       <div>

@@ -23,16 +23,17 @@ function OwnerLogin(props) {
   };
   console.log("setO", setOwner);
   const login = async () => {
+    let user
     try {
       // this will create a new user in our authentication in firbase and at the same time in will log you in
       console.log("YOOOOO");
-      const user = await signInWithEmailAndPassword(
+      user = await signInWithEmailAndPassword(
         auth,
         loginEmail,
         loginPassword
       );
-
-      navigate("/owner/dash");
+      console.log("UID", user)
+      navigate(`/owner/dash`);
     } catch (error) {
       alert("Check your email or password");
       console.log(error.message);

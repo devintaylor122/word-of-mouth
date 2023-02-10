@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../App.css";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "./OwnerForm.css";
+import { storage } from "../firebaseconfig.js";
+import {
+  ref,
+  uploadBytes,
+  listAll,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { v4 } from "uuid";
 
 const EditOwner = (props) => {
   const auth = getAuth();
@@ -28,6 +37,34 @@ const EditOwner = (props) => {
   const [updatedHours, setHours] = useState(owner.hours);
   const [updateTag, setTag] = useState(owner.tag);
   const [updatedMobile, setMobile] = useState(owner.mobile);
+  const [updateBio, setBio] = useState(owner.bio)
+
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageList, setImageList] = useState([]);
+  const uniqueKey = v4();
+  const imageListRef = ref(storage, "images/");
+  const uploadImage = () => {
+    if (imageUpload == null) return;
+    // const imageRef = ref(storage, `images/${imageUpload.name + uniqueKey}`);
+    const imageRef = ref(storage, `images/${uniqueKey}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageList((prev) => [...prev, url]);
+        alert("Image Uploaded");
+      });
+    });
+    // console.log("image: ", imageUpload)
+  };
+
+  useEffect(() => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach(() => {
+        getDownloadURL().then((url) => {
+          setImageList((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
 
   return (
     <div>
@@ -125,6 +162,29 @@ const EditOwner = (props) => {
       </div>
 
       <div>
+        <input
+            type="text"
+            placeholder="Add bio or any extra info you want customers to know"
+            onChange={(event) =>{
+              setBio(event.target.value)
+            }}
+         />
+      </div>
+
+      <div>
+        <br />
+        <input
+          type="file"
+          onChange={(event) => {
+            setImageUpload(event.target.files[0]);
+          }}
+        />
+        <button onClick={uploadImage}>Upload image</button>
+        {imageList.map((url) => {
+          return <img key="uniqueKey" alt="userImage" src={url} />;
+        })}
+      </div>
+      <div>
         <button
           onClick={() => {
             update(
@@ -137,6 +197,7 @@ const EditOwner = (props) => {
               updatedHours,
               updatedMobile,
               updateTag,
+              updateBio,
               navigate
             );
           }}
