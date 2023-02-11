@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../firebaseconfig";
+import { signInWithEmailAndPassword, signOut, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../firebaseconfig";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
@@ -39,6 +39,21 @@ function OwnerLogin(props) {
       console.log(error.message);
     }
   };
+  console.log(auth?.currentUser?.email)
+  const logInWithGoogle = async () => {
+    try {
+      await signInWithPopup(
+        auth,
+        googleProvider
+      );
+      // console.log(thisuser);
+      // setUser(thisuser);
+      navigate("/customer/dash");
+    } catch (error) {
+      console.log("ERROR", error.message);
+    }
+  };
+  
 
   const logout = async () => {
     await signOut(auth);
@@ -81,6 +96,9 @@ function OwnerLogin(props) {
             {" "}
             Login
           </button>
+        <div>
+          <button onClick={logInWithGoogle}> Log In With Google</button>
+        </div>
         </div>
       </form>
     </div>
