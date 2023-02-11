@@ -425,8 +425,8 @@ function App() {
             </Route>
 
             {/* </ProtectedRoute> */}
-            {/* </Route> */}
-            {/* <Route path="/owner" element={<SharedOwnerLayout />}>
+            {/* {/* </Route>  */}
+            <Route path="/owner" element={<SharedOwnerLayout />}/>
               <Route
                 path="dash"
                 element={
@@ -447,8 +447,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/messaging" element={<Messages />}/>
-            </Route> */}
+              {/* <Route path="/messaging" element={<Messages />}/>
+            </Route>  */}
             <Route
               element={
                 <ProtectedRoute
@@ -460,7 +460,7 @@ function App() {
               }
             >
               <Route path="/owner" element={<SharedOwnerLayout />}>
-                <Route path= "dash"element={<OwnerDash deleteUser={deleteUser} owners={ownersList} user={owner} />} />
+                <Route path= "dash" element={<OwnerDash deleteUser={deleteUser} owners={ownersList} user={owner} />} />
                 <Route
                   path="edit"
                   element={

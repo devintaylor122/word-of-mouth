@@ -23,7 +23,7 @@ function OwnerDash(props) {
   const singleOwner = owners.find(
     (owner) => owner.uid === OId
   );
-  const { company, email, hours, industry, specialty, owner, phone} =
+  const { company, email, hours, industry, specialty, owner, phone, profileImage} =
   singleOwner;
 console.log("actual id", singleOwner.id)
   return (

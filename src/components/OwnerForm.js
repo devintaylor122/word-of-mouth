@@ -12,11 +12,11 @@ import {
   uploadBytes,
   listAll,
   getDownloadURL,
-  uploadBytesResumable,
+  // uploadBytesResumable,
 } from "firebase/storage";
 import { v4 } from "uuid";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 function OwnerForm(props) {
   const { anyUser } = useAuth();

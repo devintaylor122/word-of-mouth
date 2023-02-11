@@ -1,64 +1,67 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { signInWithEmailAndPassword, signOut, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../firebaseconfig";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+// import useAuth from "../hooks/useAuth";
 
-function OwnerLogin(props) {
-  const setOwner = props.setOwner;
-  const { anyUser } = useAuth();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+function OwnerLogin() {
+  // const [owner, setOwner] = useState({});
+  // props.owner = owner;
+  // const setOwner = props.setOwner;
+  // const { anyUser } = useAuth();
+  // const location = useLocation();
+  // const from = location.state?.from?.pathname || "/";
   // const [registerEmail, setRegisterEmail] = useState("");
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   console.log("AUTH in FBC: ", auth);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  console.log("setO", setOwner);
+  // console.log("setO", setOwner);
   const login = async () => {
-    let user
+    // let user
     try {
       // this will create a new user in our authentication in firbase and at the same time in will log you in
-      console.log("YOOOOO");
-      user = await signInWithEmailAndPassword(
+      console.log("user login try block has run");
+      const user = await signInWithEmailAndPassword(
         auth,
         loginEmail,
         loginPassword
       );
       console.log("UID", user)
-      navigate(`/owner/dash`);
+      // setUser(userLocal);
+      navigate("/owner/dash");
     } catch (error) {
       alert("Check your email or password");
       console.log(error.message);
     }
   };
   console.log(auth?.currentUser?.email)
-  // const logInWithGoogle = async () => {
-  //   try {
-  //     await signInWithPopup(
-  //       auth,
-  //       googleProvider
-  //     );
-  //     // console.log(thisuser);
-  //     // setUser(thisuser);
-  //     navigate("/customer/dash");
-  //   } catch (error) {
-  //     console.log("ERROR", error.message);
-  //   }
-  // };
+  const logInWithGoogle = async () => {
+    try {
+      await signInWithPopup(
+        auth,
+        googleProvider
+      );
+      // console.log(thisuser);
+      // setUser(thisuser);
+      navigate("/customer/dash");
+    } catch (error) {
+      console.log("ERROR", error.message);
+    }
+  };
   
 
   const logout = async () => {
     await signOut(auth);
     // setOwner({ email: loginEmail, loginPassword: loginPassword });
-    navigate("/");
+    navigate("/owner/dash");
     console.log(loginEmail, "Logout", loginPassword);
   };
 
@@ -96,9 +99,9 @@ function OwnerLogin(props) {
             {" "}
             Login
           </button>
-        {/* <div>
+        <div>
           <button onClick={logInWithGoogle}> Log In With Google</button>
-        </div> */}
+        </div> 
         </div>
       </form>
     </div>
