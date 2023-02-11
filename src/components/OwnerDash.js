@@ -10,19 +10,30 @@ function OwnerDash(props) {
   // const { anyUser } = useAuth();
   // const { OId } = useParams();
   const auth = getAuth();
-  const o = auth.currentUser;
-  const OId = o.uid;
+  const user = auth.currentUser;
+  let userId;
+  if (user) {
+    userId = user.uid;
+    console.log("userId: ", userId);
+  } else {
+    console.warn("User is null or undefined");
+  }
+  // const OId = o.uid;
   const deleteUser = props.deleteUser
 
-  console.log("OID", OId)
+  console.log("OID", userId)
   const owners = props.owners;
   console.log("owners", owners)
   // const { SPId } = useParams();
 
   // console.log("SPL", serviceProviders);
+  console.log("this is a", userId)
+  // console.log("this is a", owner)
+
   const singleOwner = owners.find(
-    (owner) => owner.uid === OId
+    (owner) => owner.uid === userId
   );
+  console.log("singleOwner", singleOwner)
   const { company, email, hours, industry, specialty, owner, phone, profileImage} =
   singleOwner;
 console.log("actual id", singleOwner.id)

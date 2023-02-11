@@ -21,7 +21,7 @@ const SingleServiceP = (props) => {
   // console.log("SEE", singleServiceProvider.favOwners);
   // const isFavorite = singleServiceProvider.isFavorite;
   console.log("SINGLE CUST ", singleCustomer);
-  const { company, email, hours, industry, owner, phone, specialty } =
+  const { company, email, hours, industry, owner, phone, specialty, image} =
     singleServiceProvider;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
@@ -61,6 +61,7 @@ const SingleServiceP = (props) => {
         <p>Hours: {hours}</p>
         <p>Email: {email}</p>
         <p>Phone: {phone}</p>
+        <div>{image}</div>
         <button
           onClick={() => {
             toggleFav();

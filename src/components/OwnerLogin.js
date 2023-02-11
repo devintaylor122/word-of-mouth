@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { signInWithEmailAndPassword, signOut, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../firebaseconfig";
+import { signInWithEmailAndPassword, signOut, /*signInWithPopup*/ } from "firebase/auth";
+import { auth, /*googleProvider*/  } from "../firebaseconfig";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 // import useAuth from "../hooks/useAuth";
 
@@ -42,20 +42,20 @@ function OwnerLogin() {
       console.log(error.message);
     }
   };
-  console.log(auth?.currentUser?.email)
-  const logInWithGoogle = async () => {
-    try {
-      await signInWithPopup(
-        auth,
-        googleProvider
-      );
-      // console.log(thisuser);
-      // setUser(thisuser);
-      navigate("/customer/dash");
-    } catch (error) {
-      console.log("ERROR", error.message);
-    }
-  };
+  // console.log(auth?.currentUser?.email)
+  // const logInWithGoogle = async () => {
+  //   try {
+  //     await signInWithPopup(
+  //       auth,
+  //       googleProvider
+  //     );
+  //     // console.log(thisuser);
+  //     // setUser(thisuser);
+  //     navigate("/customer/dash");
+  //   } catch (error) {
+  //     console.log("ERROR", error.message);
+  //   }
+  // };
   
 
   const logout = async () => {
@@ -99,9 +99,9 @@ function OwnerLogin() {
             {" "}
             Login
           </button>
-        <div>
+        {/* <div>
           <button onClick={logInWithGoogle}> Log In With Google</button>
-        </div> 
+        </div>  */}
         </div>
       </form>
     </div>

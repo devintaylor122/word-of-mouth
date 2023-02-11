@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
-// import Images from "./Images.js"
+import Images from "./Images.js"
 import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
@@ -87,9 +87,9 @@ function OwnerForm(props) {
       newHours,
       newTag,
       mobile,
-      imageUpload,
       newBio,
-      anyUser.uid
+      anyUser.uid,
+      imageUpload,
     );
     navigate("/owner/dash");
   };
@@ -209,18 +209,20 @@ function OwnerForm(props) {
       </div>
 
       <div>
-        {/* <Images   */}
+        <Images  
       
-        < input
+        input
           type="file"
           onChange={(event) => {
             setImageUpload(event.target.files[0]);
           }}
         />
+        
         <button onClick={uploadImage}>Upload image</button>
         {imageList.map((url) => {
           return <img key="uniqueKey" alt="userImage" src={url} />;
         })}
+        
       
       </div>
       {/* <div>

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 
-import { signInWithEmailAndPassword, signOut, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../firebaseconfig";
+import { signInWithEmailAndPassword, signOut, /*signInWithPopup*/ } from "firebase/auth";
+import { auth, /*googleProvider*/ } from "../firebaseconfig";
 // import { useNavigate } from "react-router-dom";
 // import CustomerDashboard from "./CustomerDashboard";
 // import { link, Navigate } from "react-router-dom";
@@ -38,19 +38,19 @@ function CustomerLogin(/*{ setCustomer }*/) {
       console.log("ERROR", error.message);
     }
   };
-  const logInWithGoogle = async () => {
-    try {
-      await signInWithPopup(
-        auth,
-        googleProvider
-      );
-      // console.log(thisuser);
-      // setUser(thisuser);
-      navigate("/customer/dash");
-    } catch (error) {
-      console.log("ERROR", error.message);
-    }
-  };
+  // const logInWithGoogle = async () => {
+  //   try {
+  //     await signInWithPopup(
+  //       auth,
+  //       googleProvider
+  //     );
+  //     // console.log(thisuser);
+  //     // setUser(thisuser);
+  //     navigate("/customer/dash");
+  //   } catch (error) {
+  //     console.log("ERROR", error.message);
+  //   }
+  // };
   
   const logout = async () => {
     await signOut(auth);
@@ -96,9 +96,9 @@ function CustomerLogin(/*{ setCustomer }*/) {
             {" "}
             Login
           </button>
-          <div>
+          {/* <div>
           <button onClick={logInWithGoogle}> Log In With Google</button>
-          </div> 
+          </div>  */}
         </div>
       </form>
     </div>

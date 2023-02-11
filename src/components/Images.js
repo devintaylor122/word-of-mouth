@@ -13,7 +13,7 @@ import { v4 } from "uuid";
 
 function Images(props) {
 
-    const [imageUpload, setImageUpload] = useState(null);
+    const [imageUpload, setImageUpload] = useState("");
     const [imageList, setImageList] = useState([]);
 
     const uniqueKey = v4();

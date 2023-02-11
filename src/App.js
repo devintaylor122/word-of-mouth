@@ -149,7 +149,8 @@ function App() {
     newTag,
     mobile,
     newBio,
-    uid
+    uid,
+    imageUpload
     // isFavorite
   ) => {
     await addDoc(ownersCollectionRef, {
@@ -165,6 +166,7 @@ function App() {
       bio: newBio,
       // isFavorite: false,
       uid: uid,
+      image: imageUpload,
       role: "owner",
     });
   };
