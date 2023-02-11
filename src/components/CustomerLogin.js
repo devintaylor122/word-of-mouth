@@ -13,7 +13,7 @@ function CustomerLogin(/*{ setCustomer }*/) {
   // const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [thisuser, setUser] = useState({});
+  const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   // const setCustomer = props.setCustomer;
@@ -39,19 +39,19 @@ function CustomerLogin(/*{ setCustomer }*/) {
       console.log("ERROR", error.message);
     }
   };
-  const logInWithGoogle = async () => {
-    try {
-      await signInWithPopup(
-        auth,
-        googleProvider
-      );
-      console.log(thisuser);
-      setUser(thisuser);
-      navigate("/customer/dash");
-    } catch (error) {
-      console.log("ERROR", error.message);
-    }
-  };
+  // const logInWithGoogle = async () => {
+  //   try {
+  //     await signInWithPopup(
+  //       auth,
+  //       googleProvider
+  //     );
+  //     console.log(thisuser);
+  //     setUser(thisuser);
+  //     navigate("/customer/dash");
+  //   } catch (error) {
+  //     console.log("ERROR", error.message);
+  //   }
+  // };
   
   const logout = async () => {
     await signOut(auth);
@@ -97,9 +97,9 @@ function CustomerLogin(/*{ setCustomer }*/) {
             {" "}
             Login
           </button>
-          <div>
+          {/* <div>
           <button onClick={logInWithGoogle}> Log In With Google</button>
-          </div>
+          </div> */}
         </div>
 
         {/* <h4> User Logged In: </h4>

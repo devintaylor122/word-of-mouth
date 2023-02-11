@@ -40,19 +40,19 @@ function OwnerLogin(props) {
     }
   };
   console.log(auth?.currentUser?.email)
-  const logInWithGoogle = async () => {
-    try {
-      await signInWithPopup(
-        auth,
-        googleProvider
-      );
-      // console.log(thisuser);
-      // setUser(thisuser);
-      navigate("/customer/dash");
-    } catch (error) {
-      console.log("ERROR", error.message);
-    }
-  };
+  // const logInWithGoogle = async () => {
+  //   try {
+  //     await signInWithPopup(
+  //       auth,
+  //       googleProvider
+  //     );
+  //     // console.log(thisuser);
+  //     // setUser(thisuser);
+  //     navigate("/customer/dash");
+  //   } catch (error) {
+  //     console.log("ERROR", error.message);
+  //   }
+  // };
   
 
   const logout = async () => {
@@ -96,9 +96,9 @@ function OwnerLogin(props) {
             {" "}
             Login
           </button>
-        <div>
+        {/* <div>
           <button onClick={logInWithGoogle}> Log In With Google</button>
-        </div>
+        </div> */}
         </div>
       </form>
     </div>
