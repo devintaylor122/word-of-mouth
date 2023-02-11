@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
+// import Images from "./Images.js"
 import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
@@ -35,46 +36,7 @@ function OwnerForm(props) {
 
   const [imageUpload, setImageUpload] = useState(null);
   const [imageList, setImageList] = useState([]);
-
-  //   useEffect(() => {
-  //       const uploadImage = () => {
-  //         const storageRef = ref(storage, "images/");
-  //         const uploadTask = uploadBytesResumable(storageRef, file);
-  //         uploadTask.on(
-  //           "state_changed",
-  //           (snapshot) => {
-  //           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //     console.log('Upload is ' + progress + '% done');
-  //     switch (snapshot.state) {
-  //       case 'paused':
-  //         console.log('Upload is paused');
-  //         break;
-  //       case 'running':
-  //         console.log('Upload is running');
-  //         break;
-  //         default:
-  //           break
-  //     }
-  //   },
-  //   (error) => {
-
-  //   },
-  //   () => {
-  //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //        setData((prev)=>({...prev, img:downloadURL}))
-  //     });
-  //   }
-  // );
-  // };
-  // file && uploadImage();
-  // }, [file]);
-
-  //     (imageListRef).then((response) => {
-  //     console.log(response)
-  //      response.items.forEach((item)=> {
-  //   getDowloadURL(item).then((url) => {
-  // setImageList((prev) => [...prev, url])
-  // })
+ 
   const uniqueKey = v4();
   const imageListRef = ref(storage, "images/");
   const uploadImage = () => {
@@ -125,6 +87,7 @@ function OwnerForm(props) {
       newHours,
       newTag,
       mobile,
+      imageUpload,
       newBio,
       anyUser.uid
     );
@@ -246,8 +209,9 @@ function OwnerForm(props) {
       </div>
 
       <div>
-        <br />
-        <input
+        {/* <Images   */}
+      
+        < input
           type="file"
           onChange={(event) => {
             setImageUpload(event.target.files[0]);
@@ -257,6 +221,7 @@ function OwnerForm(props) {
         {imageList.map((url) => {
           return <img key="uniqueKey" alt="userImage" src={url} />;
         })}
+      
       </div>
       {/* <div>
         <input
