@@ -3,17 +3,18 @@ import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
-import Images from "./Images.js"
+import Images from "./Images.js";
 import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
+import { getAuth } from "firebase/auth";
 import { storage } from "../firebaseconfig.js";
 import {
   ref,
   uploadBytes,
   listAll,
   getDownloadURL,
-  // uploadBytesResumable,
+  uploadBytesResumable,
 } from "firebase/storage";
 import { v4 } from "uuid";
 
@@ -21,6 +22,9 @@ import { v4 } from "uuid";
 
 function OwnerForm(props) {
   const { anyUser } = useAuth();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const ownerId = user.uid;
   const [newCompany, setNewCompany] = useState("");
   const [newOwner, setNewOwner] = useState("");
   const [newPhone, setNewPhone] = useState(0);
@@ -29,31 +33,30 @@ function OwnerForm(props) {
   const [newHours, setNewHours] = useState("");
   const [mobile, setMobile] = useState("Not Mobile");
   const [newTag, setNewTag] = useState([]);
-  const [newBio, setNewBio] = useState("")
+  const [newBio, setNewBio] = useState("");
   // const usersCollectionRef = collection(db, "owners");
   const createOwner = props.createOwner;
   const navigate = useNavigate();
 
+  // const [imageUpload, setImageUpload] = useState(null);
+  // const [imageList, setImageList] = useState([]);
+
   const [imageUpload, setImageUpload] = useState(null);
   const [imageList, setImageList] = useState([]);
- 
-  const uniqueKey = v4();
-  const imageListRef = ref(storage, "images/");
+
+  const imagesListRef = ref(storage, `${ownerId}/`);
   const uploadImage = () => {
     if (imageUpload == null) return;
-    // const imageRef = ref(storage, `images/${imageUpload.name + uniqueKey}`);
-    const imageRef = ref(storage, `images/${uniqueKey}`);
+    const imageRef = ref(storage, `${ownerId}/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageList((prev) => [...prev, url]);
-        alert("Image Uploaded");
       });
     });
-    // console.log("image: ", imageUpload)
   };
 
   useEffect(() => {
-    listAll(imageListRef).then((response) => {
+    listAll(imagesListRef).then((response) => {
       response.items.forEach(() => {
         getDownloadURL().then((url) => {
           setImageList((prev) => [...prev, url]);
@@ -61,6 +64,32 @@ function OwnerForm(props) {
       });
     });
   }, []);
+
+  const uniqueKey = v4();
+
+  // const imageListRef = ref(storage, "images/");
+  // const uploadImage = () => {
+  //   if (imageUpload == null) return;
+  //   // const imageRef = ref(storage, `images/${imageUpload.name + uniqueKey}`);
+  //   const imageRef = ref(storage, `images/${uniqueKey}`);
+  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //     getDownloadURL(snapshot.ref).then((url) => {
+  //       setImageList((prev) => [...prev, url]);
+  //       alert("Image Uploaded");
+  //     });
+  //   });
+  //   // console.log("image: ", imageUpload)
+  // };
+
+  // useEffect(() => {
+  //   listAll(imageListRef).then((response) => {
+  //     response.items.forEach(() => {
+  //       getDownloadURL().then((url) => {
+  //         setImageList((prev) => [...prev, url]);
+  //       });
+  //     });
+  //   });
+  // }, []);
   // ......Firebase Rules to allow 1 image.......
   // rules_version = '2';
   // service firebase.storage {
@@ -90,6 +119,7 @@ function OwnerForm(props) {
       newBio,
       anyUser.uid,
       imageUpload,
+      imageList
     );
     navigate("/owner/dash");
   };
@@ -199,31 +229,28 @@ function OwnerForm(props) {
       </div>
 
       <div>
-      <input
-            type="text"
-            placeholder="Add bio or any extra info you want customers to know"
-            onChange={(event) =>{
-              setNewBio(event.target.value)
-            }}
-         />
+        <input
+          type="text"
+          placeholder="Add bio or any extra info you want customers to know"
+          onChange={(event) => {
+            setNewBio(event.target.value);
+          }}
+        />
       </div>
 
       <div>
-        <Images  
-      
-        input
+        <Images
+          input
           type="file"
           onChange={(event) => {
             setImageUpload(event.target.files[0]);
           }}
         />
-        
+
         <button onClick={uploadImage}>Upload image</button>
         {imageList.map((url) => {
-          return <img key="uniqueKey" alt="userImage" src={url} />;
+          return <img key={uniqueKey} alt="userImage" src={url} />;
         })}
-        
-      
       </div>
       {/* <div>
         <input

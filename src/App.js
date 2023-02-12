@@ -114,7 +114,7 @@ function App() {
     (customer) => customer.uid === userId
   );
   console.log("test current usre: ", testCurrentUser);
-  console.log("USERID", userId)
+  console.log("USERID", userId);
   // // useEffect(()=> {
   // //   if
   // // })
@@ -150,6 +150,7 @@ function App() {
     mobile,
     newBio,
     uid,
+    imageList,
     imageUpload
     // isFavorite
   ) => {
@@ -166,7 +167,7 @@ function App() {
       bio: newBio,
       // isFavorite: false,
       uid: uid,
-      image: imageUpload,
+      image: imageList,
       role: "owner",
     });
   };
@@ -218,7 +219,7 @@ function App() {
       hours: updatedHours,
       mobile: updatedMobile,
       tag: updateTag,
-      bio: updateBio
+      bio: updateBio,
       // uid: uid,
     };
 
@@ -229,7 +230,7 @@ function App() {
   const deleteUser = async (id, navigate) => {
     const userDoc = doc(db, "owners", id);
     await deleteDoc(userDoc);
-    navigate("/")
+    navigate("/");
   };
   //-----------------------------------------------------------------------------
 
@@ -428,28 +429,28 @@ function App() {
 
             {/* </ProtectedRoute> */}
             {/* {/* </Route>  */}
-            <Route path="/owner" element={<SharedOwnerLayout />}/>
-              <Route
-                path="dash"
-                element={
-                  <ProtectedRoute user={owner}>
-                    <OwnerDash owner={owner} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="edit"
-                element={
-                  <ProtectedRoute user={owner}>
-                    <EditOwner
-                      ownersList={ownersList}
-                      update={update}
-                      user={owner}
-                    />
-                  </ProtectedRoute>
-                }
-              />
-              {/* <Route path="/messaging" element={<Messages />}/>
+            <Route path="/owner" element={<SharedOwnerLayout />} />
+            <Route
+              path="dash"
+              element={
+                <ProtectedRoute user={owner}>
+                  <OwnerDash owner={owner} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="edit"
+              element={
+                <ProtectedRoute user={owner}>
+                  <EditOwner
+                    ownersList={ownersList}
+                    update={update}
+                    user={owner}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            {/* <Route path="/messaging" element={<Messages />}/>
             </Route>  */}
             <Route
               element={
@@ -462,7 +463,16 @@ function App() {
               }
             >
               <Route path="/owner" element={<SharedOwnerLayout />}>
-                <Route path= "dash" element={<OwnerDash deleteUser={deleteUser} owners={ownersList} user={owner} />} />
+                <Route
+                  path="dash"
+                  element={
+                    <OwnerDash
+                      deleteUser={deleteUser}
+                      owners={ownersList}
+                      user={owner}
+                    />
+                  }
+                />
                 <Route
                   path="edit"
                   element={

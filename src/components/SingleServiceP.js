@@ -2,6 +2,10 @@ import { Link, useParams } from "react-router-dom";
 // import ServiceProvider from './ServiceProvider';
 import ServiceProvidersList from "./ServiceProvidersList";
 import useAuth from "../hooks/useAuth";
+import { storage } from "../firebaseconfig";
+import { getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { ref, getDownloadURL, listAll } from "firebase/storage";
 
 const SingleServiceP = (props) => {
   const { anyUser } = useAuth();
@@ -21,7 +25,7 @@ const SingleServiceP = (props) => {
   // console.log("SEE", singleServiceProvider.favOwners);
   // const isFavorite = singleServiceProvider.isFavorite;
   console.log("SINGLE CUST ", singleCustomer);
-  const { company, email, hours, industry, owner, phone, specialty, image} =
+  const { company, email, hours, industry, owner, phone, specialty, uid } =
     singleServiceProvider;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
@@ -49,6 +53,19 @@ const SingleServiceP = (props) => {
       : "Favorite 🤍";
   };
 
+  const imagesListRef = ref(storage, `${uid}/`);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  useEffect(() => {
+    listAll(imagesListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageUrls((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
+
   return (
     <section className="section owner">
       {/* <img src={image} alt={name} /> */}
@@ -61,7 +78,11 @@ const SingleServiceP = (props) => {
         <p>Hours: {hours}</p>
         <p>Email: {email}</p>
         <p>Phone: {phone}</p>
-        <div>{image}</div>
+        <div>
+          {imageUrls.map((url) => {
+            return <img alt="userImage" src={url} />;
+          })}
+        </div>
         <button
           onClick={() => {
             toggleFav();
