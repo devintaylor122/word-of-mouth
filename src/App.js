@@ -12,10 +12,12 @@ import CustomerDashboard2 from "./components/CustomerDashboard2";
 import SingleServiceP from "./components/SingleServiceP";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OwnerCreateAccount from "./components/OwnerCreateAccount";
+import HomeMessages from "./components/Messaging/HomeMessages";
 import Error from "./components/Error";
 import OwnerDash from "./components/OwnerDash";
 import EditOwner from "./components/EditOwner";
 import { AuthProvider } from "./context/AuthProvider";
+
 // import {
 //   createUserWithEmailAndPassword,
 //   onAuthStateChanged,
@@ -44,6 +46,7 @@ import SharedLoggedOutLayout from "./components/SharedLoggedOutLayout";
 import SharedCustLayout from "./components/SharedCustLayout";
 import SharedOwnerLayout from "./components/SharedOwnerLayout";
 import useAuth from "./hooks/useAuth";
+import ChatContext from "./components/Messaging/ChatContext";
 import { getAuth } from "firebase/auth";
 
 function App() {
@@ -357,18 +360,10 @@ function App() {
                 path="CustomerLogin"
                 element={<CustomerLogin /*setCustomer={setCustomer} */ />}
               />
-
-              {/* <Route
-              path="CustomerDashboard"
-              // state={{ ServiceProvidersList: serviceProviderList }}
-              element={
-                <ProtectedRoute user={user}>
-                  <CustomerDashboard ownersList={{ ownersList }} />
-                </ProtectedRoute>
-              }
-            />
-          </Route> */}
             </Route>
+
+
+
 
             <Route
               element={
@@ -383,7 +378,7 @@ function App() {
               }
             >
               <Route path="/customer" element={<SharedCustLayout />}>
-                {/* <ProtectedRoute customer={customer}>  */}
+              
                 <Route
                   path="dash"
                   element={
@@ -421,36 +416,15 @@ function App() {
                     />
                   }
                 />
-                {/* </Route> */}
-                {/* <Route path="/messaging" element={<Messages />}/> */}
-              </Route>
+       
+                <Route path="/customer/messaging" element={<HomeMessages />} />
+    
+            </Route>
             </Route>
 
-            {/* </ProtectedRoute> */}
-            {/* {/* </Route>  */}
-            <Route path="/owner" element={<SharedOwnerLayout />} />
-            <Route
-              path="dash"
-              element={
-                <ProtectedRoute user={owner}>
-                  <OwnerDash owner={owner} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="edit"
-              element={
-                <ProtectedRoute user={owner}>
-                  <EditOwner
-                    ownersList={ownersList}
-                    update={update}
-                    user={owner}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            {/* <Route path="/messaging" element={<Messages />}/>
-            </Route>  */}
+
+
+
             <Route
               element={
                 <ProtectedRoute
@@ -458,32 +432,42 @@ function App() {
                   customersList={customersList}
                   allowedRole="owner"
                   user={owner}
+                  // currentUser={currentUser}
+                  // currentUserUID={currentUserUID}
                 />
               }
             >
-              <Route path="/owner" element={<SharedOwnerLayout />}>
-                <Route
-                  path="dash"
-                  element={
-                    <OwnerDash
-                      deleteUser={deleteUser}
-                      owners={ownersList}
-                      user={owner}
-                    />
-                  }
-                />
-                <Route
-                  path="edit"
-                  element={
+            <Route path="/owner" element={<SharedOwnerLayout />} >
+              <Route
+              path="dash"
+              element={
+                // <ProtectedRoute ownersList={ownersList}
+                // customersList={customersList}
+                // allowedRole="owner" user={owner}>
+                  <OwnerDash owner={owner} owners={ownersList} deleteUser={deleteUser} />
+                // </ProtectedRoute>
+              }
+            />
+              <Route
+                path="edit"
+                element={
+                  // <ProtectedRoute ownersList={ownersList}
+                  // customersList={customersList}
+                  // allowedRole="owner" user={owner}>
                     <EditOwner
                       ownersList={ownersList}
                       update={update}
                       user={owner}
                     />
-                  }
-                />
-                {/* <Route path="/messaging" element={<Messages />}/> */}
-              </Route>
+                  // </ProtectedRoute>
+                }
+              />
+              <Route path="messaging" element={<HomeMessages />} />
+            {/* </Route>  */}
+            </Route>
+           
+            
+  
             </Route>
 
             <Route path="*" element={<Error />} />
@@ -491,15 +475,6 @@ function App() {
         </AuthProvider>
       </Router>
 
-      {/* <Route> */}
-      {/* <button className="logout" element={<LogOut />}>
-        {" "}
-        LOG OUT
-      </button> */}
-      {/* </Route> */}
-      {/* <button className="logout">
-          <Link to="/">LOGOUT</Link>
-        </button> */}
     </div>
   );
 }

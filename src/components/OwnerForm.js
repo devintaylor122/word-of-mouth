@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
-import Images from "./Images.js";
+// import Images from "./Images.js";
 import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";

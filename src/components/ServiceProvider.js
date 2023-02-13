@@ -54,7 +54,7 @@ function ServiceProvider(props) {
   // );
 
   return (
-    <div>
+    <div className="ownersNameAndDisplay">
       <p /*onClick={() => toggleDisplay(id, display)}*/>
         {companyName} - {industryDisplay}
       </p>
