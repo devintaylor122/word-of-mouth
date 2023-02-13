@@ -51,21 +51,23 @@ function OwnerForm(props) {
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageList((prev) => [...prev, url]);
+        console.log("IMAGELIST", imageList);
       });
     });
   };
 
   useEffect(() => {
     listAll(imagesListRef).then((response) => {
-      response.items.forEach(() => {
-        getDownloadURL().then((url) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
           setImageList((prev) => [...prev, url]);
         });
       });
     });
   }, []);
 
-  const uniqueKey = v4();
+  // const uniqueKey = v4();
+  const uniqueImageList = [...new Set(imageList)];
 
   // const imageListRef = ref(storage, "images/");
   // const uploadImage = () => {
@@ -239,7 +241,7 @@ function OwnerForm(props) {
       </div>
 
       <div>
-        <Images
+        <input
           input
           type="file"
           onChange={(event) => {
@@ -248,8 +250,8 @@ function OwnerForm(props) {
         />
 
         <button onClick={uploadImage}>Upload image</button>
-        {imageList.map((url) => {
-          return <img key={uniqueKey} alt="userImage" src={url} />;
+        {uniqueImageList.map((url) => {
+          return <img key={url} alt="userImage" src={url} />;
         })}
       </div>
       {/* <div>

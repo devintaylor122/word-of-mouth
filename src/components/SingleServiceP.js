@@ -66,6 +66,8 @@ const SingleServiceP = (props) => {
     });
   }, []);
 
+  const uniqueImageList = [...new Set(imageUrls)];
+
   return (
     <section className="section owner">
       {/* <img src={image} alt={name} /> */}
@@ -79,7 +81,8 @@ const SingleServiceP = (props) => {
         <p>Email: {email}</p>
         <p>Phone: {phone}</p>
         <div>
-          {imageUrls.map((url) => {
+          {uniqueImageList.map((url) => {
+            console.log("UNIQUEimageul", uniqueImageList);
             return <img alt="userImage" src={url} />;
           })}
         </div>

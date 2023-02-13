@@ -167,7 +167,6 @@ function App() {
       bio: newBio,
       // isFavorite: false,
       uid: uid,
-      image: imageList,
       role: "owner",
     });
   };
