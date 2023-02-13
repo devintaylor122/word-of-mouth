@@ -60,7 +60,10 @@ const SingleServiceP = (props) => {
     listAll(imagesListRef).then((response) => {
       response.items.forEach((item) => {
         getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
+          if (imageUrls.includes(url)=== false) {
+            setImageUrls((prev) => [...prev, url]);
+            console.log("URLS", imageUrls);
+          }
         });
       });
     });
@@ -80,7 +83,7 @@ const SingleServiceP = (props) => {
         <p>Phone: {phone}</p>
         <div>
           {imageUrls.map((url) => {
-            return <img alt="userImage" src={url} />;
+            return <img alt={company} src={url} />;
           })}
         </div>
         <button

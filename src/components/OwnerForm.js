@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
-import Images from "./Images.js";
+// import Images from "./Images.js";
 import "./OwnerForm.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
@@ -239,13 +239,13 @@ function OwnerForm(props) {
       </div>
 
       <div>
-        <Images
+        <div>
           input
           type="file"
           onChange={(event) => {
             setImageUpload(event.target.files[0]);
           }}
-        />
+          </div>
 
         <button onClick={uploadImage}>Upload image</button>
         {imageList.map((url) => {

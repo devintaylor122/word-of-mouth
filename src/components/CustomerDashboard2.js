@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ServiceProvider from "./ServiceProvider.js";
 import { getAuth } from "firebase/auth";
+import "./CustomerDashboard.css";
 
 const CustomerDashboard = (props) => {
   function generateRandomNumber() {
@@ -64,9 +65,9 @@ const CustomerDashboard = (props) => {
   }, []);
 
   return (
-    <div>
-      <h2>Your Favorite Services</h2>
-      <div>{displayFavorites}</div>
+    <div className="custDash">
+      <h2 id="dashHeading">Your Favorite Services</h2>
+      <h3 id="favDisplay">{displayFavorites}</h3>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import ServiceProvider from "./ServiceProvider";
 import { useLocation, Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
+import "./ServiceProvidersList.css"
 
 function ServiceProvidersList(props) {
   const setDisplayOwners = props.setDisplayOwners;
@@ -25,7 +26,7 @@ function ServiceProvidersList(props) {
     </article>
   ));
   return (
-    <div>
+    <div id="ownersListDisplay">
       <Dropdown
         placeHolder="Filter Industry..."
         options={Dropdown.options}
@@ -33,14 +34,14 @@ function ServiceProvidersList(props) {
           setFilter(event);
         }}
       />
-      <button
+      <button id="filterButton"
         onClick={() => {
           filterOwners("industry", "array-contains", filter, setDisplayOwners);
         }}
       >
         Filter
       </button>
-      <div>{listElements}</div>
+      <div id="listedOwners">{listElements}</div>
     </div>
   );
 }
