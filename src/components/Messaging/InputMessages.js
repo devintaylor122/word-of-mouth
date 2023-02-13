@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 // import Img from "../img/img.png";
 // import Attach from "../img/attach.png";
-import { AuthContext } from "./AuthContext";
+// import { AuthContext } from "./AuthContext";
+import { AuthProvider } from "../../context/AuthProvider";
 import { ChatContext } from "./ChatContext";
 import {
   arrayUnion,
@@ -13,12 +14,13 @@ import {
 import { db, storage } from "../../firebaseconfig";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import useAuth from "../../hooks/useAuth";
 
 const InputMessages = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
 
-  const { currentUser } = useContext(AuthContext);
+  const { anyUser } = useAuth();
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
@@ -37,7 +39,7 @@ const InputMessages = () => {
               messages: arrayUnion({
                 id: uuid(),
                 text,
-                senderId: currentUser.uid,
+                senderId: anyUser.uid,
                 date: Timestamp.now(),
                 img: downloadURL,
               }),
@@ -50,13 +52,13 @@ const InputMessages = () => {
         messages: arrayUnion({
           id: uuid(),
           text,
-          senderId: currentUser.uid,
+          senderId: anyUser.uid,
           date: Timestamp.now(),
         }),
       });
     }
 
-    await updateDoc(doc(db, "userChats", currentUser.uid), {
+    await updateDoc(doc(db, "userChats", anyUser.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
       },

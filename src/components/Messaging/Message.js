@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { AuthContext } from "./AuthContext";
+// import { AuthContext } from "./AuthContext";
+import { AuthProvider } from "../../context/AuthProvider";
 import { ChatContext } from "./ChatContext";
 // import { db } from "../../firebaseconfig";
+import useAuth from "../../hooks/useAuth";
 
 const Message = ({ message }) => {
-    const { currentUser } = useContext(AuthContext);
+    const { anyUser } = useAuth();
     const { data } = useContext(ChatContext);
 
 const ref = useRef();
@@ -16,13 +18,13 @@ useEffect(() => {
 return (
     <div
     ref={ref}
-    className={`message ${message.senderId === currentUser.uid && "owner"}`}
+    className={`message ${message.senderId === anyUser.uid && "owner"}`}
     >
     <div className="messageInfo">
         <img
         src={
-            message.senderId === currentUser.uid
-            ? currentUser.photoURL
+            message.senderId === anyUser.uid
+            ? anyUser.photoURL
             : data.user.photoURL
         }
         alt=""

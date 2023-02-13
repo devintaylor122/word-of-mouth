@@ -17,6 +17,7 @@ import Error from "./components/Error";
 import OwnerDash from "./components/OwnerDash";
 import EditOwner from "./components/EditOwner";
 import { AuthProvider } from "./context/AuthProvider";
+import { ChatContextProvider } from "./components/Messaging/ChatContext";
 
 // import {
 //   createUserWithEmailAndPassword,
@@ -329,6 +330,7 @@ function App() {
     <div className="App">
       <Router>
         <AuthProvider>
+          <ChatContextProvider>
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/" element={<SharedLoggedOutLayout />}>
@@ -416,10 +418,10 @@ function App() {
                     />
                   }
                 />
-       
+       </Route>
                 <Route path="/customer/messaging" element={<HomeMessages />} />
     
-            </Route>
+            
             </Route>
 
 
@@ -472,6 +474,7 @@ function App() {
 
             <Route path="*" element={<Error />} />
           </Routes>
+          </ChatContextProvider>
         </AuthProvider>
       </Router>
 

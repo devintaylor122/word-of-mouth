@@ -1,18 +1,20 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+// import { AuthContext } from "./AuthContext";
 import { ChatContext } from "./ChatContext";
 import { db } from "../../firebaseconfig";
+// import { AuthProvider } from "../../context/AuthProvider";
+import useAuth  from "../../hooks/useAuth";
 
 const Chats = () => {
     const [chats, setChats] = useState([]);
 
-    const { currentUser } = useContext(AuthContext);
+    const { anyUser } = useAuth();
     const { dispatch } = useContext(ChatContext);
 
 useEffect(() => {
     const getChats = () => {
-    const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+    const unsub = onSnapshot(doc(db, "userChats", anyUser.uid), (doc) => {
         setChats(doc.data());
     });
 
@@ -21,13 +23,13 @@ useEffect(() => {
     };
 };
 
-    currentUser.uid && getChats();
-}, [currentUser.uid]);
+    anyUser.uid && getChats();
+}, [anyUser.uid]);
 
 const handleSelect = (u) => {
     dispatch({ type: "CHANGE_USER", payload: u });
 };
-
+console.log("chats", chats)
 return (
     <div className="chats">
     {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (

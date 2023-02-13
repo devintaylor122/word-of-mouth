@@ -11,13 +11,15 @@ import {
     getDoc,
 } from "firebase/firestore";
 import { db } from "../../firebaseconfig";
-import { AuthContext } from "./AuthContext";
+// import { AuthContext } from "./AuthContext";
+import { AuthProvider } from "../../context/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 const Search = () => {
     const [username, setUsername] = useState("");
     const [user, setUser] = useState(null);
     const [err, setErr] = useState(false);
 
-    const { currentUser } = useContext(AuthContext);
+    const { anyUser } = useAuth();
 
 const handleSearch = async () => {
     const q = query(
@@ -42,9 +44,9 @@ const handleKey = (e) => {
 const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =
-    currentUser.uid > user.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
+    anyUser.uid > user.uid
+        ? anyUser.uid + user.uid
+        : user.uid + anyUser.uid;
     try {
     const res = await getDoc(doc(db, "chats", combinedId));
 
@@ -53,7 +55,7 @@ const handleSelect = async () => {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
         //create user chats
-        await updateDoc(doc(db, "userChats", currentUser.uid), {
+        await updateDoc(doc(db, "userChats", anyUser.uid), {
         [combinedId + ".userInfo"]: {
             uid: user.uid,
             displayName: user.displayName,
@@ -64,9 +66,9 @@ const handleSelect = async () => {
 
         await updateDoc(doc(db, "userChats", user.uid), {
             [combinedId + ".userInfo"]: {
-            uid: currentUser.uid,
-            displayName: currentUser.displayName,
-            photoURL: currentUser.photoURL,
+            uid: anyUser.uid,
+            displayName: anyUser.displayName,
+            photoURL: anyUser.photoURL,
             },
             [combinedId + ".date"]: serverTimestamp(),
         });
