@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 // import EditOwner from "./EditOwner";
 import useAuth from "../hooks/useAuth";
 import { getAuth } from "firebase/auth";
+import { storage } from "../firebaseconfig";
+import { ref, getDownloadURL, listAll } from "firebase/storage";
 
 function OwnerDash(props) {
   const navigate = useNavigate();
@@ -40,8 +42,28 @@ function OwnerDash(props) {
     specialty,
     owner,
     phone /*profileImage*/,
+    uid,
   } = singleOwner;
   console.log("actual id", singleOwner.id);
+
+  const imagesListRef = ref(storage, `${uid}/`);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  useEffect(() => {
+    listAll(imagesListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          if (imageUrls.includes(url) === false) {
+            setImageUrls((prev) => [...prev, url]);
+            console.log("URLS", imageUrls);
+          }
+        });
+      });
+    });
+  }, []);
+
+  const uniqueImageList = [...new Set(imageUrls)];
+
   return (
     <div>
       <div>
@@ -56,6 +78,11 @@ function OwnerDash(props) {
             <p>Hours: {hours}</p>
             <p>Email: {email}</p>
             <p>Phone: {phone}</p>
+            <div>
+              {uniqueImageList.map((url) => {
+                return <img alt="userImage" src={url} />;
+              })}
+            </div>
           </div>
         </section>
 
