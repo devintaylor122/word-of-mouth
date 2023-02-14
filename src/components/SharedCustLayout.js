@@ -8,7 +8,7 @@ function SharedCustLayout() {
   return (
     <div className="sharedCustLayout">
       <nav className="sharedNav">
-        <button className="home">
+        <button className="home-page">
           <Link to="/"> HOME </Link>
         </button>
 

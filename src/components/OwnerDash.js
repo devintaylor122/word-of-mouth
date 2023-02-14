@@ -43,6 +43,7 @@ function OwnerDash(props) {
     owner,
     phone /*profileImage*/,
     uid,
+    tag,
   } = singleOwner;
   console.log("actual id", singleOwner.id);
 
@@ -78,6 +79,7 @@ function OwnerDash(props) {
             <p>Hours: {hours}</p>
             <p>Email: {email}</p>
             <p>Phone: {phone}</p>
+            <p>Tag(s): {tag}</p>
             <div>
               {uniqueImageList.map((url) => {
                 return <img alt="userImage" src={url} />;

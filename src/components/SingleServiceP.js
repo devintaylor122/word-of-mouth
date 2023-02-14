@@ -6,6 +6,7 @@ import { storage } from "../firebaseconfig";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { ref, getDownloadURL, listAll } from "firebase/storage";
+import "./SingleServiceProvider.css";
 
 const SingleServiceP = (props) => {
   const { anyUser } = useAuth();
@@ -25,7 +26,7 @@ const SingleServiceP = (props) => {
   // console.log("SEE", singleServiceProvider.favOwners);
   // const isFavorite = singleServiceProvider.isFavorite;
   console.log("SINGLE CUST ", singleCustomer);
-  const { name, email, hours, industry, owner, phone, specialty, uid } =
+  const { name, email, hours, industry, owner, phone, specialty, uid, tag } =
     singleServiceProvider;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
@@ -72,24 +73,25 @@ const SingleServiceP = (props) => {
   const uniqueImageList = [...new Set(imageUrls)];
 
   return (
-    <section className="section owner">
+    <section className="sectionOwner">
       {/* <img src={image} alt={name} /> */}
       <h5>
         {name} - {industry}
       </h5>
-      <div>
-        <p>Owner Name: {owner}</p>
-        <p>{specialtyDisplay}</p>
-        <p>Hours: {hours}</p>
-        <p>Email: {email}</p>
-        <p>Phone: {phone}</p>
-        <div>
+      <div id="ownerInfoDisplay">
+        <p id="ownerNameDisplay">Owner Name: {owner}</p>
+        <p id="specialtyDisplay">{specialtyDisplay}</p>
+        <p id="hoursDisplay">Typical Hours: {hours}</p>
+        <p id="phoneDisplay">Phone: {phone}</p>
+        <p id="tags">Tag(s): {tag}</p>
+        <div id="imagesDisplay">
           {uniqueImageList.map((url) => {
             console.log("UNIQUEimageul", uniqueImageList);
             return <img alt="userImage" src={url} />;
           })}
         </div>
         <button
+          id="favButton"
           onClick={() => {
             toggleFav();
           }}
@@ -97,7 +99,7 @@ const SingleServiceP = (props) => {
           {buttonContent}
         </button>
       </div>
-      <Link to="/customer/list">back to all Service Providers</Link>
+      {/* <Link to="/customer/list">back to all Service Providers</Link> */}
     </section>
   );
 };

@@ -24,8 +24,115 @@
   grid-row-end: 11;
   grid-column-start: 6;
   grid-column-end: 11;
-}
+} 
 
 .userChat{
   background-color:  #f6c7da;
 }
+
+.formContainer {
+  background-color: #a7bcff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formWrapper {
+  background-color: white;
+  padding: 20px 60px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.logo {
+  color: rgb(241, 90, 90);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.title {
+  color: rgb(241, 90, 90);
+  font-size: 12px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgb(241, 90, 90);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.userChatInfo > p {
+  color: #060606;
+  font-size: small;
+  margin-top: 10px;
+}
+
+.messages > p{
+  color: #060606;
+  font-size: small;
+  margin-top: 10px;
+}
+
+.home {
+  background-color: #a7bcff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 65%;
+  height: 80%;
+  display: flex;
+  overflow: hidden;
+  }
+
+.sidebar {
+    flex: 1;
+    background-color: #3e3c61;
+    position: relative;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: #2f2d52;
+  height: 50px;
+  padding: 10px;
+  justify-content: space-between;
+  color: #ddddf7;
+}
+
+.user {
+  display: flex;
+  gap: 10px;
+}
+
+.search {
+  border-bottom: 1px solid gray;
+}
+
+.searchForm {
+  padding: 10px;
+}
+
+.userChat {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+

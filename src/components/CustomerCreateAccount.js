@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebaseconfig";
 import { useNavigate } from "react-router-dom";
+import "./CustomerCreateAccount.css";
 
 function CustomerCreateAccount() {
   //   const usersCollectionRef = collection(db, "owners");
@@ -48,7 +49,7 @@ function CustomerCreateAccount() {
   };
 
   return (
-    <div>
+    <div className="customerCreateAccount">
       {/* <section className="section"> */}
       {/* <Link to="/">back home</Link> */}
       {/* </section> */}
