@@ -7,22 +7,22 @@ import Input from "./InputMessages";
 import { ChatContext } from "./ChatContext";
 
 const Chat = () => {
-const { data } = useContext(ChatContext);
-
-return (
+  const { data } = useContext(ChatContext);
+  //displayName doesn't exist in our databases -- maybe just change to .name instead
+  return (
     <div className="chat">
-    <div className="chatInfo">
+      <div className="chatInfo">
         <span>{data.user?.displayName}</span>
         <div className="chatIcons">
-        {/* <img src={Cam} alt="" />
+          {/* <img src={Cam} alt="" />
         <img src={Add} alt="" />
         <img src={More} alt="" /> */}
         </div>
+      </div>
+      <Messages />
+      <Input />
     </div>
-    <Messages />
-    <Input/>
-    </div>
-);
+  );
 };
 
 export default Chat;

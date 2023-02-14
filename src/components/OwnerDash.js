@@ -19,42 +19,45 @@ function OwnerDash(props) {
     console.warn("User is null or undefined");
   }
   // const OId = o.uid;
-  const deleteUser = props.deleteUser
+  const deleteUser = props.deleteUser;
 
-  console.log("OID", userId)
+  console.log("OID", userId);
   const owners = props.owners;
-  console.log("owners", owners)
+  console.log("owners", owners);
   // const { SPId } = useParams();
 
   // console.log("SPL", serviceProviders);
-  console.log("this is a", userId)
+  console.log("this is a", userId);
   // console.log("this is a", owner)
 
-  const singleOwner = owners.find(
-    (owner) => owner.uid === userId
-  );
-  console.log("singleOwner", singleOwner)
-  const { company, email, hours, industry, specialty, owner, phone, /*profileImage*/} =
-  singleOwner;
-console.log("actual id", singleOwner.id)
+  const singleOwner = owners.find((owner) => owner.uid === userId);
+  console.log("singleOwner", singleOwner);
+  const {
+    name,
+    email,
+    hours,
+    industry,
+    specialty,
+    owner,
+    phone /*profileImage*/,
+  } = singleOwner;
+  console.log("actual id", singleOwner.id);
   return (
     <div>
       <div>
-       
-    <section className="section owner">
-      {/* <img src={image} alt={name} /> */}
-      <h5>
-        {company} - {industry}
-      </h5>
-      <div>
-        <p>Owner Name: {owner}</p>
-        <p>{specialty}</p>
-        <p>Hours: {hours}</p>
-        <p>Email: {email}</p>
-        <p>Phone: {phone}</p>
-      
-      </div>
-    </section>
+        <section className="section owner">
+          {/* <img src={image} alt={name} /> */}
+          <h5>
+            {name} - {industry}
+          </h5>
+          <div>
+            <p>Owner Name: {owner}</p>
+            <p>{specialty}</p>
+            <p>Hours: {hours}</p>
+            <p>Email: {email}</p>
+            <p>Phone: {phone}</p>
+          </div>
+        </section>
 
         <button
           onClick={() => {
@@ -65,9 +68,8 @@ console.log("actual id", singleOwner.id)
           Edit info
         </button>
 
-        <button onClick={() =>
-          deleteUser(singleOwner.id, navigate)}>
-            Delete Account
+        <button onClick={() => deleteUser(singleOwner.id, navigate)}>
+          Delete Account
         </button>
       </div>
     </div>

@@ -2,7 +2,7 @@
 //-- how do we make sure you can do them at one time and make sure they get saved in both databases
 import { db } from "../firebaseconfig.js";
 import { useEffect, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
@@ -85,6 +85,7 @@ function CustomerForm(props) {
               newCity,
               anyUser.uid
             );
+            setDoc(doc(db, "userChats", anyUser.uid), {});
             navigate("/customer/dash");
           }}
         >

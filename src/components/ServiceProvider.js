@@ -14,7 +14,7 @@ import "./ServiceProvider.css";
 // import { db } from "../firebaseconfig.js";
 
 function ServiceProvider(props) {
-  const companyName = props.data.company;
+  const companyName = props.data.name;
   const contactEmail = props.data.email;
   const contactNumber = props.data.phone;
   const display = props.data.display;

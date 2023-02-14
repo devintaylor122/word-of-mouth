@@ -25,7 +25,7 @@ const SingleServiceP = (props) => {
   // console.log("SEE", singleServiceProvider.favOwners);
   // const isFavorite = singleServiceProvider.isFavorite;
   console.log("SINGLE CUST ", singleCustomer);
-  const { company, email, hours, industry, owner, phone, specialty, uid } =
+  const { name, email, hours, industry, owner, phone, specialty, uid } =
     singleServiceProvider;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
@@ -75,7 +75,7 @@ const SingleServiceP = (props) => {
     <section className="section owner">
       {/* <img src={image} alt={name} /> */}
       <h5>
-        {company} - {industry}
+        {name} - {industry}
       </h5>
       <div>
         <p>Owner Name: {owner}</p>

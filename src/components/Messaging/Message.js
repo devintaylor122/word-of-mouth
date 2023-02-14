@@ -6,37 +6,37 @@ import { ChatContext } from "./ChatContext";
 import useAuth from "../../hooks/useAuth";
 
 const Message = ({ message }) => {
-    const { anyUser } = useAuth();
-    const { data } = useContext(ChatContext);
+  const { anyUser } = useAuth();
+  const { data } = useContext(ChatContext);
 
-const ref = useRef();
+  const ref = useRef();
 
-useEffect(() => {
+  useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
-}, [message]);
+  }, [message]);
 
-return (
+  return (
     <div
-    ref={ref}
-    className={`message ${message.senderId === anyUser.uid && "owner"}`}
+      ref={ref}
+      className={`message ${message.senderId === anyUser.uid && "owner"}`}
     >
-    <div className="messageInfo">
+      <div className="messageInfo">
         <img
-        src={
+          src={
             message.senderId === anyUser.uid
-            ? anyUser.photoURL
-            : data.user.photoURL
-        }
-        alt=""
+              ? anyUser.photoURL //no photoUrls
+              : data.user.photoURL //no photoUrls
+          }
+          alt=""
         />
         <span>just now</span>
-    </div>
-    <div className="messageContent">
+      </div>
+      <div className="messageContent">
         <p>{message.text}</p>
         {message.img && <img src={message.img} alt="" />}
+      </div>
     </div>
-    </div>
-);
+  );
 };
 
 export default Message;

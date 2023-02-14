@@ -22,6 +22,7 @@ const InputMessages = () => {
 
   const { anyUser } = useAuth();
   const { data } = useContext(ChatContext);
+  console.log("this is the data", data);
 
   const handleSend = async () => {
     if (img) {
@@ -91,9 +92,7 @@ const InputMessages = () => {
           id="file"
           onChange={(e) => setImg(e.target.files[0])}
         />
-        <label htmlFor="file">
-          {/* <img src={Img} alt="" /> */}
-        </label>
+        {/* <label htmlFor="file"><img src={Img} alt="" /></label> */}
         <button onClick={handleSend}>Send</button>
       </div>
     </div>

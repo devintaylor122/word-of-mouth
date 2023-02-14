@@ -3,7 +3,7 @@ import { Navigate, useLocation, Outlet } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 // import useAuth from "../hooks/useAuth";
 
-const ProtectedRoute = ({children}) => {
+const ProtectedRoute = ({ children }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   // const { anyUser } = useAuth();
@@ -39,7 +39,7 @@ const ProtectedRoute = ({children}) => {
   console.log("In protected Route. User logged in: ", user);
   // console.log("current user role", anyUser.role);
 
-  return user/*.role === allowedRole*/ ? (
+  return user /*.role === allowedRole*/ ? (
     <Outlet />
   ) : (
     <Navigate to="/" state={{ from: location }} replace />

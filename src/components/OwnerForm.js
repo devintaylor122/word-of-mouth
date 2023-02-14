@@ -1,6 +1,6 @@
 import { db } from "../firebaseconfig.js";
 import { useEffect, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags.js";
 // import Images from "./Images.js";
@@ -121,9 +121,11 @@ function OwnerForm(props) {
       newBio,
       anyUser.uid,
       imageUpload,
-      imageList
+      imageList,
+      navigate
     );
-    navigate("/owner/dash");
+    setDoc(doc(db, "userChats", anyUser.uid), {});
+    // navigate("/owner/dash");
   };
 
   return (

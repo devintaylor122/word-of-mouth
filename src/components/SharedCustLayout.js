@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import "./LoggedInNav.css"
+import "./LoggedInNav.css";
 
 function SharedCustLayout() {
   const { anyUser } = useAuth();

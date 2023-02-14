@@ -29,7 +29,7 @@ const EditOwner = (props) => {
   );
   const navigate = useNavigate();
 
-  const [updatedCompany, setCompany] = useState(owner.company);
+  const [updatedCompany, setCompany] = useState(owner.name);
   const [updatedOwner, setOwner] = useState(owner.owner);
   const [updatedPhone, setPhone] = useState(owner.phone);
   const [updatedIndustry, setIndustry] = useState(owner.industry);
@@ -37,7 +37,7 @@ const EditOwner = (props) => {
   const [updatedHours, setHours] = useState(owner.hours);
   const [updateTag, setTag] = useState(owner.tag);
   const [updatedMobile, setMobile] = useState(owner.mobile);
-  const [updateBio, setBio] = useState(owner.bio)
+  const [updateBio, setBio] = useState(owner.bio);
 
   const [imageUpload, setImageUpload] = useState(null);
   const [imageList, setImageList] = useState([]);
@@ -163,12 +163,12 @@ const EditOwner = (props) => {
 
       <div>
         <input
-            type="text"
-            placeholder="Add bio or any extra info you want customers to know"
-            onChange={(event) =>{
-              setBio(event.target.value)
-            }}
-         />
+          type="text"
+          placeholder="Add bio or any extra info you want customers to know"
+          onChange={(event) => {
+            setBio(event.target.value);
+          }}
+        />
       </div>
 
       <div>

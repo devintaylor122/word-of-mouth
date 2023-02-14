@@ -5,9 +5,9 @@
     grid-row-end: 7;
 }
 
-div > input, .dropdown-container {
+/* div > input, .dropdown-container {
     width: 500px;
-} 
+}  */
 
 .dropdown-container {
     text-align: left;
