@@ -75,29 +75,29 @@ const SingleServiceP = (props) => {
   return (
     <section className="sectionOwner">
       {/* <img src={image} alt={name} /> */}
-      <h5>
+      <h2 className="companyNameDisplay">
         {name} - {industry}
-      </h5>
-      <div id="ownerInfoDisplay">
-        <p id="ownerNameDisplay">Owner Name: {owner}</p>
-        <p id="specialtyDisplay">{specialtyDisplay}</p>
-        <p id="hoursDisplay">Typical Hours: {hours}</p>
-        <p id="phoneDisplay">Phone: {phone}</p>
-        <p id="tags">Tag(s): {tag}</p>
-        <div id="imagesDisplay">
+      </h2>
+      <button
+        id="favButton"
+        onClick={() => {
+          toggleFav();
+        }}
+      >
+        {buttonContent}
+      </button>
+      <div className="ownerInfoDisplay">
+        <p className="ownerNameDisplay">Owner Name: {owner}</p>
+        <p className="specialtyDisplay">{specialtyDisplay}</p>
+        <p className="hoursDisplay">Typical Hours: {hours}</p>
+        <p className="phoneDisplay">Phone: {phone}</p>
+        <p className="tags">Tag(s): {tag}</p>
+        <div className="imagesDisplay">
           {uniqueImageList.map((url) => {
             console.log("UNIQUEimageul", uniqueImageList);
-            return <img alt="userImage" src={url} />;
+            return <img className="imageDisplay" alt="userImage" src={url} />;
           })}
         </div>
-        <button
-          id="favButton"
-          onClick={() => {
-            toggleFav();
-          }}
-        >
-          {buttonContent}
-        </button>
       </div>
       {/* <Link to="/customer/list">back to all Service Providers</Link> */}
     </section>

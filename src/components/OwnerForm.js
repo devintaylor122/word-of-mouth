@@ -138,7 +138,7 @@ function OwnerForm(props) {
     //  {imageList.map((url) => {
     //    return <img src={url}/>
     // })}
-    <div>
+    <div className="form">
       <h3> Register Service Provider</h3>
       <div>
         <input
@@ -166,7 +166,7 @@ function OwnerForm(props) {
           }}
         />
       </div>
-      <div>
+      <div className="">
         <Dropdown
           isMulti
           placeHolder="Industry..."
@@ -196,7 +196,7 @@ function OwnerForm(props) {
         />
       </div>
 
-      <div>
+      <div className="">
         <Tags
           isMulti
           placeHolder="Tag(s)..."

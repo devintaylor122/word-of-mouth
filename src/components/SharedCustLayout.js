@@ -20,7 +20,7 @@ function SharedCustLayout() {
           <Link to="/customer/list ">Services</Link>
         </button>
 
-        <button className="messages">
+        <button className="message-page">
           <Link to="/customer/messaging">MESSAGES</Link>
         </button>
 

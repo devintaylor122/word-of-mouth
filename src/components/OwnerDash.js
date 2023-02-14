@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import { getAuth } from "firebase/auth";
 import { storage } from "../firebaseconfig";
 import { ref, getDownloadURL, listAll } from "firebase/storage";
+import "./SingleServiceProvider.css";
 
 function OwnerDash(props) {
   const navigate = useNavigate();
@@ -66,42 +67,40 @@ function OwnerDash(props) {
   const uniqueImageList = [...new Set(imageUrls)];
 
   return (
-    <div>
-      <div>
-        <section className="section owner">
-          {/* <img src={image} alt={name} /> */}
-          <h5>
-            {name} - {industry}
-          </h5>
-          <div>
-            <p>Owner Name: {owner}</p>
-            <p>{specialty}</p>
-            <p>Hours: {hours}</p>
-            <p>Email: {email}</p>
-            <p>Phone: {phone}</p>
-            <p>Tag(s): {tag}</p>
-            <div>
-              {uniqueImageList.map((url) => {
-                return <img alt="userImage" src={url} />;
-              })}
-            </div>
-          </div>
-        </section>
+    <section className="sectionOwner">
+      {/* <img src={image} alt={name} /> */}
+      <h2 className="companyNameDisplay">
+        {name} - {industry}
+      </h2>
+      <button
+        id="editButton"
+        onClick={() => {
+          navigate("/owner/edit");
+        }}
+      >
+        {" "}
+        Edit info
+      </button>
 
-        <button
-          onClick={() => {
-            navigate("/owner/edit");
-          }}
-        >
-          {" "}
-          Edit info
-        </button>
-
-        <button onClick={() => deleteUser(singleOwner.id, navigate)}>
-          Delete Account
-        </button>
+      <button
+        id="deleteButton"
+        onClick={() => deleteUser(singleOwner.id, navigate)}
+      >
+        Delete Account
+      </button>
+      <div className="ownerInfoDisplay">
+        <p className="ownerNameDisplay">Owner Name: {owner}</p>
+        <p className="specialtyDisplay">{specialty}</p>
+        <p className="hoursDisplay">Hours: {hours}</p>
+        <p iclassName="phoneDisplay">Phone: {phone}</p>
+        <p className="tags">Tag(s): {tag}</p>
+        <div className="imagesDisplay">
+          {uniqueImageList.map((url) => {
+            return <img className="imageDisplay" alt="userImage" src={url} />;
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 

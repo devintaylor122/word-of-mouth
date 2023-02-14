@@ -4,6 +4,7 @@ import { AuthProvider } from "../../context/AuthProvider";
 import { ChatContext } from "./ChatContext";
 // import { db } from "../../firebaseconfig";
 import useAuth from "../../hooks/useAuth";
+// import { serverTimestamp } from "firebase/firestore";
 
 const Message = ({ message }) => {
   const { anyUser } = useAuth();
@@ -29,7 +30,7 @@ const Message = ({ message }) => {
           }
           alt=""
         />
-        <span>just now</span>
+        <span></span>
       </div>
       <div className="messageContent">
         <p>{message.text}</p>

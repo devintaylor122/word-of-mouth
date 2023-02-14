@@ -16,7 +16,7 @@ function SharedOwnerLayout() {
           <Link to="/owner/dash">DASH</Link>
         </button>
 
-        <button className="messages">
+        <button className="message-dash">
           <Link to="/owner/messaging">MESSAGES</Link>
         </button>
 
