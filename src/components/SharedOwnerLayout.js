@@ -2,11 +2,15 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./LoggedInNav.css";
 import useAuth from "../hooks/useAuth";
+import logo from "../WOMlogo.png";
 
 function SharedOwnerLayout() {
   const { anyUser } = useAuth();
   return (
     <div className="sharedCustLayout">
+      <div className="womlogo">
+        <img src={logo} alt="" />
+      </div>
       <nav className="sharedNav">
         <button className="home-page">
           <Link to="/"> HOME </Link>

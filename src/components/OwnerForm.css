@@ -1,7 +1,7 @@
 .form {
     grid-column-start: 4;
     grid-column-end: 5;
-    grid-row-start: 5;
+    grid-row-start: 3;
     grid-row-end: 7;
 }
 

@@ -45,6 +45,7 @@ function OwnerDash(props) {
     phone /*profileImage*/,
     uid,
     tag,
+    bio,
   } = singleOwner;
   console.log("actual id", singleOwner.id);
 
@@ -90,6 +91,7 @@ function OwnerDash(props) {
       </button>
       <div className="ownerInfoDisplay">
         <p className="ownerNameDisplay">Owner Name: {owner}</p>
+        <p className="bio">Bio: {bio}</p>
         <p className="specialtyDisplay">{specialty}</p>
         <p className="hoursDisplay">Hours: {hours}</p>
         <p iclassName="phoneDisplay">Phone: {phone}</p>

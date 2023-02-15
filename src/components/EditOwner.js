@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../App.css";
+import "./EditOwner.css";
 import Dropdown from "./Dropdown.js";
 import Tags from "./Tags";
 import { getAuth } from "firebase/auth";
@@ -67,7 +68,7 @@ const EditOwner = (props) => {
   }, []);
 
   return (
-    <div>
+    <div className="edit">
       <h3> Update Service Provider</h3>
       <div>
         <input

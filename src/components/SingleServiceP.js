@@ -26,8 +26,18 @@ const SingleServiceP = (props) => {
   // console.log("SEE", singleServiceProvider.favOwners);
   // const isFavorite = singleServiceProvider.isFavorite;
   console.log("SINGLE CUST ", singleCustomer);
-  const { name, email, hours, industry, owner, phone, specialty, uid, tag } =
-    singleServiceProvider;
+  const {
+    name,
+    email,
+    hours,
+    industry,
+    owner,
+    phone,
+    specialty,
+    uid,
+    tag,
+    bio,
+  } = singleServiceProvider;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
 
@@ -88,6 +98,7 @@ const SingleServiceP = (props) => {
       </button>
       <div className="ownerInfoDisplay">
         <p className="ownerNameDisplay">Owner Name: {owner}</p>
+        <p className="bio">Bio: {bio}</p>
         <p className="specialtyDisplay">{specialtyDisplay}</p>
         <p className="hoursDisplay">Typical Hours: {hours}</p>
         <p className="phoneDisplay">Phone: {phone}</p>

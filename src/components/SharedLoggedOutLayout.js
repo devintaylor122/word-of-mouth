@@ -1,10 +1,14 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 // import "./Home.css";
+import logo from "../WOMlogo.png";
 
 function SharedLoggedOutLayout() {
   return (
     <div>
+      <div className="womlogo">
+        <img src={logo} alt="" />
+      </div>
       <nav className="nav-container">
         <button type="logged-out">
           <Link to="/"> HOME </Link>

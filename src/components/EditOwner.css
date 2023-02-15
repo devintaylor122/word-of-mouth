@@ -1,0 +1,6 @@
+.edit{
+    grid-column-start: 4;
+    grid-column-end: 7;
+    grid-row-start: 3;
+    grid-row-end: 10;
+}
