@@ -61,13 +61,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+### Deployment link
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 1- PROJECT DESCRIPTION:    
 
@@ -82,10 +78,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ]  Service providers can add contact info
 - [ ]  Service providers indicate what areas they will be able to provide service to
 - [ ]  A customer can search for a service provider based on their industry/specialty
-- [Ways to Send Emails Using Python With Code Tutorials](https://www.courier.com/blog/three-ways-to-send-emails-using-python-with-code-tutorials/)
+
+3- list of dependencies:
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "firebase": "^9.17.1",
+    "firebase-tools": "^11.21.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
+    "react-query": "^3.39.3",
+    "react-router-dom": "v6",
+    "react-scripts": "5.0.1",
+    "sass": "^1.58.0",
+    "uuid": "^9.0.0",
+    "web-vitals": "^2.1.0"
 
 
-3- STRETCH GOALS
+
+4- STRETCH GOALS:
 
 - [ ] SPs and clinets can both sign in
 - [ ] SP’s can add availability on a calendar (google? calendly?)
@@ -93,13 +105,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ] SP’s and clients can message back and forth
 - [ ] Clients can leave a review/rating
 
-If Time allows:
-- [ ]  ? Each SP will have their own page that will have it’s own business title, pic header?, spaces for clients photos, client reviews, they can change the colors of their page
 
-4-TECHNOLOGIES & DEPLPLOYMENT
+5-TECHNOLOGIES & DEPLPLOYMENT
 - React (JS, HTML, CSS)
-- Python
-- Sendgrid api (emails)
 - google firebase (database & deployment)
-- google maps api (locations)
-- vertical prototype- is the back end of a product like a database generation to test front end this should include deployment. It used to improve database design, test key components at early stages or showcase a working model, though unfinished, to check the key functions.
+
+6- Sample Screenshots:
+
+<img width="1398" alt="Screen Shot 2023-02-14 at 4 25 06 PM" src="https://user-images.githubusercontent.com/79372396/218895275-df047658-22fc-4547-b22c-0b82b1801d92.png">
+
+<img width="1246" alt="Screen Shot 2023-02-14 at 4 33 37 PM" src="https://user-images.githubusercontent.com/79372396/218895285-b64483fe-33f2-44ba-a21c-3128bfffdad5.png">
+
+<img width="1147" alt="Screen Shot 2023-02-14 at 4 34 05 PM" src="https://user-images.githubusercontent.com/79372396/218895296-a7603bc8-d5ec-40e2-8091-425a6ac0b55e.png">
+
