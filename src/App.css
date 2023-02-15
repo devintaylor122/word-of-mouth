@@ -20,8 +20,8 @@ html, body {
 
 .App > div{
   display: grid;
-  /* grid-template-columns: repeat(10, 10%); */
-  /* grid-template-rows: repeat(10, 10%); */
+  grid-template-columns: repeat(10, 10%);
+  grid-template-rows: repeat(10, 10%);
   text-align: center;
 }
 

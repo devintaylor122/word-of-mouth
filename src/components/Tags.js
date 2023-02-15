@@ -75,15 +75,15 @@ const Tags = ({ placeHolder, isMulti, onChange }) => {
   };
 
   const options = [
-    "Black Owned",
-    "Asian Owned",
-    "Latinx Owned",
-    "Native Owned",
-    "Woman Owned",
-    "LGBTQ+ Owned",
-    "Veteran Owned",
-    "Disabled Owned",
-    "Family-Run",
+    "Black Owned ",
+    "Asian Owned ",
+    "Latinx Owned ",
+    "Native Owned ",
+    "Woman Owned ",
+    "LGBTQ+ Owned ",
+    "Veteran Owned ",
+    "Disabled Owned ",
+    "Family-Run ",
   ];
 
   return (

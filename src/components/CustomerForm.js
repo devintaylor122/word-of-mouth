@@ -6,7 +6,7 @@ import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import Dropdown from "./Dropdown.js";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
-// import "./CustomerForm.css";
+import "./CustomerForm.css";
 // import { Link } from "react-router-dom";
 // import { auth } from "../firebaseconfig";
 
@@ -27,7 +27,7 @@ function CustomerForm(props) {
   const createCustomer = props.createCustomer;
 
   return (
-    <div>
+    <div className="custForm">
       <h3> Register Customer</h3>
 
       <div>

@@ -1,4 +1,4 @@
-#ownersListDisplay {
+ #ownersListDisplay {
     grid-row-start: 3;
     grid-row-end: 10;
     grid-column-start: 2;
@@ -23,8 +23,8 @@
 #listedOwners {
     grid-row-start: 3;
     grid-row-end: 21;
-    grid-column-start: 1;
-    grid-column-end: 21; 
+    grid-column-start: 7;
+    grid-column-end: 15; 
     font-size: 40px;
     text-align: left;
 }
@@ -42,7 +42,10 @@
 }
 .dropdown-input {
     padding: 2px 1.5rem;
-    
+}
 
-    
+.ownersNameAndDisplay{
+    display: grid;
+    grid-template-columns: repeat(20, 5%);
+    grid-template-rows: repeat(20, 5%);
 }

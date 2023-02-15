@@ -24,6 +24,7 @@ function ServiceProvider(props) {
   const specialty = props.data.specialty;
   const id = props.data.id;
   const toggleDisplay = props.toggleDisplay;
+  const tags = props.data.tag;
 
   const specialtyDisplay = specialty ? `Specialty: ${specialty}` : "";
 
@@ -55,10 +56,9 @@ function ServiceProvider(props) {
 
   return (
     <div className="ownersNameAndDisplay">
-      <p /*onClick={() => toggleDisplay(id, display)}*/>
-        {companyName} - {industryDisplay}
-      </p>
-      {/* <div>{ownerInfo}</div> */}
+      <p className="compName">{companyName}</p>
+      <p className="indName">{industryDisplay}</p>
+      <p className="tagName">{tags}</p>
     </div>
   );
 }
