@@ -80,20 +80,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 - [ ]  A customer can search for a service provider based on their industry/specialty
 
 3- list of dependencies:
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "firebase": "^9.17.1",
-    "firebase-tools": "^11.21.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-modal": "^3.16.1",
-    "react-query": "^3.39.3",
-    "react-router-dom": "v6",
-    "react-scripts": "5.0.1",
-    "sass": "^1.58.0",
-    "uuid": "^9.0.0",
-    "web-vitals": "^2.1.0"
+    "@testing-library/jest-dom",
+    "@testing-library/react",
+    "@testing-library/user-event",
+    "firebase",
+    "firebase-tools",
+    "react",
+    "react-dom",
+    "react-modal",
+    "react-query",
+    "react-router-dom",
+    "react-scripts",
+    "sass",
+    "uuid",
+    "web-vitals"
 
 
 
